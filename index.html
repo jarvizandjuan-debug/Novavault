@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NOVAVAULT | Fragrances</title>
+<meta name="description" content="Most Wanted, Arab and Designer fragrances. Wholesale &amp; retail, limited stock, shipped across the U.S. Order on WhatsApp.">
+<meta property="og:title" content="NOVAVAULT | Fragrances">
+<meta property="og:description" content="Most Wanted, Arab and Designer fragrances. Limited stock.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&display=swap">
+<style>
+/* NOVAVAULT design system
+   Color  : matte black #0a0a0a, vault gold #d4af37 (+ champagne #f3d98b highlight, aged gold #7a5f10 for text on white), paper white #fff, ink #14110a
+   Type   : Marcellus (display, Roman inscriptional) + Jost (body). Scale 13 / 15 / 17 / 22 / fluid 32-48 / fluid 40-100
+   Space  : 8pt rhythm, section padding var(--sp), gutter var(--gut)
+   Shape  : 2px radius everywhere (gallery, not app cards); one primary button (gold fill), one secondary (outline)
+   Dark = brand / navigation / proof.  White = product (views + product pages). */
+:root{--bg:#0a0a0a;--ink:#ece6d6;--mu:#b3aa95;--g:#d4af37;--gl:#f3d98b;--gd:#7d611a;--gt:#7a5f10;--paper:#fff;--text:#14110a;--sub:#5a5445;--ln:rgba(212,175,55,.26);--lw:#e7e1d0;
+--ser:'Marcellus','Trajan Pro',Georgia,serif;--san:'Jost','Helvetica Neue',Arial,sans-serif;
+--t-xs:.75rem;--t-sm:.875rem;--t-md:1rem;--t-lg:1.375rem;--t-xl:clamp(2rem,4.6vw,3rem);--t-hero:clamp(2.5rem,9.2vw,6.25rem);
+--sp:4.5rem;--gut:1.5rem;--r:2px;--btn:48px;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(4.5rem + env(safe-area-inset-top,0px));background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font:300 var(--t-md)/1.55 var(--san);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--g);outline-offset:3px}
+.gold{background:linear-gradient(100deg,var(--gd) 20%,var(--gl) 45%,var(--g) 55%,var(--gd) 80%) 45% 0/250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font:400 var(--t-xl)/1.15 var(--ser);letter-spacing:.03em}
+.orn{width:96px;height:1px;margin:1.5rem auto 0;background:linear-gradient(90deg,transparent,var(--g),transparent)}
+.sh{text-align:center;margin-bottom:3rem}
+.sh p{color:var(--mu);margin:1rem auto 0;max-width:46ch}
+.px{position:absolute;will-change:transform}
+/* buttons: one base, two weights */
+.cta,.btn{display:inline-flex;align-items:center;justify-content:center;min-height:var(--btn);padding:0 2rem;border:1px solid var(--g);border-radius:var(--r);font:400 var(--t-sm)/1.2 var(--san);letter-spacing:.05em;color:var(--gl);background:none;cursor:pointer;transition:background .3s,color .3s,box-shadow .3s}
+.cta:hover{background:var(--g);color:#120e03}
+.cta.fill,.btn.gold{background:var(--g);color:#120e03}
+.cta.fill:hover,.btn.gold:hover{background:var(--gl)}
+.btn{border-color:var(--text);color:var(--text)}
+.btn:hover{background:var(--text);color:var(--gl)}
+.btn.gold{border-color:var(--g);color:#120e03}
+.btn.gold:hover{background:var(--text);border-color:var(--text);color:var(--gl)}
+.btn.off{opacity:.4;pointer-events:none;animation:none}
+.btns{display:flex;gap:.75rem 1rem;justify-content:center;flex-wrap:wrap}
+.lang{min-height:44px;min-width:68px;padding:0 .75rem;background:none;border:1px solid var(--ln);border-radius:var(--r);color:var(--mu);font:400 var(--t-xs)/1.2 var(--san);letter-spacing:.1em;cursor:pointer;transition:border-color .3s,color .3s}
+.lang:hover{border-color:var(--g);color:var(--gl)}
+.lang .on{color:var(--gl);font-weight:500}
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:calc(.75rem + env(safe-area-inset-top,0px)) var(--gut) .75rem;background:var(--bg);border-bottom:1px solid var(--ln)}
+.nav b{font:400 1.15rem var(--ser);letter-spacing:.22em}
+.nav ul{display:none;list-style:none;gap:2rem}
+.nav ul a{display:inline-flex;align-items:center;min-height:44px;color:var(--mu);transition:color .3s}.nav ul a:hover{color:var(--gl)}
+.nr{display:flex;align-items:center;gap:.5rem}
+.nav .cta{min-height:44px;padding:0 1.25rem}
+@media(min-width:768px){.nav{padding-left:3rem;padding-right:3rem}.nav ul{display:flex}}
+.menu{display:inline-flex;align-items:center;min-height:44px;padding:0 .75rem;background:none;border:1px solid var(--ln);border-radius:var(--r);color:var(--gl);font:400 var(--t-xs)/1.2 var(--san);letter-spacing:.1em;cursor:pointer}
+.menu:hover{border-color:var(--g)}
+.nav.open ul{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;padding:.5rem var(--gut) 1rem;background:var(--bg);border-bottom:1px solid var(--ln)}
+.nav.open ul a{width:100%;font-size:var(--t-md)}
+@media(max-width:767.98px){.nav{gap:.5rem;padding-left:1rem;padding-right:1rem}.nav b{font-size:1rem;letter-spacing:.1em}.nr{gap:.25rem}.lang{min-width:48px;padding:0 .5rem}.nav .cta{padding:0 .75rem}.menu{padding:0 .5rem}}
+@media(min-width:768px){:root{--sp:7.5rem}.menu{display:none}.nav.open ul{position:static;flex-direction:row;padding:0;border:0;background:none}.nav.open ul a{width:auto;font-size:inherit}}
+/* hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;padding:5.5rem var(--gut) 4rem;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(55% 45% at 50% 40%,rgba(212,175,55,.2),transparent 70%),radial-gradient(90% 60% at 50% 115%,#241b08,transparent 65%)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(0,0,0,.72))}
+.hero .px{z-index:-1}
+.beam{position:absolute;top:-8%;left:50%;width:130vmin;height:115%;translate:-50% 0;transform-origin:50% 0;z-index:-2;background:conic-gradient(from 180deg at 50% 0,transparent 163deg,rgba(243,217,139,.14) 180deg,transparent 197deg);animation:beam 9s ease-in-out infinite alternate}
+.dust{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.dust span{position:absolute;bottom:-10px;width:var(--z);height:var(--z);border-radius:50%;background:var(--gl);opacity:0;animation:rise linear infinite}
+.hin{position:relative;z-index:1}
+.logo{display:block;font:400 var(--t-hero)/1.1 var(--ser);letter-spacing:.02em;animation:rev .3s ease-out both,glint 3.4s 1s ease-out 1 both}
+.tag{font-size:clamp(1.0625rem,2.3vw,1.3rem);color:var(--mu);margin:1.5rem auto 2.5rem;max-width:40ch;animation:up .6s .9s ease-out both}
+.hero .btns{animation:up .6s 1.2s ease-out both}
+.hb{opacity:.9}.hb.f{filter:blur(3px);opacity:.5}
+.bt{display:flex;flex-direction:column;align-items:center;animation:fl 6s ease-in-out infinite;animation-delay:var(--d,0s)}
+.bt>div{flex:none}
+.cap{width:calc(var(--bw)*.34);height:calc(var(--bh)*.17);border-radius:3px 3px 1px 1px;background:linear-gradient(90deg,#5e4811,#f3d98b 38%,#a8851f 70%,#5e4811)}
+.nk{width:calc(var(--bw)*.2);height:calc(var(--bh)*.05);background:linear-gradient(90deg,#6b5214,#d9b84a,#6b5214)}
+.bd{position:relative;width:var(--bw);height:var(--bh);border-radius:var(--br);overflow:hidden;background:linear-gradient(105deg,#6b5214 0%,#d9b84a 26%,#fff0b3 34%,#c49f33 56%,#5e4811 100%);box-shadow:inset -9px 0 16px rgba(0,0,0,.07)}
+.bd::before{content:"";position:absolute;left:15%;right:15%;top:32%;bottom:24%;border:1px solid rgba(24,16,2,.55);background:rgba(24,16,2,.2);border-radius:2px}
+.bd b{position:absolute;inset:0;display:grid;place-items:center;font:400 calc(var(--bw)*.2)/1.1 var(--ser);color:#1b1304;letter-spacing:.1em}
+.bd i{position:absolute;top:0;bottom:0;width:28%;left:-40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);animation:sh 5s ease-in-out infinite;animation-delay:var(--d,0s)}
+@media(max-width:767.98px){.hb{scale:.55;opacity:.45}.hero .hb:not(.f){left:-5%!important;top:auto!important;bottom:3%}.hero .hb.f{right:-5%!important;bottom:4%!important}}
+/* ribbon */
+.mq{overflow:hidden;border-block:1px solid var(--ln);background:#0d0b06;padding:.75rem 0;white-space:nowrap}
+.mq div{display:inline-block;color:var(--g);font-size:var(--t-xs);letter-spacing:.24em;animation:mq 30s linear infinite}
+/* category tiles (landing): white = product world, on black = brand world */
+.cats{padding:var(--sp) var(--gut)}
+.cg{display:grid;gap:1.25rem;max-width:1100px;margin:0 auto}
+.cat{display:block;background:var(--paper);color:var(--text);border:1px solid var(--lw);border-radius:var(--r);overflow:hidden;transition:transform .3s ease-out,border-color .3s}
+.cat:hover,.cat:focus-visible{transform:translateY(-4px);border-color:var(--g)}
+.ct{display:flex;align-items:flex-end;justify-content:center;gap:.5rem;height:240px;padding:1.5rem 1rem 0}
+.ct img{display:block;width:auto;height:auto;max-height:150px;max-width:31%;object-fit:contain;animation:fl2 6s ease-in-out infinite;animation-delay:var(--d,0s)}
+.ct img:nth-child(2){max-height:204px;max-width:36%}
+.cm{padding:1.5rem;border-top:1px solid var(--lw)}
+.cm h3{font:400 var(--t-lg)/1.15 var(--ser)}
+.cm .sub{color:var(--gt);font-size:var(--t-sm);margin-top:.25rem}
+.cm .go{display:inline-block;margin-top:1rem;color:var(--text);font-size:var(--t-sm);border-bottom:1px solid var(--g);padding-bottom:2px}
+@media(min-width:768px){.cg{grid-template-columns:repeat(3,1fr);gap:1.5rem}}
+/* overlay pages: collection view + product page (white) */
+.pg{position:fixed;inset:0;z-index:100;background:var(--paper);color:var(--text);overflow-y:auto;padding:0 var(--gut) calc(3rem + env(safe-area-inset-bottom,0px))}
+.pg[hidden]{display:none}
+#view{z-index:100}#detail{z-index:110}
+.top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:1rem;max-width:1200px;margin:0 auto;padding:calc(.5rem + env(safe-area-inset-top,0px)) 0 .5rem;background:var(--paper);border-bottom:1px solid var(--lw)}
+.top b{font:400 1.05rem var(--ser);letter-spacing:.22em}
+.back{display:inline-flex;align-items:center;min-height:44px;color:var(--gt);font-size:var(--t-sm)}
+.back::before{content:"";width:7px;height:7px;margin-right:.65rem;border-left:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg)}
+.pg .lang{color:var(--sub);border-color:#d8cfb4}.pg .lang:hover{border-color:var(--gt);color:var(--gt)}.pg .lang .on{color:var(--gt);font-weight:500}
+@media(max-width:767.98px){.top b{display:none}}
+.vh{text-align:center;max-width:1000px;margin:3rem auto}
+.vh h1{font:400 var(--t-xl)/1.1 var(--ser);letter-spacing:.02em}
+.vh p.only{margin-top:1rem;color:var(--gt);font-size:var(--t-sm);letter-spacing:.04em}
+.grid{display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;max-width:1200px;margin:0 auto}
+.slot{flex:1 1 240px;max-width:288px;animation:sl .3s ease-out both;animation-delay:var(--rd,0s)}
+.card{display:block;position:relative;height:100%;padding:1.5rem 1rem;text-align:center;background:var(--paper);border:1px solid var(--lw);border-radius:var(--r);transform-style:preserve-3d;transition:transform .2s ease-out,border-color .3s,box-shadow .3s;will-change:transform}
+.card:hover,.card:focus-visible{border-color:var(--gt);box-shadow:0 12px 32px -16px rgba(20,17,10,.07)}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(212,175,55,.16),transparent 55%)}
+.card:hover::after{opacity:1}
+.pic{--mh:240px;height:264px;display:flex;align-items:center;justify-content:center;transform:translateZ(30px)}
+.pic img,.dimg img{display:block;width:auto;height:auto;max-width:100%;max-height:var(--mh);object-fit:contain;animation:fl2 6s ease-in-out infinite;animation-delay:var(--d,0s)}
+.brand{color:var(--gt);font-size:var(--t-sm);letter-spacing:.04em;margin-top:1rem;transform:translateZ(16px)}
+.card h3{font:400 var(--t-lg)/1.2 var(--ser);margin:.5rem 0 1rem;min-height:2.4em;display:grid;place-items:center;transform:translateZ(22px)}
+.more{display:inline-block;color:var(--sub);font-size:var(--t-sm);border-bottom:1px solid var(--lw);padding-bottom:2px;transform:translateZ(26px)}
+.sold .pic{opacity:.45;filter:grayscale(.7)}
+.rib,.rib2{padding:.25rem .75rem;background:#0a0a0a;color:var(--gl);font-size:var(--t-xs);letter-spacing:.06em}
+.rib{position:absolute;top:1rem;left:1rem;z-index:2;transform:translateZ(50px)}
+.dt{max-width:1000px;margin:2rem auto 0;display:grid;gap:2rem;align-items:center}
+.dimg{--mh:min(48vh,420px);display:flex;align-items:center;justify-content:center;height:calc(var(--mh) + 24px)}
+.dtx h1{font:400 var(--t-xl)/1.1 var(--ser)}
+.dtx .br{color:var(--gt);margin:.5rem 0 1.5rem;font-size:var(--t-md);letter-spacing:.04em}
+.dtx p{color:var(--sub);max-width:44ch}
+.dtx .rib2{display:inline-block;margin-bottom:1rem}
+.dbtns{display:flex;flex-direction:column;gap:.75rem;margin-top:2rem;max-width:380px}
+.dbtns .btn{width:100%}
+.pn{display:flex;flex-wrap:wrap;justify-content:space-between;gap:0 1.5rem;max-width:1000px;margin:3rem auto 0;border-top:1px solid var(--lw)}
+.pn a{display:inline-flex;align-items:center;min-height:44px;color:var(--gt);font-size:var(--t-sm)}
+@media(min-width:768px){.dt{grid-template-columns:1fr 1fr;gap:4rem}.dimg{--mh:480px}}
+/* authentic (Arab collection) */
+.auth{position:relative;padding:var(--sp) var(--gut);text-align:center;overflow:hidden;background:radial-gradient(70% 60% at 50% 50%,#17130a,var(--bg))}
+.auth .px{inset:0;display:grid;place-items:center}
+.big{font:400 clamp(9rem,30vw,26rem)/1.1 var(--ser);color:transparent;-webkit-text-stroke:1px rgba(212,175,55,.28)}
+.auth-in{position:relative;z-index:1;max-width:980px;margin:0 auto}
+.auth-in>p{color:var(--mu);margin:1.5rem auto 0;max-width:46ch}
+.pts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:2rem;margin-top:3rem;text-align:left}
+.pts div{border-top:1px solid var(--ln);padding-top:1rem}
+.pts h3{font:400 var(--t-lg)/1.2 var(--ser);color:var(--gl);margin-bottom:.5rem}
+.pts p{color:var(--mu);font-size:var(--t-sm)}
+/* wholesale, contact, footer */
+#wholesale{padding:var(--sp) var(--gut);border-top:1px solid var(--ln)}
+.wg{display:grid;gap:4rem;max-width:1000px;margin:0 auto;text-align:center}
+.wg p{color:var(--mu);margin:1.5rem auto 2rem;max-width:40ch}
+@media(min-width:768px){.wg{grid-template-columns:1fr 1fr}}
+#contact{padding:var(--sp) var(--gut);border-top:1px solid var(--ln)}
+footer{border-top:1px solid var(--ln);padding:2.5rem var(--gut);text-align:center;color:var(--mu);font-size:var(--t-sm)}
+footer b{display:block;font:400 1.4rem var(--ser);letter-spacing:.28em;margin-bottom:.5rem}
+@keyframes beam{from{rotate:-4deg}to{rotate:4deg}}
+@keyframes rev{from{opacity:0;transform:translateY(12px)}}
+@keyframes glint{0%{background-position:100% 0}70%{background-position:0 0}100%{background-position:45% 0}}
+@keyframes up{from{opacity:0;transform:translateY(18px)}}
+@keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:.8}100%{transform:translateY(-105vh);opacity:0}}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
+@keyframes fl2{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes sh{0%{left:-40%}55%,100%{left:140%}}
+@keyframes mq{to{transform:translateX(-50%)}}
+@keyframes sl{from{opacity:0;transform:translateY(16px)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="site">
+<nav class="nav"><b class="gold">NOVAVAULT</b><ul id="navlinks"><li><a href="#shop" data-es="Tienda">Shop</a></li><li><a href="#wholesale" data-es="Mayoreo">Wholesale</a></li><li><a href="#authentic" data-es="Nosotros">About</a></li><li><a href="#contact" data-es="Contacto">Contact</a></li></ul><div class="nr"><button class="lang" type="button" aria-label="Change language / Cambiar idioma"><span class="e">EN</span> / <span class="s">ES</span></button><a class="cta fill" data-wa="order" data-es="Pedir" target="_blank" rel="noopener" href="https://wa.me/15109788240">Order</a><button class="menu" type="button" aria-expanded="false" aria-controls="navlinks" data-es="Menú">Menu</button></div></nav>
+
+<header class="hero">
+  <div class="beam"></div><div class="dust"></div>
+  <div class="px hb" data-s="-.3" data-b="--bw:84px;--bh:150px;--br:16px" style="left:9%;top:26%"></div>
+  <div class="px hb f" data-s=".25" data-b="--bw:100px;--bh:100px;--br:50%" style="right:10%;bottom:16%"></div>
+  <div class="hin">
+    <h1 class="logo gold" data-es="Huele diferente.<br>Luce mejor.">Smell different.<br>Look better.</h1>
+    <p class="tag" data-es="Deja una impresión inolvidable. Fragancias al mayoreo y al detalle, con envíos a todo EE. UU.">Leave a lasting impression. Wholesale &amp; retail fragrances, shipped across the U.S.</p>
+    <div class="btns"><a class="cta" href="#shop" data-es="Ver la colección">Shop the collection</a><a class="cta fill" data-wa="order" data-es="Pedir por WhatsApp" target="_blank" rel="noopener" href="https://wa.me/15109788240">Order on WhatsApp</a></div>
+  </div>
+</header>
+
+<div class="mq"><div id="mq"></div></div>
+
+<section id="shop" class="cats">
+  <div class="sh"><h2 class="gold" data-es="Explora la colección">Shop the Collection</h2><div class="orn"></div><p data-es="Elige una categoría para ver los perfumes.">Pick a category to browse the fragrances.</p></div>
+  <div class="cg">
+    <a class="cat" href="#c=most"><div class="ct" data-ph="lost-cherry,tobacco-vanille,sauvage" aria-hidden="true"></div><div class="cm"><h3 data-es="Más buscados">Most Wanted</h3><p class="sub" data-es="Las elecciones más populares">The hottest picks</p><span class="go" data-es="Ver la colección">View the collection</span></div></a>
+    <a class="cat" href="#c=arab"><div class="ct" data-ph="eclaire,sudfa,turbo-gts" aria-hidden="true"></div><div class="cm"><h3 data-es="Árabes">Arab</h3><p class="sub" data-es="100% Originales">100% Original</p><span class="go" data-es="Ver la colección">View the collection</span></div></a>
+    <a class="cat" href="#c=designer"><div class="ct" data-ph="black-orchid,stronger-with-you,gucci-flora" aria-hidden="true"></div><div class="cm"><h3 data-es="Diseñador">Designer</h3><p class="sub" data-es="Importados">Imported</p><span class="go" data-es="Ver la colección">View the collection</span></div></a>
+  </div>
+</section>
+
+<section class="auth" id="authentic">
+  <div class="px" data-s="-.15"><div class="big">100%</div></div>
+  <div class="auth-in">
+    <h2 class="gold" data-es="100% Originales">100% Original</h2><div class="orn"></div>
+    <p data-es="Todos los perfumes árabes de nuestra colección son 100% originales. Sin copias, sin imitaciones, sin concesiones.">Every Arab perfume in our collection is 100% original. No copies, no imitations, no compromises.</p>
+    <div class="pts">
+      <div><h3 data-es="Perfumes árabes 100% originales">100% original Arab perfumes</h3><p data-es="Cada fragancia árabe de nuestra colección es la original, nunca una copia.">Every Arab fragrance in our collection is the real thing, never a copy.</p></div>
+      <div><h3 data-es="Frascos genuinos">Genuine bottles</h3><p data-es="Cada frasco árabe es tal como lo creó su casa.">Each Arab bottle is exactly as its house made it.</p></div>
+      <div><h3 data-es="Casas de confianza">Trusted houses</h3><p data-es="Desde Lattafa hasta Bharara, Ard Al Zaafaran, Zakat y Le Falcone.">From Lattafa to Bharara, Ard Al Zaafaran, Zakat and Le Falcone.</p></div>
+      <div><h3 data-es="Pregunta antes de comprar">Ask before you buy</h3><p data-es="¿No sabes qué aroma va contigo? Escríbenos por WhatsApp.">Not sure which scent fits you? Message us on WhatsApp.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="wholesale"><div class="wg">
+  <div><h2 class="gold" data-es="Mayoreo y menudeo">Wholesale &amp; Retail</h2><div class="orn"></div><p data-es="Surte tu tienda con NOVAVAULT. Los pedidos al mayoreo son bienvenidos, escríbenos.">Stock your shelf with NOVAVAULT. Bulk orders are welcome, so message us about wholesale.</p><a class="cta" data-wa="wholesale" data-es="Pregunta por mayoreo" target="_blank" rel="noopener" href="https://wa.me/15109788240">Ask about wholesale</a></div>
+  <div><h2 class="gold" data-es="Desde Fremont, CA">From Fremont, CA</h2><div class="orn"></div><p data-es="Con sede en Fremont, California, y envíos a todo EE. UU.">Built in Fremont, California and shipped across the U.S.</p></div>
+</div></section>
+
+<section id="contact">
+  <div class="sh"><h2 class="gold" data-es="Contacto">Contact</h2><div class="orn"></div><p data-es="Elige tu aroma, toca Pedir y confirmaremos la disponibilidad por WhatsApp.">Pick your scent, tap Order, and we'll confirm availability on WhatsApp.</p></div>
+  <div class="btns">
+    <a class="cta fill" data-wa="q" target="_blank" rel="noopener" href="https://wa.me/15109788240" data-es="Escríbenos por WhatsApp +1 510 978 8240">Chat on WhatsApp +1 510 978 8240</a>
+    <a class="cta" target="_blank" rel="noopener" href="https://instagram.com/novavaultcolognes" data-es="Sigue a @novavaultcolognes">Follow @novavaultcolognes</a>
+  </div>
+</section>
+
+<footer><b class="gold">NOVAVAULT</b><p data-es="Nuestros perfumes árabes son 100% originales.">Our Arab perfumes are 100% original.</p><p data-es="Con sede en Fremont, California.">Based in Fremont, California.</p><p data-es="&copy; 2026 NOVAVAULT. Todos los derechos reservados.">&copy; 2026 NOVAVAULT. All rights reserved.</p></footer>
+</div>
+
+<div class="pg" id="view" hidden role="region" aria-label="Collection">
+  <div class="top"><a class="back" id="vback" href="#shop" data-es="Volver a categorías">Back to categories</a><b>NOVAVAULT</b><button class="lang" type="button" aria-label="Change language / Cambiar idioma"><span class="e">EN</span> / <span class="s">ES</span></button></div>
+  <div class="vh" id="vh"></div>
+  <div class="grid" id="grid"></div>
+</div>
+<div class="pg" id="detail" hidden role="region" aria-label="Perfume details">
+  <div class="top"><a class="back" id="back" href="#shop">Back</a><b>NOVAVAULT</b><button class="lang" type="button" aria-label="Change language / Cambiar idioma"><span class="e">EN</span> / <span class="s">ES</span></button></div>
+  <div class="dt" id="dt"></div>
+  <div class="pn" id="pn"></div>
+</div>
+
+<script>
+// sold:true keeps the card visible, shows a "Sold out" badge and disables the order buttons.
+const AR=[
+{id:'khamrah-dukhan',n:'Khamrah Dukhan',b:'Lattafa',sold:true,d:'Smoky and warm. Mandarin and spice open onto incense and orange blossom, then melt into tobacco, amber and praline. Dark, rich and made for cooler nights.',es:'Ahumado y cálido. Mandarina y especias dan paso al incienso y la flor de azahar, y luego se funden en tabaco, ámbar y praliné. Oscuro, rico y hecho para las noches frescas.'},
+{id:'rome-pour-homme',n:'Rome Pour Homme',b:'Bharara',sold:true,d:'Fresh, aromatic and clean. Geranium opens into ginger and sage, resting on a base of cedar and vetiver. A sharp, polished scent for every day.',es:'Fresco, aromático y limpio. El geranio abre hacia jengibre y salvia, sobre una base de cedro y vetiver. Un aroma elegante y pulido para todos los días.'},
+{id:'ajayab-dubai-portrait',n:'Ajayab Dubai Portrait',b:'Lattafa',sold:true,d:'Bright and juicy. Orange and lemon lead into mango, osmanthus and jasmine, grounded by sandalwood, amber, musk and a touch of oud.',es:'Brillante y jugoso. Naranja y limón llevan a mango, osmanto y jazmín, con una base de sándalo, ámbar, almizcle y un toque de oud.'},
+{id:'dana-le-falcone',n:'Dana Le Falcone',b:'Le Falcone',sold:true,d:'Fruity and floral. Litchi, apple and black currant lead to jasmine, violet and rose, finishing in vanilla, amber and sandalwood.',es:'Frutal y floral. Litchi, manzana y grosella negra llevan a jazmín, violeta y rosa, y cierran con vainilla, ámbar y sándalo.'},
+{id:'sudfa',n:'Sudfa',b:'Ard Al Zaafaran',d:'Soft, sweet and cozy. Almond opens to a powdery floral heart, then a creamy base of cappuccino, vanilla and amber. Warm and comforting.',es:'Suave, dulce y acogedor. La almendra abre hacia un corazón floral empolvado y una base cremosa de capuchino, vainilla y ámbar. Cálido y reconfortante.'},
+{id:'turbo-gts',n:'Turbo #GTS',b:'Zakat',d:'Spicy and fast. Chili and pink pepper open into ginger and Turkish rose, then settle into musk, patchouli and benzoin. Loud and confident.',es:'Picante y veloz. Chile y pimienta rosa abren hacia jengibre y rosa turca, y se asientan en almizcle, pachulí y benjuí. Intenso y seguro de sí mismo.'},
+{id:'eclaire',n:'Eclaire',b:'Lattafa',d:'Creamy and sweet. Caramel and milk melt into honey and white flowers, finishing in vanilla, praline and soft musk. Smooth, cozy and easy to wear.',es:'Cremoso y dulce. Caramelo y leche se funden con miel y flores blancas, y cierran con vainilla, praliné y un suave almizcle. Suave, acogedor y fácil de llevar.'}
+];
+const DE=[
+{id:'acqua-di-gio',n:'Acqua di Giò',b:'Giorgio Armani',d:'A fresh aquatic classic — marine notes, bergamot and cedar. Clean, timeless, effortlessly elegant.',es:'Un clásico acuático y fresco — notas marinas, bergamota y cedro. Limpio, atemporal y elegante sin esfuerzo.'},
+{id:'afternoon-swim',n:'Afternoon Swim',b:'Louis Vuitton',sold:true,d:'A vibrant citrus escape — Sicilian orange, bergamot and mandarin over warm musk. Pure summer energy.',es:'Una escapada cítrica vibrante — naranja siciliana, bergamota y mandarina sobre almizcle cálido. Pura energía de verano.'},
+{id:'valentino-uomo-intense',n:'Valentino Uomo Intense',b:'Valentino',d:'Bold and magnetic — black leather, vanilla and iris. A powerful evening scent with Italian attitude.',es:'Audaz y magnético — cuero negro, vainilla e iris. Un aroma potente para la noche, con actitud italiana.'},
+{id:'burberry-her',n:'Burberry Her EDP',b:'Burberry',d:'Sweet and luminous — red berries, jasmine and musk wrapped in a soft, feminine glow.',es:'Dulce y luminoso — frutos rojos, jazmín y almizcle envueltos en un suave brillo femenino.'},
+{id:'chanel-coco',n:'Chanel Coco Mademoiselle',b:'Chanel',sold:true,d:'The icon of elegance — sparkling orange, rose and patchouli. Sophisticated, unforgettable, pure Chanel.',es:'El ícono de la elegancia — naranja chispeante, rosa y pachulí. Sofisticado, inolvidable, puro Chanel.'},
+{id:'jadore',n:"J'adore",b:'Dior',d:'Liquid gold — ylang-ylang, Damascus rose and jasmine. Radiant femininity in its purest form.',es:'Oro líquido — ylang-ylang, rosa de Damasco y jazmín. La feminidad radiante en su forma más pura.'},
+{id:'sauvage',n:'Sauvage',b:'Dior',d:'Wild by nature — bergamot, pepper and pure lavender. The classic that never misses.',es:'Salvaje por naturaleza — bergamota, pimienta y lavanda pura. El clásico que nunca falla.'},
+{id:'sauvage-elixir',n:'Sauvage Elixir',b:'Dior',sold:true,d:'Sauvage at its most intense — rare spices, lavender and deep woods. Concentrated power.',es:'Sauvage en su versión más intensa — especias raras, lavanda y maderas profundas. Poder concentrado.'},
+{id:'gucci-flora',n:'Gucci Flora Gorgeous Jasmine',b:'Gucci',d:'A radiant floral — grandiflorum jasmine, pear and patchouli. Joyful, luminous, addictive.',es:'Un floral radiante — jazmín grandiflorum, pera y pachulí. Alegre, luminoso y adictivo.'},
+{id:'miss-dior',n:'Miss Dior EDP',b:'Dior',d:'A love story in bloom — peony, rose and lily-of-the-valley over soft musk. Tender and romantic.',es:'Una historia de amor en flor — peonía, rosa y muguete sobre un suave almizcle. Tierno y romántico.'},
+{id:'ombre-nomade',n:'Ombre Nomade',b:'Louis Vuitton',sold:true,d:'A journey into the desert — smoky oud, raspberry and incense. Dark, mysterious, unforgettable.',es:'Un viaje al desierto — oud ahumado, frambuesa e incienso. Oscuro, misterioso e inolvidable.'},
+{id:'prada-paradoxe',n:'Prada Paradoxe',b:'Prada',d:'A floral redefined — neroli, jasmine and warm amber. Bold femininity with a modern twist.',es:'Un floral redefinido — neroli, jazmín y ámbar cálido. Feminidad audaz con un giro moderno.'},
+{id:'stronger-with-you',n:'Stronger With You',b:'Emporio Armani',d:'Magnetic and warm — cardamom, vanilla and chestnut. Confident energy that draws people in.',es:'Magnético y cálido — cardamomo, vainilla y castaña. Energía segura que atrae a la gente.'},
+{id:'black-orchid',n:'Black Orchid',b:'Tom Ford',d:'Dark luxury — black truffle, orchid and patchouli. Mysterious, sensual, utterly Tom Ford.',es:'Lujo oscuro — trufa negra, orquídea y pachulí. Misterioso, sensual y puro Tom Ford.'},
+{id:'lost-cherry',n:'Lost Cherry',b:'Tom Ford',d:'Sweet temptation — black cherry, bitter almond and Turkish rose. Playful, daring, delicious.',es:'Dulce tentación — cereza negra, almendra amarga y rosa turca. Juguetón, atrevido y delicioso.'},
+{id:'tobacco-vanille',n:'Tobacco Vanille',b:'Tom Ford',d:'Opulent warmth — tobacco leaf, vanilla and dried fruit. Rich, cozy, unforgettable.',es:'Calidez opulenta — hoja de tabaco, vainilla y frutos secos. Rico, acogedor e inolvidable.'},
+{id:'born-in-roma',n:'Uomo Born in Roma Intense',b:'Valentino',d:'Roman nights — vanilla bourbon, lavender and amber. Sweet, seductive, magnetic.',es:'Noches romanas — vainilla bourbon, lavanda y ámbar. Dulce, seductor y magnético.'},
+{id:'green-stravaganza',n:'Uomo Green Stravaganza',b:'Valentino',d:'Electric freshness — green tea, mate and vibrant citrus. Bold, modern, full of energy.',es:'Frescura eléctrica — té verde, yerba mate y cítricos vibrantes. Audaz, moderno y lleno de energía.'},
+{id:'erba-pura',n:'Erba Pura',b:'Xerjoff',d:'Pure seduction — Sicilian orange, white musk and vanilla. The compliment magnet.',es:'Seducción pura — naranja siciliana, almizcle blanco y vainilla. El imán de cumplidos.'}
+];
+const P=Object.fromEntries([...AR,...DE].map(p=>[p.id,p]));
+const C={
+ most:{ids:['afternoon-swim','chanel-coco','ombre-nomade','sauvage-elixir','erba-pura','lost-cherry','tobacco-vanille','sauvage'],en:{t:'Most Wanted',s:'The hottest picks'},es:{t:'Más buscados',s:'Las elecciones más populares'}},
+ arab:{ids:AR.map(p=>p.id),en:{t:'Arab',s:'100% Original'},es:{t:'Árabes',s:'100% Originales'}},
+ designer:{ids:DE.map(p=>p.id),en:{t:'Designer',s:'Imported'},es:{t:'Diseñador',s:'Importados'}}
+};
+const IMG={"khamrah-dukhan": ["img/khamrah-dukhan.webp", 589, 813], "rome-pour-homme": ["img/rome-pour-homme.webp", 352, 815], "ajayab-dubai-portrait": ["img/ajayab-dubai-portrait.webp", 394, 815], "dana-le-falcone": ["img/dana-le-falcone.webp", 408, 900], "sudfa": ["img/sudfa.webp", 613, 814], "turbo-gts": ["img/turbo-gts.webp", 445, 797], "eclaire": ["img/eclaire.webp", 381, 900], "acqua-di-gio": ["img/acqua-di-gio.webp", 540, 900], "afternoon-swim": ["img/afternoon-swim.webp", 424, 900], "black-orchid": ["img/black-orchid.webp", 488, 900], "born-in-roma": ["img/born-in-roma.webp", 900, 826], "burberry-her": ["img/burberry-her.webp", 535, 900], "chanel-coco": ["img/chanel-coco.webp", 565, 900], "erba-pura": ["img/erba-pura.webp", 713, 796], "green-stravaganza": ["img/green-stravaganza.webp", 452, 657], "gucci-flora": ["img/gucci-flora.webp", 401, 900], "jadore": ["img/jadore.webp", 379, 900], "lost-cherry": ["img/lost-cherry.webp", 385, 663], "miss-dior": ["img/miss-dior.webp", 861, 900], "ombre-nomade": ["img/ombre-nomade.webp", 404, 900], "prada-paradoxe": ["img/prada-paradoxe.webp", 900, 476], "sauvage-elixir": ["img/sauvage-elixir.webp", 536, 900], "sauvage": ["img/sauvage.webp", 480, 900], "stronger-with-you": ["img/stronger-with-you.webp", 291, 468], "tobacco-vanille": ["img/tobacco-vanille.webp", 435, 900], "valentino-uomo-intense": ["img/valentino-uomo-intense.webp", 579, 900]};
+const $=s=>document.querySelector(s),WA='15109788240';
+const TX={
+ en:{more:'View details',sold:'Sold out',wa:'Order on WhatsApp',dm:'DM on Instagram',prev:'Previous',next:'Next',backto:'Back to',backhome:'Back to categories',
+  ribbon:'NEW DROP \u2022 LIMITED STOCK \u2022 ORDER ON WHATSAPP \u2022 ',
+  msg:n=>`Hi NOVAVAULT! I want to order ${n}. Is it available?`,order:"Hi NOVAVAULT! I'd like to place an order.",wholesale:"Hi NOVAVAULT! I'd like to ask about wholesale.",q:'Hi NOVAVAULT! I have a question about your collection.',alt:(n,b)=>`${n} by ${b}`},
+ es:{more:'Ver detalles',sold:'Agotado',wa:'Pedir por WhatsApp',dm:'Escríbenos por Instagram',prev:'Anterior',next:'Siguiente',backto:'Volver a',backhome:'Volver a categorías',
+  ribbon:'NUEVO DROP \u2022 STOCK LIMITADO \u2022 PIDE POR WHATSAPP \u2022 ',
+  msg:n=>`¡Hola NOVAVAULT! Quiero pedir ${n}. ¿Está disponible?`,order:'¡Hola NOVAVAULT! Me gustaría hacer un pedido.',wholesale:'¡Hola NOVAVAULT! Quisiera preguntar por el mayoreo.',q:'¡Hola NOVAVAULT! Tengo una pregunta sobre su colección.',alt:(n,b)=>`${n}, ${b}`}
+};
+let L='en';try{const s=localStorage.getItem('nv-lang');if(s==='es'||s==='en')L=s}catch(e){}
+const t=()=>TX[L];
+const bt=(s,d)=>`<div class="bt" style="${s};--d:${d}s"><div class="cap"></div><div class="nk"></div><div class="bd"><i></i><b>NV</b></div></div>`;
+const im=(p,st='')=>`<img src="${IMG[p.id][0]}" width="${IMG[p.id][1]}" height="${IMG[p.id][2]}" alt="${t().alt(p.n,p.b)}" style="${st}">`;
+document.querySelectorAll('.hb').forEach((e,i)=>e.innerHTML=bt(e.dataset.b,-i*1.3));
+document.querySelectorAll('.ct').forEach(e=>{e.innerHTML=e.dataset.ph.split(',').map((id,i)=>`<img src="${IMG[id][0]}" width="${IMG[id][1]}" height="${IMG[id][2]}" alt="" style="--d:${-i*1.1}s">`).join('')});
+const card=(p,i,k)=>`<div class="slot" style="--rd:${(i%7)*30}ms"><a class="card${p.sold?' sold':''}" href="#c=${k}&p=${p.id}">${p.sold?`<span class="rib">${t().sold}</span>`:''}<div class="pic">${im(p,`--d:${-i*.8}s`)}</div><p class="brand">${p.b}</p><h3>${p.n}</h3><span class="more">${t().more}</span></a></div>`;
+function renderView(k){
+  const l=C[k][L];
+  $('#vh').innerHTML=`<h1>${l.t}</h1><div class="orn"></div><p class="only">${l.s}</p>`;
+  $('#grid').innerHTML=C[k].ids.map((id,i)=>card(P[id],i,k)).join('');
+}
+function renderDetail(p,k){
+  const x=t(),ids=k?C[k].ids:null,i=ids?ids.indexOf(p.id):-1;
+  const msg=encodeURIComponent(x.msg(p.n));
+  $('#back').textContent=k?`${x.backto} ${C[k][L].t}`:x.backhome;$('#back').href=k?`#c=${k}`:'#shop';
+  $('#dt').innerHTML=`<div class="dimg">${im(p)}</div><div class="dtx"><h1>${p.n}</h1><p class="br">${p.b}</p>${p.sold?`<span class="rib2">${x.sold}</span>`:''}<p>${L==='es'?p.es:p.d}</p><div class="dbtns">${p.sold?`<span class="btn gold off" aria-disabled="true">${x.wa}</span><span class="btn off" aria-disabled="true">${x.dm}</span>`:`<a class="btn gold" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${msg}">${x.wa}</a><a class="btn" target="_blank" rel="noopener" href="https://ig.me/m/novavaultcolognes">${x.dm}</a>`}</div></div>`;
+  if(ids&&i>=0){const pv=P[ids[(i+ids.length-1)%ids.length]],nx=P[ids[(i+1)%ids.length]];$('#pn').innerHTML=`<a href="#c=${k}&p=${pv.id}">${x.prev}: ${pv.n}</a><a href="#c=${k}&p=${nx.id}">${x.next}: ${nx.n}</a>`}else $('#pn').innerHTML='';
+}
+// routing: #c=<category> opens a collection view, #c=<category>&p=<id> opens a product page on top of it
+let vk=null,dp=null;
+const site=$('#site');
+function route(force){
+  const q=new URLSearchParams(location.hash.slice(1)),k=C[q.get('c')]?q.get('c'):null,p=P[q.get('p')]||null,v=$('#view'),d=$('#detail');
+  const pk=vk,pp=dp;
+  if(k){
+    if(vk!==k||force){renderView(k)}
+    if(v.hidden||vk!==k){v.hidden=false;v.scrollTop=0}
+    vk=k;
+  }else{v.hidden=true;vk=null}
+  if(p){renderDetail(p,k);if(d.hidden||dp!==p.id){d.hidden=false;d.scrollTop=0}dp=p.id}else{d.hidden=true;dp=null}
+  site.inert=!!(k||p);v.inert=!!p;   // the page underneath cannot be tabbed into while a page overlay is open
+  document.body.style.overflow=(k||p)?'hidden':'';
+  if(!force){   // focus moves into the new page, and returns to the trigger when it closes
+    if(p&&pp!==p.id)$('#back').focus({preventScroll:true});
+    else if(k&&!p&&(pk!==k||pp))(pp?document.querySelector(`#grid a.card[href="#c=${k}&p=${pp}"]`):$('#vback'))?.focus({preventScroll:true});
+    else if(!k&&!p&&(pk||pp))document.querySelector(`a.cat[href="#c=${pk}"]`)?.focus({preventScroll:true});
+  }
+}
+addEventListener('hashchange',()=>route());
+addEventListener('keydown',e=>{   // keep Tab inside the open page (the page underneath is inert)
+  if(e.key!=='Tab')return;
+  const pg=!$('#detail').hidden?$('#detail'):!$('#view').hidden?$('#view'):null;if(!pg)return;
+  const f=[...pg.querySelectorAll('a[href],button:not([disabled])')].filter(x=>x.offsetParent!==null);if(!f.length)return;
+  const first=f[0],last=f[f.length-1],a=document.activeElement;
+  if(!pg.contains(a)||(e.shiftKey&&a===first)||(!e.shiftKey&&a===last)){e.preventDefault();(e.shiftKey&&pg.contains(a)?last:first).focus()}
+});
+
+const nav=$('.nav'),mb=$('.menu');
+const setMenu=o=>{nav.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)};
+mb.addEventListener('click',()=>setMenu(!nav.classList.contains('open')));
+nav.querySelectorAll('ul a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+addEventListener('keydown',e=>{
+  if(e.key!=='Escape')return;
+  if(nav.classList.contains('open')){setMenu(false);mb.focus();return}
+  const q=new URLSearchParams(location.hash.slice(1)),k=q.get('c');
+  if(!$('#detail').hidden)location.hash=C[k]?'#c='+k:'#shop';else if(!$('#view').hidden)location.hash='#shop';
+});
+// language toggle (English default, Spanish on demand)
+document.querySelectorAll('[data-es]').forEach(e=>e.dataset.en=e.innerHTML);
+function setLang(l){
+  L=l;try{localStorage.setItem('nv-lang',l)}catch(e){}
+  document.documentElement.lang=l;
+  document.querySelectorAll('[data-es]').forEach(e=>{e.innerHTML=l==='es'?e.dataset.es:e.dataset.en});
+  document.querySelectorAll('.lang').forEach(b=>{b.querySelector('.e').classList.toggle('on',l==='en');b.querySelector('.s').classList.toggle('on',l==='es')});
+  document.querySelectorAll('[data-wa]').forEach(a=>{a.href=`https://wa.me/${WA}?text=${encodeURIComponent(t()[a.dataset.wa])}`});
+  $('#mq').textContent=t().ribbon.repeat(12);
+  route(true);
+}
+document.querySelectorAll('.lang').forEach(b=>b.addEventListener('click',()=>setLang(L==='en'?'es':'en')));
+// 3D tilt on cards (delegated, survives re-render); off under reduced motion
+const RM=matchMedia('(prefers-reduced-motion: reduce)');
+const g=$('#grid');
+g.addEventListener('pointermove',e=>{
+  const c=e.target.closest('.card');if(!c||e.pointerType==='touch'||RM.matches)return;
+  const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+  c.style.transform=`perspective(900px) rotateX(${(.5-y)*14}deg) rotateY(${(x-.5)*14}deg)`;
+  c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');
+});
+g.addEventListener('pointerout',e=>{const c=e.target.closest('.card');if(c&&!c.contains(e.relatedTarget))c.style.transform=''});
+// parallax (hero bottles, 100% numeral)
+const ps=[...document.querySelectorAll('[data-s]')];let tk=0;
+const up=()=>{tk=0;if(RM.matches){ps.forEach(e=>{e.style.transform=''});return}ps.forEach(e=>{const r=e.parentElement.getBoundingClientRect();e.style.transform=`translate3d(0,${((r.top+r.height/2-innerHeight/2)*e.dataset.s).toFixed(1)}px,0)`})};
+addEventListener('scroll',()=>{tk||(tk=requestAnimationFrame(up))},{passive:true});up();
+// gold dust
+const d=$('.dust');
+for(let i=0;i<18;i++){const s=document.createElement('span');s.style.cssText=`left:${Math.random()*100}%;--z:${1+Math.random()*3}px;animation-duration:${9+Math.random()*10}s;animation-delay:${-Math.random()*15}s`;d.appendChild(s)}
+setLang(L);
+</script>
+</body>
+</html>
