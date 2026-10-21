@@ -55,7 +55,7 @@ Perfumes live in two arrays: `AR` (Arab) and `DE` (Designer). Entry shape:
 - `id` must match the image file `img/<id>.webp`.
 - **Mark sold out:** add `sold:true`. **Back in stock:** remove it.
 - **Add a perfume:** add an entry to `AR` or `DE` with `d`, `es` and `m` (moods: `warm`, `fresh`, `floral`, `dark`), add a WebP photo at `img/<id>.webp`, and its size to `IMG`.
-- **Most wanted** is the `MOST` list of ids. **Hero featured perfumes** are in `FEAT` (id, colours `h1`/`h2`/`ha`, notes in EN/ES); each needs a background-free photo at `img/hero-<id>.webp`.
+- **Most wanted** is the `MOST` list of ids. **Hero featured perfumes** (Arab only, Supremacy Collector's Edition first) are in `FEAT` (id, colours `h1`/`h2`/`ha`, notes in EN/ES); each needs a background-free photo at `img/hero-<id>.webp`.
 
 ## Before finishing any change
 

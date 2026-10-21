@@ -17,7 +17,7 @@
 | Shape | Pills for buttons and chips, 12 px cards, 1 px hairlines, shadows only on hover and below 8% alpha, no glass, no glow |
 | Buttons | 48 px high. Solid = ink (cream inside the hero). Line = 1 px outline |
 
-Hero featured perfumes (colours `h1` base, `h2` light, `ha` accent) live in `FEAT` in `index.html`: Tobacco Vanille, Eclaire, Lost Cherry, Sauvage. Each needs a background-free photo at `img/hero-<id>.webp`.
+Hero featured perfumes (colours `h1` base, `h2` light, `ha` accent) live in `FEAT` in `index.html`: Arab perfumes only: Supremacy Collector's Edition (first), Hawas Fire, Club de Nuit Intense Man, Eclaire. Each needs a background-free photo at `img/hero-<id>.webp`.
 
 Rules that never change: English by default (EN/ES toggle), no prices, sold-out items stay visible with a badge and disabled order buttons (they are listed after available ones), WhatsApp +1 510 978 8240 with a pre-filled message per perfume, Instagram DM via ig.me/m/novavaultcolognes.
 

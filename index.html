@@ -24,16 +24,16 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentEle
               Scale 12 / 14 / 16 / 20 / 28 / fluid 36-56 / fluid 48-92 px.
    Space    : 8pt grid, section padding var(--sp), gutter var(--gut).
    Shape    : pills for buttons and chips, 12px cards, 1px hairlines, shadows only on hover (<8% alpha). No glass, no glow. */
-@property --h1{syntax:'<color>';inherits:true;initial-value:#0d0a07}
-@property --h2{syntax:'<color>';inherits:true;initial-value:#4a3119}
-@property --ha{syntax:'<color>';inherits:true;initial-value:#d4af37}
+@property --h1{syntax:'<color>';inherits:true;initial-value:#0c0d0f}
+@property --h2{syntax:'<color>';inherits:true;initial-value:#474c54}
+@property --ha{syntax:'<color>';inherits:true;initial-value:#d9dde3}
 :root{--bone:#f4f0e8;--paper:#fff;--ink:#0b0b0b;--mute:#635b51;--line:#e2dace;--cream:#f6efe4;--cmute:rgba(246,239,228,.74);--acc:#7a5f10;--gold:#d4af37;--gl:#f3d98b;
 --ser:'Instrument Serif',Georgia,serif;--san:'Manrope','Helvetica Neue',Arial,sans-serif;
 --t-xs:.75rem;--t-sm:.875rem;--t-md:1rem;--t-lg:1.25rem;--t-xl:1.75rem;--t-2xl:clamp(2.25rem,4.4vw,3.5rem);--t-hero:clamp(3rem,7.4vw,5.75rem);
 --sp:4.5rem;--gut:1.5rem;--btn:48px;--rc:12px}
 @media(min-width:768px){:root{--sp:7.5rem;--gut:2.5rem}}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:5rem;background:var(--bone)}
+html{scroll-behavior:smooth;scroll-padding-top:5rem;background:var(--bone);transition:--h1 1.2s ease-in-out,--h2 1.2s ease-in-out,--ha 1.2s ease-in-out}
 body{background:var(--bone);color:var(--ink);font:400 var(--t-md)/1.6 var(--san);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit}
@@ -54,6 +54,8 @@ h2 em,h1 em{font-style:italic}
 .btns{display:flex;flex-wrap:wrap;gap:.75rem}
 /* header: transparent over the hero, bone once scrolled */
 .hd{position:fixed;top:0;left:0;right:0;z-index:50;color:var(--cream);transition:background .3s ease-out,color .3s ease-out,border-color .3s ease-out;border-bottom:1px solid transparent}
+/* while scrolling inside the hero the header takes the hero's base colour so content never shows through it */
+.hd.up{background:var(--h1);border-color:rgba(246,239,228,.12)}
 .hd.solid{background:var(--bone);color:var(--ink);border-color:var(--line)}
 .hdi{display:flex;align-items:center;justify-content:space-between;gap:1rem;max-width:1200px;margin:0 auto;padding:calc(.75rem + env(safe-area-inset-top,0px)) var(--gut) .75rem}
 .logo{display:inline-flex;align-items:center;gap:.75rem;min-height:44px;font:600 .95rem/1 var(--san);letter-spacing:.32em}
@@ -72,7 +74,7 @@ h2 em,h1 em{font-style:italic}
 @media(max-width:959.98px){.hd.open{background:var(--bone);color:var(--ink);border-color:var(--line)}.hd.open .btn{background:var(--ink);color:var(--bone);border-color:var(--ink)}.hd.open nav ul{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;padding:.5rem var(--gut) 1.25rem;background:var(--bone);border-bottom:1px solid var(--line)}.hd.open nav a{font-size:var(--t-lg);width:100%}}
 @media(max-width:479.98px){.hd .lt{display:none}.logo{letter-spacing:.2em;font-size:.85rem}.hr{gap:.375rem}.hd .btn{padding:0 .9rem}.lang,.menu{padding:0 .6rem}}
 /* hero: takes the colour of the featured perfume */
-.hero{position:relative;overflow:hidden;isolation:isolate;color:var(--cream);background:radial-gradient(75% 70% at 72% 42%,var(--h2),var(--h1) 72%);transition:--h1 1.2s ease-in-out,--h2 1.2s ease-in-out,--ha 1.2s ease-in-out}
+.hero{position:relative;overflow:hidden;isolation:isolate;color:var(--cream);background:radial-gradient(75% 70% at 72% 42%,var(--h2),var(--h1) 72%)}
 .hgr{position:relative;display:grid;gap:2.5rem;max-width:1200px;margin:0 auto;min-height:100svh;padding:calc(6rem + env(safe-area-inset-top,0px)) var(--gut) 3rem;align-items:center}
 .hcopy{position:relative;z-index:2}
 .hcopy .eyebrow{color:var(--ha)}
@@ -83,10 +85,10 @@ h2 em,h1 em{font-style:italic}
 .hero .btn.line:hover{background:var(--cream);color:#1d130c;border-color:var(--cream)}
 .hero :focus-visible{outline-color:var(--cream)}
 .stage{position:relative;z-index:1;display:grid;justify-items:center;gap:1.5rem}
-.lb{--lbw:clamp(110px,30vw,170px);width:var(--lbw);perspective:900px}
+.lb{--lbw:clamp(120px,34vw,180px);width:var(--lbw);perspective:900px}
 .lbf{animation:fl 6s 1.6s ease-in-out infinite}
 .lbt{will-change:transform}
-.lbi{position:relative;overflow:hidden;aspect-ratio:358/823;-webkit-mask:var(--lbm) 50% 100%/contain no-repeat;mask:var(--lbm) 50% 100%/contain no-repeat}
+.lbi{position:relative;overflow:hidden;aspect-ratio:4/7;-webkit-mask:var(--lbm) 50% 100%/contain no-repeat;mask:var(--lbm) 50% 100%/contain no-repeat}
 .lbi img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%}
 .lbi i{position:absolute;top:0;bottom:0;left:0;width:35%;transform:translateX(-140%) skewX(-12deg);background:linear-gradient(90deg,transparent,rgba(255,244,220,.3),transparent);animation:lsh 6s 2.4s ease-in-out infinite}
 .lbw .lbi{opacity:0}
@@ -106,7 +108,7 @@ h2 em,h1 em{font-style:italic}
 .fx.f{z-index:3}
 .fk{position:absolute;width:var(--k);height:var(--k);border-radius:2px;background:var(--ha);will-change:transform}
 .hcount{position:absolute;right:var(--gut);bottom:1.5rem;z-index:2;font-size:var(--t-xs);letter-spacing:.14em;color:var(--cmute)}
-@media(min-width:960px){.hgr{grid-template-columns:1.1fr .9fr;gap:3rem}.lb{--lbw:clamp(170px,15vw,220px)}}
+@media(min-width:960px){.hgr{grid-template-columns:1.1fr .9fr;gap:3rem}.lb{--lbw:clamp(190px,16vw,240px)}}
 @media(max-width:959.98px){.fx.f{z-index:0}.hgr{padding-top:calc(5.5rem + env(safe-area-inset-top,0px))}.hcount{display:none}}
 /* houses ribbon */
 .rb{overflow:hidden;border-bottom:1px solid var(--line);background:var(--bone);padding:1.25rem 0;white-space:nowrap}
@@ -178,7 +180,7 @@ section{padding:var(--sp) var(--gut)}
 .ct .lead{margin:1rem auto 2rem}
 .ct .btns{justify-content:center}
 footer{border-top:1px solid var(--line);padding:2.5rem var(--gut) calc(2.5rem + env(safe-area-inset-bottom,0px))}
-footer .flogo{width:72px;height:72px}
+footer .flogo{width:112px;height:112px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center;font-size:var(--t-sm);color:var(--mute)}
 footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)}
 /* product page (white overlay) */
@@ -247,13 +249,13 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)
     </div>
     <div class="stage">
       <div class="lb">
-        <div class="lbf"><div class="lbt"><div class="lbi" style="--lbm:url(img/hero-tobacco-vanille.webp)"><img src="img/hero-tobacco-vanille.webp" alt="Tobacco Vanille by Tom Ford" width="358" height="823" fetchpriority="high"><i></i></div></div></div>
+        <div class="lbf"><div class="lbt"><div class="lbi" style="--lbm:url(img/hero-supremacy-collectors-edition.webp)"><img src="img/hero-supremacy-collectors-edition.webp" alt="Supremacy Collector's Edition by Afnan" width="210" height="396" fetchpriority="high"><i></i></div></div></div>
         <div class="plinth" aria-hidden="true"></div>
       </div>
       <div class="feat" aria-live="polite">
-        <p class="eyebrow" id="fhouse">Tom Ford · Designer</p>
-        <h3 id="fname">Tobacco Vanille</h3>
-        <p class="notes" id="fnotes">Tobacco leaf · Vanilla · Dried fruit</p>
+        <p class="eyebrow" id="fhouse">Afnan · Arab</p>
+        <h3 id="fname">Supremacy Collector's Edition</h3>
+        <p class="notes" id="fnotes">Pineapple · Birch · Ambergris</p>
         <a id="forder" target="_blank" rel="noopener" href="https://wa.me/15109788240"><span id="fordert">Order this scent</span> <span aria-hidden="true">→</span></a>
       </div>
       <div class="pick" role="group" aria-label="Featured fragrances" id="pick"></div>
@@ -293,7 +295,7 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)
       <div><b>02</b><h3 data-es="Mayoreo y menudeo">Wholesale &amp; retail</h3><p data-es="Un frasco para ti o un pedido completo para tu tienda. Los pedidos al mayoreo son bienvenidos.">One bottle for you or a full order for your shop. Bulk orders are welcome.</p></div>
       <div><b>03</b><h3 data-es="Envíos a todo EE. UU.">Shipped across the U.S.</h3><p data-es="Con sede en Fremont, California, enviamos a todo el país.">Based in Fremont, California, and shipping nationwide.</p></div>
     </div>
-    <p class="houses rv" data-es="Casas en la colección: Lattafa, Bharara, Ard Al Zaafaran, Zakat, Le Falcone, Tom Ford, Dior, Chanel, Louis Vuitton, Xerjoff, Valentino, Armani, Gucci, Prada y Burberry.">Houses in the collection: Lattafa, Bharara, Ard Al Zaafaran, Zakat, Le Falcone, Tom Ford, Dior, Chanel, Louis Vuitton, Xerjoff, Valentino, Armani, Gucci, Prada and Burberry.</p>
+    <p class="houses rv" data-es="Casas en la colección: Afnan, Rasasi, Armaf, Lattafa, Bharara, Ard Al Zaafaran, Zakat, Le Falcone, Tom Ford, Dior, Chanel, Louis Vuitton, Xerjoff, Valentino, Armani, Gucci, Prada y Burberry.">Houses in the collection: Afnan, Rasasi, Armaf, Lattafa, Bharara, Ard Al Zaafaran, Zakat, Le Falcone, Tom Ford, Dior, Chanel, Louis Vuitton, Xerjoff, Valentino, Armani, Gucci, Prada and Burberry.</p>
   </div>
 </section>
 
@@ -330,7 +332,7 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)
 </main>
 
 <footer><div class="wrap">
-  <img class="flogo" src="img/logo.webp" alt="NOVAVAULT" width="72" height="72" loading="lazy">
+  <img class="flogo" src="img/logo.webp" alt="NOVAVAULT" width="112" height="112" loading="lazy">
   <span data-es="Fremont, California · Envíos a todo EE. UU.">Fremont, California · Shipping across the U.S.</span>
   <a target="_blank" rel="noopener" href="https://instagram.com/novavaultcolognes">@novavaultcolognes</a>
   <span data-es="&copy; 2026 NOVAVAULT. Todos los derechos reservados.">&copy; 2026 NOVAVAULT. All rights reserved.</span>
@@ -353,6 +355,9 @@ const AR=[
 {id:'dana-le-falcone',n:'Dana Le Falcone',b:'Le Falcone',m:['floral','warm'],sold:true,d:'Fruity and floral. Litchi, apple and black currant lead to jasmine, violet and rose, finishing in vanilla, amber and sandalwood.',es:'Frutal y floral. Litchi, manzana y grosella negra llevan a jazmín, violeta y rosa, y cierran con vainilla, ámbar y sándalo.'},
 {id:'sudfa',n:'Sudfa',b:'Ard Al Zaafaran',m:['warm'],d:'Soft, sweet and cozy. Almond opens to a powdery floral heart, then a creamy base of cappuccino, vanilla and amber. Warm and comforting.',es:'Suave, dulce y acogedor. La almendra abre hacia un corazón floral empolvado y una base cremosa de capuchino, vainilla y ámbar. Cálido y reconfortante.'},
 {id:'turbo-gts',n:'Turbo #GTS',b:'Zakat',m:['dark'],d:'Spicy and fast. Chili and pink pepper open into ginger and Turkish rose, then settle into musk, patchouli and benzoin. Loud and confident.',es:'Picante y veloz. Chile y pimienta rosa abren hacia jengibre y rosa turca, y se asientan en almizcle, pachulí y benjuí. Intenso y seguro de sí mismo.'},
+{id:'supremacy-collectors-edition',n:"Supremacy Collector's Edition",b:'Afnan',m:['fresh','dark'],d:'Fresh and smoky. Pineapple, bergamot and apple open onto smoky birch, orange blossom and amber, then settle into oakmoss, musk and ambergris. Confident and polished.',es:'Fresco y ahumado. Piña, bergamota y manzana abren hacia abedul ahumado, azahar y ámbar, y se asientan en musgo de roble, almizcle y ámbar gris. Seguro y pulido.'},
+{id:'hawas-fire',n:'Hawas Fire',b:'Rasasi',m:['fresh','warm'],d:'Bold and salty-fresh. Clary sage opens onto Egyptian jasmine and marine notes, then dries down to ambergris and warm mineral amber.',es:'Audaz, fresco y salino. La salvia esclarea abre hacia jazmín egipcio y notas marinas, y termina en ámbar gris y un cálido ámbar mineral.'},
+{id:'club-de-nuit-intense',n:'Club de Nuit Intense Man',b:'Armaf',m:['fresh','dark'],d:'Smoky and fruity. Lemon, pineapple, blackcurrant and apple lead into smoky birch, rose and jasmine, over musk, ambergris, patchouli and vanilla. A powerhouse.',es:'Ahumado y frutal. Limón, piña, grosella negra y manzana llevan a abedul ahumado, rosa y jazmín, sobre almizcle, ámbar gris, pachulí y vainilla. Pura potencia.'},
 {id:'eclaire',n:'Eclaire',b:'Lattafa',m:['warm'],d:'Creamy and sweet. Caramel and milk melt into honey and white flowers, finishing in vanilla, praline and soft musk. Smooth, cozy and easy to wear.',es:'Cremoso y dulce. Caramelo y leche se funden con miel y flores blancas, y cierran con vainilla, praliné y un suave almizcle. Suave, acogedor y fácil de llevar.'}
 ];
 const DE=[
@@ -380,14 +385,14 @@ AR.forEach(p=>p.c='arab');DE.forEach(p=>p.c='designer');
 // available bottles first, sold-out ones after
 const ALL=[...AR,...DE].sort((a,b)=>!!a.sold-!!b.sold),P=Object.fromEntries(ALL.map(p=>[p.id,p]));
 const MOST=['afternoon-swim','chanel-coco','ombre-nomade','sauvage-elixir','erba-pura','lost-cherry','tobacco-vanille','sauvage'];
-// hero: featured perfumes, each with its own colours (base, light, accent) and top notes
+// hero: featured Arab perfumes only (Supremacy first), each with its own colours (base, light, accent) and top notes
 const FEAT=[
-{id:'tobacco-vanille',h1:'#0d0a07',h2:'#4a3119',ha:'#d4af37',en:'Tobacco leaf · Vanilla · Dried fruit',es:'Hoja de tabaco · Vainilla · Frutos secos'},
-{id:'eclaire',h1:'#241913',h2:'#7a5a40',ha:'#f0cfa6',en:'Caramel · Honey · Vanilla',es:'Caramelo · Miel · Vainilla'},
-{id:'lost-cherry',h1:'#21070b',h2:'#6e1422',ha:'#f2a5b0',en:'Black cherry · Bitter almond · Turkish rose',es:'Cereza negra · Almendra amarga · Rosa turca'},
-{id:'sauvage',h1:'#070f1c',h2:'#1d3b66',ha:'#9cc0f0',en:'Bergamot · Pepper · Lavender',es:'Bergamota · Pimienta · Lavanda'}
+{id:'supremacy-collectors-edition',h1:'#0c0d0f',h2:'#474c54',ha:'#d9dde3',en:'Pineapple · Birch · Ambergris',es:'Piña · Abedul · Ámbar gris'},
+{id:'hawas-fire',h1:'#190405',h2:'#781016',ha:'#ff9a8a',en:'Clary sage · Marine notes · Ambergris',es:'Salvia esclarea · Notas marinas · Ámbar gris'},
+{id:'club-de-nuit-intense',h1:'#050505',h2:'#2e2b25',ha:'#d4af37',en:'Pineapple · Smoky birch · Vanilla',es:'Piña · Abedul ahumado · Vainilla'},
+{id:'eclaire',h1:'#241913',h2:'#7a5a40',ha:'#f0cfa6',en:'Caramel · Honey · Vanilla',es:'Caramelo · Miel · Vainilla'}
 ];
-const IMG={"khamrah-dukhan":[589,813],"rome-pour-homme":[352,815],"ajayab-dubai-portrait":[394,815],"dana-le-falcone":[408,900],"sudfa":[613,814],"turbo-gts":[445,797],"eclaire":[381,900],"acqua-di-gio":[540,900],"afternoon-swim":[424,900],"black-orchid":[488,900],"born-in-roma":[900,826],"burberry-her":[535,900],"chanel-coco":[565,900],"erba-pura":[713,796],"green-stravaganza":[452,657],"gucci-flora":[401,900],"jadore":[379,900],"lost-cherry":[385,663],"miss-dior":[861,900],"ombre-nomade":[404,900],"prada-paradoxe":[900,476],"sauvage-elixir":[536,900],"sauvage":[480,900],"stronger-with-you":[291,468],"tobacco-vanille":[435,900],"valentino-uomo-intense":[579,900]};
+const IMG={"supremacy-collectors-edition":[316,316],"hawas-fire":[500,500],"club-de-nuit-intense":[316,316],"khamrah-dukhan":[589,813],"rome-pour-homme":[352,815],"ajayab-dubai-portrait":[394,815],"dana-le-falcone":[408,900],"sudfa":[613,814],"turbo-gts":[445,797],"eclaire":[381,900],"acqua-di-gio":[540,900],"afternoon-swim":[424,900],"black-orchid":[488,900],"born-in-roma":[900,826],"burberry-her":[535,900],"chanel-coco":[565,900],"erba-pura":[713,796],"green-stravaganza":[452,657],"gucci-flora":[401,900],"jadore":[379,900],"lost-cherry":[385,663],"miss-dior":[861,900],"ombre-nomade":[404,900],"prada-paradoxe":[900,476],"sauvage-elixir":[536,900],"sauvage":[480,900],"stronger-with-you":[291,468],"tobacco-vanille":[435,900],"valentino-uomo-intense":[579,900]};
 const $=s=>document.querySelector(s),WA='15109788240';
 const TX={
  en:{more:'View details',sold:'Sold out',avail:'Available',wa:'Order on WhatsApp',dm:'DM on Instagram',prev:'Previous',next:'Next',
@@ -395,13 +400,13 @@ const TX={
   count:n=>`${n} ${n===1?'fragrance':'fragrances'}`,none:'No fragrances match this mix.',noneHint:'Try another mood or show sold-out bottles too.',clear:'Clear filters',
   arab:'Arab',designer:'Designer',orderThis:'Order this scent',show:n=>`Show ${n}`,feat:'Featured fragrances',
   msg:n=>`Hi NOVAVAULT! I want to order ${n}. Is it available?`,order:"Hi NOVAVAULT! I'd like to place an order.",wholesale:"Hi NOVAVAULT! I'd like to ask about wholesale.",q:'Hi NOVAVAULT! I have a question about your collection.',alt:(n,b)=>`${n} by ${b}`,
-  ribbon:'Tom Ford,Dior,Lattafa,Chanel,Louis Vuitton,Xerjoff,Valentino,Armani,Gucci,Prada,Burberry,Bharara,Ard Al Zaafaran,Zakat,Le Falcone'},
+  ribbon:'Afnan,Rasasi,Armaf,Lattafa,Tom Ford,Dior,Chanel,Louis Vuitton,Xerjoff,Valentino,Armani,Gucci,Prada,Burberry,Bharara,Ard Al Zaafaran,Zakat,Le Falcone'},
  es:{more:'Ver detalles',sold:'Agotado',avail:'Disponible',wa:'Pedir por WhatsApp',dm:'Escríbenos por Instagram',prev:'Anterior',next:'Siguiente',
   moods:{all:'Todos',warm:'Cálido y dulce',fresh:'Fresco',floral:'Floral',dark:'Intenso y ahumado'},cols:{all:'Todas',most:'Más buscados',arab:'Árabes',designer:'Diseñador'},
   count:n=>`${n} ${n===1?'fragancia':'fragancias'}`,none:'Ninguna fragancia coincide con esta combinación.',noneHint:'Prueba otro estilo o muestra también los agotados.',clear:'Quitar filtros',
   arab:'Árabe',designer:'Diseñador',orderThis:'Pedir este aroma',show:n=>`Ver ${n}`,feat:'Fragancias destacadas',
   msg:n=>`¡Hola NOVAVAULT! Quiero pedir ${n}. ¿Está disponible?`,order:'¡Hola NOVAVAULT! Me gustaría hacer un pedido.',wholesale:'¡Hola NOVAVAULT! Quisiera preguntar por el mayoreo.',q:'¡Hola NOVAVAULT! Tengo una pregunta sobre su colección.',alt:(n,b)=>`${n} de ${b}`,
-  ribbon:'Tom Ford,Dior,Lattafa,Chanel,Louis Vuitton,Xerjoff,Valentino,Armani,Gucci,Prada,Burberry,Bharara,Ard Al Zaafaran,Zakat,Le Falcone'}
+  ribbon:'Afnan,Rasasi,Armaf,Lattafa,Tom Ford,Dior,Chanel,Louis Vuitton,Xerjoff,Valentino,Armani,Gucci,Prada,Burberry,Bharara,Ard Al Zaafaran,Zakat,Le Falcone'}
 };
 let L='en';try{const s=localStorage.getItem('nv-lang');if(s==='es'||s==='en')L=s}catch(e){}
 const t=()=>TX[L];
@@ -460,7 +465,7 @@ const hd=$('#hd'),mb=$('.menu'),hero=$('#hero');
 const setMenu=o=>{hd.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)};
 mb.addEventListener('click',()=>setMenu(!hd.classList.contains('open')));
 hd.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
-const solid=()=>hd.classList.toggle('solid',hero.getBoundingClientRect().bottom<64);
+const solid=()=>{hd.classList.toggle('solid',hero.getBoundingClientRect().bottom<64);hd.classList.toggle('up',scrollY>8)};
 addEventListener('scroll',solid,{passive:true});solid();
 
 // language toggle (English default, Spanish on demand)
@@ -506,7 +511,7 @@ function text(){
   pick.setAttribute('aria-label',TX[es()?'es':'en'].feat);
   btns.forEach((x,i)=>x.setAttribute('aria-label',TX[es()?'es':'en'].show(P[FEAT[i].id].n)));
 }
-function colours(f){hero.style.setProperty('--h1',f.h1);hero.style.setProperty('--h2',f.h2);hero.style.setProperty('--ha',f.ha)}
+function colours(f){h.style.setProperty('--h1',f.h1);h.style.setProperty('--h2',f.h2);h.style.setProperty('--ha',f.ha)}
 function swap(){const id=FEAT[cur].id;b.style.setProperty('--lbm',`url(img/hero-${id}.webp)`);bi.src=`img/hero-${id}.webp`;text()}
 document.addEventListener('nv-lang',text);text();
 FEAT.forEach(f=>{new Image().src=`img/hero-${f.id}.webp`});
