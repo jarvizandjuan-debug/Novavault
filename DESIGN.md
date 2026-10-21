@@ -1,22 +1,28 @@
-# NOVAVAULT design system
+# NOVAVAULT design system (v2: editorial gallery)
 
-**Idea:** dark = brand, navigation and proof; white = product. The landing is black with white category tiles; the three collection views (Most Wanted / Arab / Designer) and every product page are white galleries.
+**Idea:** the hero belongs to the featured perfume (its colour fills the whole hero); the rest of the site is a calm bone-coloured gallery with white product cards, and ink sections carry the proof (why us, wholesale).
 
 | Token | Value |
 |---|---|
-| Matte black | `#0a0a0a` |
-| Vault gold | `#d4af37` (highlight `#f3d98b`, text on white `#7a5f10`) |
-| Paper / ink | `#ffffff` / `#14110a` |
-| Display / body | Marcellus / Jost |
-| Type scale | 12 / 14 / 16 / 22 px, fluid 32-48 px, fluid 40-100 px. Weights 300 / 400 / 500 only |
-| Space | 8pt / 4pt grid, section padding 72 px (narrow) / 120 px (768+), gutter 24 px |
-| Shape | 2 px radius, 1 px hairline on every raised surface, shadows only on hover and always below 8% alpha, no glass, no glow |
-| Buttons | 48 px high. Primary = gold fill. Secondary = outline (gold on black, ink on white) |
+| Bone (page) | `#f4f0e8` |
+| Paper (product) | `#ffffff` |
+| Ink / muted | `#191512` / `#655c52` |
+| Hairline | `#e2dace` |
+| Accent (text on bone) | `#7c4f22` |
+| Cream (text on dark) | `#f6efe4` |
+| Wholesale band | `#2a1a10` |
+| Display / body | Instrument Serif (400 + italic) / Manrope 400-500-600 |
+| Type scale | 12 / 14 / 16 / 20 / 28 px, fluid 36-56 px, fluid 48-92 px |
+| Space | 8pt grid, section padding 72 px (narrow) / 120 px (768+), gutter 24 / 40 px |
+| Shape | Pills for buttons and chips, 12 px cards, 1 px hairlines, shadows only on hover and below 8% alpha, no glass, no glow |
+| Buttons | 48 px high. Solid = ink (cream inside the hero). Line = 1 px outline |
 
-Rules that never change: English by default (EN/ES toggle), no prices, sold-out items stay visible with a badge and disabled order buttons, WhatsApp +1 510 978 8240 with a pre-filled message per perfume, Instagram DM via ig.me/m/novavaultcolognes.
+Hero featured perfumes (colours `h1` base, `h2` light, `ha` accent) live in `FEAT` in `index.html`: Tobacco Vanille, Eclaire, Lost Cherry, Sauvage. Each needs a background-free photo at `img/hero-<id>.webp`.
 
-Mark a perfume sold out: add `sold:true` to its entry in `AR` or `DE` in `index.html`.
+Rules that never change: English by default (EN/ES toggle), no prices, sold-out items stay visible with a badge and disabled order buttons (they are listed after available ones), WhatsApp +1 510 978 8240 with a pre-filled message per perfume, Instagram DM via ig.me/m/novavaultcolognes.
 
-Breakpoints: 375 (narrow), 768 (medium), 1280 (wide). On narrow the nav collapses to a Menu control; both page overlays make the site underneath `inert`, keep Tab inside, close with Esc and return focus to the tile or card that opened them.
+Mark a perfume sold out: add `sold:true` to its entry in `AR` or `DE` in `index.html`. Each entry also has `m`, its moods for the scent finder: `warm`, `fresh`, `floral`, `dark`.
 
-Motion: UI transitions use 200 / 300 ms ease-out. Ambient brand motion (hero intro, one-time logo glint, floating bottles, gold dust, ribbon) is intentional and switches off under `prefers-reduced-motion`.
+Breakpoints: 375 (narrow), 768 (medium), 960 (nav shows links), 1280 (wide). The product page is a white overlay: the site underneath is `inert`, Tab stays inside, Esc closes it and focus returns to the card that opened it.
+
+Motion: UI transitions 200 / 300 ms ease-out; sections fade up once on scroll. Hero motion (bottle entrance, cursor tilt, floating flakes pushed away by the pointer, spin-and-swap when a featured perfume is picked, colour morph) uses Motion from the jsDelivr CDN and switches off under `prefers-reduced-motion`.
