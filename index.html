@@ -67,21 +67,38 @@ h2{font:400 var(--t-xl)/1.15 var(--ser);letter-spacing:.03em}
 @media(min-width:768px){:root{--sp:7.5rem}.menu{display:none}.nav.open ul{position:static;flex-direction:row;padding:0;border:0;background:none}.nav.open ul a{width:auto;font-size:inherit}}
 /* hero */
 .hero{position:relative;min-height:100vh;min-height:100svh;display:grid;place-items:center;align-content:center;text-align:center;padding:5.5rem var(--gut) 4rem;overflow:hidden;isolation:isolate}
-.hero::before{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(55% 45% at 50% 40%,rgba(212,175,55,.2),transparent 70%),radial-gradient(90% 60% at 50% 115%,#241b08,transparent 65%)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(55% 45% at 50% 40%,var(--hg),transparent 70%),radial-gradient(90% 60% at 50% 115%,#241b08,transparent 65%)}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(0,0,0,.72))}
 .hero .px{z-index:-1}
 .beam{position:absolute;top:-8%;left:50%;width:130vmin;height:115%;translate:-50% 0;transform-origin:50% 0;z-index:-2;background:conic-gradient(from 180deg at 50% 0,transparent 163deg,rgba(243,217,139,.14) 180deg,transparent 197deg);animation:beam 9s ease-in-out infinite alternate}
 .dust{position:absolute;inset:0;z-index:-1;pointer-events:none}
 .dust span{position:absolute;bottom:-10px;width:var(--z);height:var(--z);border-radius:50%;background:var(--gl);opacity:0;animation:rise linear infinite}
 .hin{position:relative;z-index:1}
+@property --hg{syntax:'<color>';inherits:true;initial-value:rgba(212,175,55,.2)}
+.hero{transition:--hg 1.2s ease-in-out}
+.dust span.o{background:none;border:1px solid var(--gl)}
+/* floating gold flakes (built in the module script): back layer under the text, a few in front; they drift with the cursor and are pushed away from it */
+.fx{position:absolute;inset:0;pointer-events:none;z-index:-1}
+.fx.f{z-index:2}
+@media(max-width:767.98px){.fx.f{z-index:-1}}
+.hero .lb{z-index:1}
+.fk{position:absolute;width:var(--k);height:var(--k);border-radius:2px;background:linear-gradient(135deg,#f3d98b,#d4af37 45%,#7d611a);will-change:transform}
 /* hero bottle: real product photo. Motion swings it in (module script at the end), CSS floats it and sweeps a light across it, .px drifts it on scroll */
-.lb{--lbw:clamp(72px,20vw,120px);position:relative;width:var(--lbw);margin:0 auto 1.5rem;perspective:900px}
+.lb{--lbw:clamp(72px,20vw,120px);position:relative;width:var(--lbw);margin:0 auto 1.5rem;perspective:900px;display:flex;flex-direction:column;align-items:center}
 .lbf{animation:fl 6s 1.6s ease-in-out infinite}
-.lbi{position:relative;overflow:hidden;-webkit-mask:url(img/hero-tobacco-vanille.webp) center/100% 100% no-repeat;mask:url(img/hero-tobacco-vanille.webp) center/100% 100% no-repeat}
-.lbi img{display:block;width:100%;height:auto}
+.lbf{width:100%}
+.lbt{will-change:transform}
+.lbi{position:relative;overflow:hidden;aspect-ratio:358/823;-webkit-mask:var(--lbm) 50% 100%/contain no-repeat;mask:var(--lbm) 50% 100%/contain no-repeat}
+.lbi img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%}
+.lbn{margin-top:1rem;font-size:var(--t-xs);letter-spacing:.08em;color:var(--mu);white-space:nowrap}
+.lbs{display:flex;gap:8px;margin-top:.75rem}
+.lbs button{width:44px;height:44px;padding:3px;border:1px solid var(--ln);border-radius:2px;background:var(--paper);cursor:pointer;transition:outline-color .2s ease-out}
+.lbs button img{display:block;width:100%;height:100%;object-fit:contain}
+.lbs button[aria-pressed="true"]{outline:1px solid var(--g);outline-offset:3px}
+.lbs button:focus-visible{outline:2px solid var(--gl);outline-offset:3px}
 .lbi i{position:absolute;top:0;bottom:0;left:0;width:35%;transform:translateX(-140%) skewX(-12deg);background:linear-gradient(90deg,transparent,rgba(255,240,179,.32),transparent);animation:lsh 6s 2.4s ease-in-out infinite}
 .lbw .lbi{opacity:0}
-@media(min-width:1100px){.lb{--lbw:clamp(150px,13vw,190px);position:absolute;right:7%;top:50%;margin:calc(var(--lbw)*-1.15) 0 0}.hero .hb.f{display:none}}
+@media(min-width:1100px){.lb{--lbw:clamp(150px,13vw,190px);position:absolute;right:7%;top:50%;margin:calc(var(--lbw)*-1.15 - 48px) 0 0}.hero .hb.f{display:none}}
 .logo{display:block;font:400 var(--t-hero)/1.1 var(--ser);letter-spacing:.02em;animation:rev .3s ease-out both,glint 3.4s 1s ease-out 1 both}
 .tag{font-size:clamp(1.0625rem,2.3vw,1.3rem);color:var(--mu);margin:1.5rem auto 2.5rem;max-width:40ch;animation:up .6s .9s ease-out both}
 .hero .btns{animation:up .6s 1.2s ease-out both}
@@ -189,7 +206,13 @@ footer b{display:block;font:400 1.4rem var(--ser);letter-spacing:.28em;margin-bo
   <div class="beam"></div><div class="dust"></div>
   <div class="px hb" data-s="-.3" data-b="--bw:84px;--bh:150px;--br:16px" style="left:9%;top:26%"></div>
   <div class="px hb f" data-s=".25" data-b="--bw:100px;--bh:100px;--br:50%" style="right:10%;bottom:16%"></div>
-  <div class="lb px" data-s="-.12" aria-hidden="true"><div class="lbf"><div class="lbi"><img src="img/hero-tobacco-vanille.webp" alt="" width="358" height="823" fetchpriority="high"><i></i></div></div></div>
+  <div class="lb px" data-s="-.12">
+    <div class="lbf"><div class="lbt"><div class="lbi" style="--lbm:url(img/hero-tobacco-vanille.webp)"><img src="img/hero-tobacco-vanille.webp" alt="Tobacco Vanille by Tom Ford" width="358" height="823" fetchpriority="high"><i></i></div></div></div>
+    <p class="lbn">Tobacco Vanille · Tom Ford</p>
+    <div class="lbs" role="group" aria-label="Featured fragrances">
+      <button type="button" data-id="tobacco-vanille" aria-pressed="true" aria-label="Tobacco Vanille"><img src="img/tobacco-vanille.webp" alt=""></button><button type="button" data-id="lost-cherry" aria-pressed="false" aria-label="Lost Cherry"><img src="img/lost-cherry.webp" alt=""></button><button type="button" data-id="sauvage" aria-pressed="false" aria-label="Sauvage"><img src="img/sauvage.webp" alt=""></button>
+    </div>
+  </div>
   <div class="hin">
     <h1 class="logo gold" data-es="Huele diferente.<br>Luce mejor.">Smell different.<br>Look better.</h1>
     <p class="tag" data-es="Deja una impresión inolvidable. Fragancias al mayoreo y al detalle, con envíos a todo EE. UU.">Leave a lasting impression. Wholesale &amp; retail fragrances, shipped across the U.S.</p>
@@ -383,14 +406,78 @@ const up=()=>{tk=0;if(RM.matches){ps.forEach(e=>{e.style.transform=''});return}p
 addEventListener('scroll',()=>{tk||(tk=requestAnimationFrame(up))},{passive:true});up();
 // gold dust
 const d=$('.dust');
-for(let i=0;i<18;i++){const s=document.createElement('span');s.style.cssText=`left:${Math.random()*100}%;--z:${1+Math.random()*3}px;animation-duration:${9+Math.random()*10}s;animation-delay:${-Math.random()*15}s`;d.appendChild(s)}
+// every third mote is a hollow rising bubble
+for(let i=0;i<24;i++){const s=document.createElement('span'),o=i%3===0;if(o)s.className='o';s.style.cssText=`left:${Math.random()*100}%;--z:${o?5+Math.random()*7:1+Math.random()*3}px;animation-duration:${9+Math.random()*10}s;animation-delay:${-Math.random()*15}s`;d.appendChild(s)}
 setLang(L);
 </script>
 <script type="module">
-// hero bottle entrance
+// hero bottle: entrance, cursor tilt, floating gold flakes and the animated switch between featured perfumes
 import{animate}from"https://cdn.jsdelivr.net/npm/motion@14.0.0/+esm";
-const b=document.querySelector('.lbi'),h=document.documentElement;
-if(b&&h.classList.contains('lbw')){b.style.opacity=0;h.classList.remove('lbw');animate(b,{opacity:[0,1],rotateY:[-100,0],rotate:[-8,0],y:[56,0],scale:[.85,1]},{duration:1.4,delay:.35,ease:[.16,1,.3,1]})}
+const h=document.documentElement,hero=document.querySelector('.hero'),b=document.querySelector('.lbi'),bi=b.querySelector('img'),tilt=document.querySelector('.lbt'),nm=document.querySelector('.lbn');
+const RM=matchMedia('(prefers-reduced-motion: reduce)'),FINE=matchMedia('(pointer: fine)');
+const FEAT={'tobacco-vanille':{n:'Tobacco Vanille',b:'Tom Ford',hg:'rgba(212,175,55,.2)'},'lost-cherry':{n:'Lost Cherry',b:'Tom Ford',hg:'rgba(190,40,70,.22)'},'sauvage':{n:'Sauvage',b:'Dior',hg:'rgba(60,110,190,.22)'}};
+if(h.classList.contains('lbw')){b.style.opacity=0;h.classList.remove('lbw');animate(b,{opacity:[0,1],rotateY:[-100,0],rotate:[-8,0],y:[56,0],scale:[.85,1]},{duration:1.4,delay:.35,ease:[.16,1,.3,1]})}
+// gold flakes: 10 behind the text, 4 in front
+const layers=['b','f'].map(k=>{const e=document.createElement('div');e.className='fx '+k;e.setAttribute('aria-hidden','true');hero.insertBefore(e,hero.querySelector('.hin'));return e});
+const flakes=[];
+for(let i=0;i<14;i++){const front=i>=10,e=document.createElement('span'),op=front?.85:.35+Math.random()*.4;e.className='fk';e.style.cssText=`left:${4+Math.random()*92}%;top:${8+Math.random()*84}%;--k:${front?10+Math.random()*8:4+Math.random()*7}px;opacity:${op}`;layers[+front].appendChild(e);flakes.push({e,op,a:Math.random()*360,rx:0,ry:0,bx:0,by:0,x:0,y:0,s:1,o:1})}
+const mouse={x:0,y:0,px:-1e4,py:-1e4},cur={x:0,y:0};
+addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;mouse.x=e.clientX/innerWidth-.5;mouse.y=e.clientY/innerHeight-.5;mouse.px=e.clientX;mouse.py=e.clientY});
+let sw=null,on=true,raf=0;
+const backOut=t=>{const s=1.5;return 1+(s+1)*(t-1)**3+s*(t-1)**2};
+function frame(){
+  raf=0;if(!on||RM.matches)return;
+  const time=performance.now()/1000;
+  cur.x+=(mouse.x-cur.x)*.05;cur.y+=(mouse.y-cur.y)*.05;
+  if(FINE.matches)tilt.style.transform=`rotateY(${cur.x*28}deg) rotateX(${-cur.y*16}deg)`;
+  layers[1].style.transform=`translate(${cur.x*60}px,${cur.y*60}px)`;layers[0].style.transform=`translate(${cur.x*-30}px,${cur.y*-30}px)`;
+  flakes.forEach((f,i)=>{
+    const ph=(time+i*.7)*(Math.PI*2/[5,7,6,8,5.5,6.5,9,11,10][i%9]),fy=Math.sin(ph)*15,fa=Math.cos(ph)*6;
+    if(sw){
+      const t=(time-sw.t0)/1;let x,y,s,o;
+      if(t<.5){const k=(t/.5)**2;x=f.from[0]+(f.to[0]-f.from[0])*k;y=f.from[1]+(f.to[1]-f.from[1])*k;s=1-.9*k;o=1-k}
+      else if(t<.8){x=f.to[0];y=f.to[1];s=.1;o=0}
+      else{const k=backOut(Math.min((t-.8)/.9,1));x=f.to[0]+(f.nb[0]-f.to[0])*k;y=f.to[1]+(f.nb[1]-f.to[1])*k;s=.1+.9*k;o=Math.min((t-.8)/.3,1)}
+      f.x=x;f.y=y;f.e.style.transform=`translate(${x}px,${y}px) rotate(${f.a+90*Math.min(t/1.7,1)}deg) scale(${s})`;f.e.style.opacity=f.op*o;
+      return;
+    }
+    const r=f.e.getBoundingClientRect(),dx=mouse.px-(r.left+r.width/2),dy=mouse.py-(r.top+r.height/2),dist=Math.hypot(dx,dy);
+    let tx=0,ty=0,sp=1;
+    if(dist<300&&dist>0){const k=(300-dist)/300;tx=dx/dist*k*-80;ty=dy/dist*k*-80;sp=1+k*5}
+    f.rx+=(tx-f.rx)*.1;f.ry+=(ty-f.ry)*.1;f.a+=.2*sp;
+    f.x=f.bx+f.rx;f.y=f.by+f.ry+fy;
+    f.e.style.transform=`translate(${f.x}px,${f.y}px) rotate(${f.a+fa}deg)`;
+  });
+  if(sw&&performance.now()/1000-sw.t0>1.7){flakes.forEach(f=>{f.bx=f.nb[0];f.by=f.nb[1];f.a+=90;f.rx=f.ry=0;f.e.style.opacity=f.op});sw=null}
+  raf=requestAnimationFrame(frame);
+}
+const go=()=>{if(!raf&&on&&!RM.matches)raf=requestAnimationFrame(frame)};
+new IntersectionObserver(([e])=>{on=e.isIntersecting;go()}).observe(hero);
+RM.addEventListener('change',()=>{if(RM.matches){tilt.style.transform='';layers.forEach(l=>l.style.transform='');flakes.forEach(f=>{f.e.style.transform='';f.e.style.opacity=f.op})}go()});
+go();
+// switching perfumes: glow morphs, bottle spins with a blur and swaps at the peak, flakes implode into the bottle and burst back out
+const btns=[...document.querySelectorAll('.lbs button')];let busy=false;
+function show(id){const p=FEAT[id];b.style.setProperty('--lbm',`url(img/hero-${id}.webp)`);bi.src=`img/hero-${id}.webp`;bi.alt=h.lang==='es'?`${p.n} de ${p.b}`:`${p.n} by ${p.b}`;nm.textContent=`${p.n} · ${p.b}`;nm.dataset.id=id}
+async function pick(id){
+  if(busy||nm.dataset.id===id)return;
+  btns.forEach(x=>x.setAttribute('aria-pressed',x.dataset.id===id));
+  hero.style.setProperty('--hg',FEAT[id].hg);
+  if(RM.matches){show(id);return}
+  busy=true;
+  const bc=b.getBoundingClientRect(),cx=bc.left+bc.width/2,cy=bc.top+bc.height/2;
+  flakes.forEach(f=>{const r=f.e.getBoundingClientRect();f.from=[f.x,f.y];f.to=[f.x+cx-(r.left+r.width/2),f.y+cy-(r.top+r.height/2)];f.nb=[(Math.random()-.5)*200,(Math.random()-.5)*200]});
+  sw={t0:performance.now()/1000};go();
+  new Image().src=`img/hero-${id}.webp`;
+  await animate(b,{rotateY:[0,360],filter:['blur(0px)','blur(10px)']},{duration:.6,ease:'easeIn'});
+  show(id);
+  await animate(b,{rotateY:[360,720],filter:['blur(10px)','blur(0px)']},{duration:1.3,ease:[.34,1.3,.64,1]});
+  animate(b,{rotateY:0},{duration:0});b.style.filter='';busy=false;
+}
+btns.forEach(x=>x.addEventListener('click',()=>pick(x.dataset.id)));
+nm.dataset.id='tobacco-vanille';
+// keep the bottle's alt text and the button group label in the chosen language
+const lab=()=>{document.querySelector('.lbs').setAttribute('aria-label',h.lang==='es'?'Fragancias destacadas':'Featured fragrances');show(nm.dataset.id)};
+new MutationObserver(lab).observe(h,{attributes:true,attributeFilter:['lang']});lab();
 </script>
 </body>
 </html>
