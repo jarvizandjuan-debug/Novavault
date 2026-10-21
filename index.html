@@ -7,7 +7,8 @@
 <meta name="description" content="Original Arab perfumes and designer icons. Wholesale &amp; retail, shipped across the U.S. from Fremont, CA. Order on WhatsApp.">
 <meta property="og:title" content="NOVAVAULT | Fragrances">
 <meta property="og:description" content="Original Arab perfumes and designer icons. Find your scent and order on WhatsApp.">
-<meta name="theme-color" content="#1d130c">
+<meta name="theme-color" content="#0b0b0b">
+<link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap">
@@ -23,10 +24,10 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentEle
               Scale 12 / 14 / 16 / 20 / 28 / fluid 36-56 / fluid 48-92 px.
    Space    : 8pt grid, section padding var(--sp), gutter var(--gut).
    Shape    : pills for buttons and chips, 12px cards, 1px hairlines, shadows only on hover (<8% alpha). No glass, no glow. */
-@property --h1{syntax:'<color>';inherits:true;initial-value:#1d130c}
-@property --h2{syntax:'<color>';inherits:true;initial-value:#5a3a1f}
-@property --ha{syntax:'<color>';inherits:true;initial-value:#e3b06a}
-:root{--bone:#f4f0e8;--paper:#fff;--ink:#191512;--mute:#655c52;--line:#e2dace;--cream:#f6efe4;--cmute:rgba(246,239,228,.74);--acc:#7c4f22;
+@property --h1{syntax:'<color>';inherits:true;initial-value:#0d0a07}
+@property --h2{syntax:'<color>';inherits:true;initial-value:#4a3119}
+@property --ha{syntax:'<color>';inherits:true;initial-value:#d4af37}
+:root{--bone:#f4f0e8;--paper:#fff;--ink:#0b0b0b;--mute:#635b51;--line:#e2dace;--cream:#f6efe4;--cmute:rgba(246,239,228,.74);--acc:#7a5f10;--gold:#d4af37;--gl:#f3d98b;
 --ser:'Instrument Serif',Georgia,serif;--san:'Manrope','Helvetica Neue',Arial,sans-serif;
 --t-xs:.75rem;--t-sm:.875rem;--t-md:1rem;--t-lg:1.25rem;--t-xl:1.75rem;--t-2xl:clamp(2.25rem,4.4vw,3.5rem);--t-hero:clamp(3rem,7.4vw,5.75rem);
 --sp:4.5rem;--gut:1.5rem;--btn:48px;--rc:12px}
@@ -46,7 +47,7 @@ h2 em,h1 em{font-style:italic}
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:var(--btn);padding:0 1.5rem;border-radius:999px;border:1px solid currentColor;font:500 var(--t-sm)/1 var(--san);letter-spacing:.02em;cursor:pointer;background:none;transition:background .2s ease-out,color .2s ease-out,border-color .2s ease-out,transform .2s ease-out}
 .btn.solid{background:var(--ink);border-color:var(--ink);color:var(--bone)}
-.btn.solid:hover{background:var(--acc);border-color:var(--acc)}
+.btn.solid:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
 .btn.line:hover{background:var(--ink);color:var(--bone);border-color:var(--ink)}
 .btn.off{opacity:.45;pointer-events:none}
 .btn .ar{transition:transform .2s ease-out}.btn:hover .ar{transform:translateX(3px)}
@@ -55,7 +56,8 @@ h2 em,h1 em{font-style:italic}
 .hd{position:fixed;top:0;left:0;right:0;z-index:50;color:var(--cream);transition:background .3s ease-out,color .3s ease-out,border-color .3s ease-out;border-bottom:1px solid transparent}
 .hd.solid{background:var(--bone);color:var(--ink);border-color:var(--line)}
 .hdi{display:flex;align-items:center;justify-content:space-between;gap:1rem;max-width:1200px;margin:0 auto;padding:calc(.75rem + env(safe-area-inset-top,0px)) var(--gut) .75rem}
-.logo{display:inline-flex;align-items:center;min-height:44px;font:600 .95rem/1 var(--san);letter-spacing:.32em}
+.logo{display:inline-flex;align-items:center;gap:.75rem;min-height:44px;font:600 .95rem/1 var(--san);letter-spacing:.32em}
+.logo img{width:40px;height:40px;flex:none}
 .hd nav ul{display:none;list-style:none;gap:2rem}
 .hd nav a{display:inline-flex;align-items:center;min-height:44px;font-size:var(--t-sm);opacity:.8;transition:opacity .2s}
 .hd nav a:hover{opacity:1}
@@ -65,10 +67,10 @@ h2 em,h1 em{font-style:italic}
 .hd .btn{min-height:44px;padding:0 1.1rem;background:var(--cream);color:#1d130c;border-color:var(--cream)}
 .hd.solid .btn{background:var(--ink);color:var(--bone);border-color:var(--ink)}
 .hd .btn:hover{background:var(--ha);border-color:var(--ha)}
-.hd.solid .btn:hover{background:var(--acc);border-color:var(--acc)}
+.hd.solid .btn:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
 @media(min-width:960px){.hd nav ul{display:flex}.menu{display:none}}
 @media(max-width:959.98px){.hd.open{background:var(--bone);color:var(--ink);border-color:var(--line)}.hd.open .btn{background:var(--ink);color:var(--bone);border-color:var(--ink)}.hd.open nav ul{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;padding:.5rem var(--gut) 1.25rem;background:var(--bone);border-bottom:1px solid var(--line)}.hd.open nav a{font-size:var(--t-lg);width:100%}}
-@media(max-width:479.98px){.logo{letter-spacing:.2em;font-size:.85rem}.hr{gap:.375rem}.hd .btn{padding:0 .9rem}.lang,.menu{padding:0 .6rem}}
+@media(max-width:479.98px){.hd .lt{display:none}.logo{letter-spacing:.2em;font-size:.85rem}.hr{gap:.375rem}.hd .btn{padding:0 .9rem}.lang,.menu{padding:0 .6rem}}
 /* hero: takes the colour of the featured perfume */
 .hero{position:relative;overflow:hidden;isolation:isolate;color:var(--cream);background:radial-gradient(75% 70% at 72% 42%,var(--h2),var(--h1) 72%);transition:--h1 1.2s ease-in-out,--h2 1.2s ease-in-out,--ha 1.2s ease-in-out}
 .hgr{position:relative;display:grid;gap:2.5rem;max-width:1200px;margin:0 auto;min-height:100svh;padding:calc(6rem + env(safe-area-inset-top,0px)) var(--gut) 3rem;align-items:center}
@@ -109,7 +111,7 @@ h2 em,h1 em{font-style:italic}
 /* houses ribbon */
 .rb{overflow:hidden;border-bottom:1px solid var(--line);background:var(--bone);padding:1.25rem 0;white-space:nowrap}
 .rb div{display:inline-block;font:400 var(--t-xl)/1 var(--ser);color:var(--mute);animation:mq 40s linear infinite}
-.rb span{margin:0 1.5rem;color:var(--acc);font-size:var(--t-md)}
+.rb span{margin:0 1.5rem;color:var(--gold);font-size:var(--t-md)}
 /* scent finder */
 section{padding:var(--sp) var(--gut)}
 .sh{display:grid;gap:1.5rem;margin-bottom:2.5rem}
@@ -145,12 +147,13 @@ section{padding:var(--sp) var(--gut)}
 @media(max-width:479.98px){.pc .ph{--pp:.75rem}.pc .pi{padding:.75rem}.pc h3{font-size:var(--t-md)}}
 /* why us (ink) */
 .why{background:var(--ink);color:var(--cream)}
-.why .eyebrow{color:#d8b27a}
+.why{border-top:1px solid rgba(212,175,55,.35)}
+.why .eyebrow{color:var(--gold)}
 .why .lead{color:var(--cmute)}
 .pts{display:grid;gap:2.5rem;margin-top:3.5rem}
 @media(min-width:768px){.pts{grid-template-columns:repeat(3,1fr);gap:2rem}}
 .pts div{border-top:1px solid rgba(246,239,228,.18);padding-top:1.5rem}
-.pts b{display:block;font:400 var(--t-2xl)/1 var(--ser);color:#d8b27a}
+.pts b{display:block;font:400 var(--t-2xl)/1 var(--ser);color:var(--gold)}
 .pts h3{font:500 var(--t-lg)/1.3 var(--san);margin:1rem 0 .5rem}
 .pts p{color:var(--cmute);font-size:var(--t-sm)}
 .houses{margin-top:3.5rem;font-size:var(--t-sm);color:var(--cmute)}
@@ -162,19 +165,20 @@ section{padding:var(--sp) var(--gut)}
 .steps h3{font:500 var(--t-lg)/1.3 var(--san);margin-bottom:.375rem}
 .steps p{color:var(--mute);font-size:var(--t-sm)}
 /* wholesale band */
-.ws{background:#2a1a10;color:var(--cream)}
+.ws{background:var(--ink);color:var(--cream);border-top:1px solid rgba(212,175,55,.35)}
 .ws .wrap{display:grid;gap:2rem;align-items:center}
 @media(min-width:960px){.ws .wrap{grid-template-columns:1.3fr .7fr}.ws .btns{justify-content:flex-end}}
-.ws .eyebrow{color:#e3b06a;margin-bottom:1rem}
+.ws .eyebrow{color:var(--gold);margin-bottom:1rem}
 .ws .lead{color:var(--cmute)}
-.ws .btn.solid{background:var(--cream);border-color:var(--cream);color:#2a1a10}
-.ws .btn.solid:hover{background:#e3b06a;border-color:#e3b06a}
+.ws .btn.solid{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.ws .btn.solid:hover{background:var(--gl);border-color:var(--gl)}
 .ws :focus-visible{outline-color:var(--cream)}
 /* contact */
 .ct{text-align:center}
 .ct .lead{margin:1rem auto 2rem}
 .ct .btns{justify-content:center}
 footer{border-top:1px solid var(--line);padding:2.5rem var(--gut) calc(2.5rem + env(safe-area-inset-bottom,0px))}
+footer .flogo{width:72px;height:72px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center;font-size:var(--t-sm);color:var(--mute)}
 footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)}
 /* product page (white overlay) */
@@ -213,7 +217,7 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)
 <div id="site">
 <header class="hd" id="hd">
   <div class="hdi">
-    <a class="logo" href="#top">NOVAVAULT</a>
+    <a class="logo" href="#top" aria-label="NOVAVAULT"><img src="img/logo.webp" alt="" width="40" height="40"><span class="lt">NOVAVAULT</span></a>
     <nav aria-label="Main"><ul id="navlinks">
       <li><a href="#scents" data-es="Aromas">Scents</a></li>
       <li><a href="#why" data-es="Nosotros">Why us</a></li>
@@ -233,7 +237,7 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)
 <div class="hero" id="hero">
   <div class="hgr">
     <div class="hcopy">
-      <p class="eyebrow" data-es="Fragancias al mayoreo y al detalle · Fremont, CA">Wholesale &amp; retail fragrances · Fremont, CA</p>
+      <p class="eyebrow" data-es="Hallazgos exclusivos. Calidad premium. Con tu confianza.">Exclusive finds. Premium quality. Trusted by you.</p>
       <h1 data-es="Huele diferente.<br><em>Luce mejor.</em>">Smell different.<br><em>Look better.</em></h1>
       <p data-es="Perfumes árabes 100% originales e íconos de diseñador, elegidos a mano y enviados a todo EE. UU. Dinos qué te gusta y encontramos tu aroma.">100% original Arab perfumes and designer icons, picked by hand and shipped across the U.S. Tell us what you like and we'll find your scent.</p>
       <div class="btns">
@@ -326,7 +330,7 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)
 </main>
 
 <footer><div class="wrap">
-  <span class="logo" style="color:var(--ink)">NOVAVAULT</span>
+  <img class="flogo" src="img/logo.webp" alt="NOVAVAULT" width="72" height="72" loading="lazy">
   <span data-es="Fremont, California · Envíos a todo EE. UU.">Fremont, California · Shipping across the U.S.</span>
   <a target="_blank" rel="noopener" href="https://instagram.com/novavaultcolognes">@novavaultcolognes</a>
   <span data-es="&copy; 2026 NOVAVAULT. Todos los derechos reservados.">&copy; 2026 NOVAVAULT. All rights reserved.</span>
@@ -334,7 +338,7 @@ footer a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)
 </div>
 
 <div class="pg" id="detail" hidden role="dialog" aria-modal="true" aria-labelledby="dname">
-  <div class="top"><a class="back" id="back" href="#scents" data-es="Volver a la colección">Back to the collection</a><span class="logo">NOVAVAULT</span><button class="lang" type="button" aria-label="Change language / Cambiar idioma"><span class="e">EN</span> / <span class="s">ES</span></button></div>
+  <div class="top"><a class="back" id="back" href="#scents" data-es="Volver a la colección">Back to the collection</a><span class="logo"><img src="img/logo.webp" alt="" width="40" height="40">NOVAVAULT</span><button class="lang" type="button" aria-label="Change language / Cambiar idioma"><span class="e">EN</span> / <span class="s">ES</span></button></div>
   <div class="dt" id="dt"></div>
   <div class="pn" id="pn"></div>
 </div>
@@ -378,7 +382,7 @@ const ALL=[...AR,...DE].sort((a,b)=>!!a.sold-!!b.sold),P=Object.fromEntries(ALL.
 const MOST=['afternoon-swim','chanel-coco','ombre-nomade','sauvage-elixir','erba-pura','lost-cherry','tobacco-vanille','sauvage'];
 // hero: featured perfumes, each with its own colours (base, light, accent) and top notes
 const FEAT=[
-{id:'tobacco-vanille',h1:'#1d130c',h2:'#5a3a1f',ha:'#e3b06a',en:'Tobacco leaf · Vanilla · Dried fruit',es:'Hoja de tabaco · Vainilla · Frutos secos'},
+{id:'tobacco-vanille',h1:'#0d0a07',h2:'#4a3119',ha:'#d4af37',en:'Tobacco leaf · Vanilla · Dried fruit',es:'Hoja de tabaco · Vainilla · Frutos secos'},
 {id:'eclaire',h1:'#241913',h2:'#7a5a40',ha:'#f0cfa6',en:'Caramel · Honey · Vanilla',es:'Caramelo · Miel · Vainilla'},
 {id:'lost-cherry',h1:'#21070b',h2:'#6e1422',ha:'#f2a5b0',en:'Black cherry · Bitter almond · Turkish rose',es:'Cereza negra · Almendra amarga · Rosa turca'},
 {id:'sauvage',h1:'#070f1c',h2:'#1d3b66',ha:'#9cc0f0',en:'Bergamot · Pepper · Lavender',es:'Bergamota · Pimienta · Lavanda'}

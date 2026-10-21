@@ -1,16 +1,16 @@
 # NOVAVAULT design system (v2: editorial gallery)
 
-**Idea:** the hero belongs to the featured perfume (its colour fills the whole hero); the rest of the site is a calm bone-coloured gallery with white product cards, and ink sections carry the proof (why us, wholesale).
+**Idea:** black, gold and white from the logo. The hero belongs to the featured perfume (its colour fills the whole hero); the rest of the site is a calm bone-coloured gallery with white product cards, and ink sections carry the proof (why us, wholesale).
 
 | Token | Value |
 |---|---|
 | Bone (page) | `#f4f0e8` |
 | Paper (product) | `#ffffff` |
-| Ink / muted | `#191512` / `#655c52` |
+| Ink / muted | `#0b0b0b` / `#635b51` |
 | Hairline | `#e2dace` |
-| Accent (text on bone) | `#7c4f22` |
+| Gold (logo) / dark gold text on bone | `#d4af37` / `#7a5f10` |
 | Cream (text on dark) | `#f6efe4` |
-| Wholesale band | `#2a1a10` |
+| Logo | `img/logo.webp` (round badge, black + gold), favicon `img/favicon.png` |
 | Display / body | Instrument Serif (400 + italic) / Manrope 400-500-600 |
 | Type scale | 12 / 14 / 16 / 20 / 28 px, fluid 36-56 px, fluid 48-92 px |
 | Space | 8pt grid, section padding 72 px (narrow) / 120 px (768+), gutter 24 / 40 px |
