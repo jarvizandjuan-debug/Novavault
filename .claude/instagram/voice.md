@@ -25,8 +25,8 @@ Draft written from the website. Fill in or fix every line marked TODO.
 - **Do I swear:** TODO
 - **Emoji in captions:** TODO
 - **Face on camera:** TODO (or product-only / faceless)
-- **Voiceover or to-camera:** TODO
-- **Languages:** English first, Spanish too (the site is EN/ES).
+- **Voiceover or to-camera:** the owner's own real voice, recorded in Spanish (no AI voice). Hands / product on camera, ring light.
+- **Languages:** reels are spoken in Spanish with Spanish captions; the website is English first with Spanish.
 - **Pace:** TODO
 
 ## My positions
