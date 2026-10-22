@@ -12,11 +12,10 @@ Google Sheets ──(Apps Script: hoja/Codigo.gs)──> Vercel ──> página
       └───── pedidos, chats y mensajes ◄── bot ◄───┴──> WhatsApp (Meta) + Claude
 ```
 
-## 1. Crear la hoja (10 min)
+## 1. Crear la hoja (5 min)
 
 1. Crea una hoja nueva en [sheets.google.com](https://sheets.google.com) y llámala **NOVAVAULT Inventario**.
-2. **Archivo > Importar > Subir** y elige `hoja/Inventario.csv`. Elige **Reemplazar hoja actual**. Cambia el nombre de la pestaña a **Inventario**.
-3. Otra vez **Archivo > Importar > Subir**, ahora `hoja/Datos.csv`, con **Insertar hojas nuevas**. Cambia el nombre de esa pestaña a **Datos**.
+2. Las pestañas **Inventario** y **Datos** las llena la función `cargarPlantilla` del paso 2, como texto. No abras los CSV con Excel: en español los guarda con `;` y los rompe.
 
 Las columnas de **Inventario**:
 
@@ -40,8 +39,9 @@ En **Datos** están el horario, los pagos, los envíos, las devoluciones y el m�
 2. **Configuración del proyecto** (engrane) **> Propiedades del script > Agregar**:
    - `TOKEN`: una clave larga e inventada (por ejemplo 40 letras y números al azar). No la compartas.
    - `CORREO`: el correo donde quieres recibir los avisos de pedidos.
-3. Vuelve al editor, elige la función **configurar** y pulsa **Ejecutar**. Acepta los permisos. Se crean las pestañas **Pedidos**, **Chats** y **Mensajes**.
-4. **Implementar > Nueva implementación > Aplicación web**, con **Ejecutar como: yo** y **Quién tiene acceso: cualquier usuario**. Copia la URL que termina en `/exec`.
+3. Vuelve al editor, elige la función **cargarPlantilla** y pulsa **Ejecutar**. Acepta los permisos (si sale «Google no verificó esta app»: **Configuración avanzada > Ir a NOVAVAULT puente**). Se llenan **Inventario** y **Datos**.
+4. Elige la función **configurar** y pulsa **Ejecutar**. Se crean las pestañas **Pedidos**, **Chats** y **Mensajes**.
+5. **Implementar > Nueva implementación > Aplicación web**, con **Ejecutar como: yo** y **Quién tiene acceso: cualquier usuario**. Copia la URL que termina en `/exec`.
 
 Nadie puede leer ni escribir la hoja sin el `TOKEN`; la URL sola no basta.
 

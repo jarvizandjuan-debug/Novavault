@@ -43,6 +43,20 @@ function configurar() {
   MailApp.getRemainingDailyQuota();
 }
 
+// Solo la primera vez: llena Inventario y Datos con la plantilla de hoja/*.csv del repositorio.
+// Todo queda como texto, así "9pm" o "23.00" no se vuelven horas ni fechas. No toca pestañas que ya tienen datos.
+const PLANTILLA = 'https://raw.githubusercontent.com/jarvizandjuan-debug/Novavault/sistema-inventario/hoja/';
+function cargarPlantilla() {
+  ['Inventario', 'Datos'].forEach(nombre => {
+    const libro = SpreadsheetApp.getActive();
+    const h = libro.getSheetByName(nombre) || libro.insertSheet(nombre);
+    if (h.getLastRow() > 0) throw new Error(`La pestaña ${nombre} ya tiene datos; bórrala primero si quieres recargarla.`);
+    const filas = Utilities.parseCsv(UrlFetchApp.fetch(PLANTILLA + nombre + '.csv').getContentText('UTF-8'));
+    h.getRange(1, 1, filas.length, filas[0].length).setNumberFormat('@').setValues(filas);
+    h.setFrozenRows(1);
+  });
+}
+
 function responder_(fn) {
   let salida;
   try {
@@ -108,7 +122,7 @@ function chat_(tel) {
   };
 }
 
-// text written by customers or the bot: a leading = + - @ would make the sheet read it as a formula
+// texto de clientes o del bot: si empieza con = + - @ la hoja lo tomaría como fórmula
 function texto_(s) {
   s = String(s == null ? '' : s);
   return /^[=+\-@]/.test(s) ? "'" + s : s;
