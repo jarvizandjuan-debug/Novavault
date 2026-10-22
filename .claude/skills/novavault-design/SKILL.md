@@ -44,9 +44,11 @@ description: Design system and house rules for the NOVAVAULT perfume site (stati
 - Product page `#p=<id>` is a white overlay: the site underneath is `inert`, Tab stays inside, Esc closes it, focus returns to the card. Old links `#c=arab|designer|most` set the finder's collection filter.
 - Motion: UI transitions 200 / 300 ms ease-out; sections fade up once on scroll. Hero motion (bottle entrance, cursor tilt, flakes pushed by the pointer, spin-and-swap on pick, colour morph) uses Motion from jsDelivr and is off under `prefers-reduced-motion`.
 
-## Product data (in `index.html`)
+## Product data
 
-Perfumes live in two arrays: `AR` (Arab) and `DE` (Designer). Entry shape:
+**Live stock comes from the owner's Google Sheet** (tab Inventario, setup in `hoja/LEEME.md`): the page fetches `/api/inventario` on load and replaces the built-in catalogue with it. Sold out / back in stock, moods, Most wanted and descriptions are changed in the sheet, not in code. The sheet's `precio` column is for the WhatsApp assistant only; `/api/inventario` never sends it to the page. A sheet row only shows on the site when `en_pagina` is `sí` and `img/<id>.webp` exists (with its size in `IMG`).
+
+The arrays below are the fallback when the sheet can't be reached; keep them in step with the sheet when touching them. Perfumes live in two arrays: `AR` (Arab) and `DE` (Designer). Entry shape:
 
 ```js
 {id:'khamrah-dukhan',n:'Khamrah Dukhan',b:'Lattafa',m:['dark','warm'],sold:true,d:'English description…',es:'Descripción en español…'}

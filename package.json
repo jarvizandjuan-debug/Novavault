@@ -1,0 +1,12 @@
+{
+  "name": "novavault",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0",
+    "@vercel/functions": "^2.0.0"
+  }
+}
