@@ -1,0 +1,597 @@
+<!doctype html>
+<html
+  {% if request.design_mode %}
+    class="shopify-design-mode"
+  {% endif %}
+  lang="{{ request.locale.iso_code }}"
+  dir="{{ request.locale.direction | default: 'ltr' }}"
+>
+  <head>
+    {%- if settings.favicon != blank -%}
+      <link
+        rel="icon"
+        type="image/png"
+        href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+      >
+    {%- endif -%}
+
+    {%- render 'view-transition-opt-in' -%}
+
+    {%- render 'meta-tags' -%}
+    {%- render 'stylesheets' -%}
+    {%- render 'card-hover-effect-styles' -%}
+    {%- render 'scripts' -%}
+    {%- render 'theme-styles-variables' -%}
+    {%- render 'color-palette' -%}
+
+    {% if request.design_mode %}
+      {%- render 'theme-editor' -%}
+    {% endif %}
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+    {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
+
+    {% render 'chat-drawer' %}
+
+    <div class="page-wrapper">
+      {%- comment -%} Barra Gorrión Cazador: cuenta regresiva hasta la medianoche local + llamado a la acción. En la portada no sale: la portada PawPlay trae su propia barra. {%- endcomment -%}
+      {%- unless page.handle == 'gorrion-cazador' or template.name == 'index' -%}
+        {%- assign gz_product = all_products['flapping-bird-interactive-cat-toy'] -%}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
+        <style>
+          .gz-bar { --gz-ink: #2e2219; --gz-paper: #f6f1e8; --gz-beak: #f3bd1f; --gz-bow: #c8323a; background: var(--gz-ink); color: var(--gz-paper); position: relative; z-index: 5; }
+          .gz-bar__in { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 22px; padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); text-align: center; }
+          .gz-bar__cta { font-family: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif; font-weight: 800; font-size: 19px; line-height: 1.1; letter-spacing: -0.01em; margin: 0; color: inherit; }
+          .gz-bar__cta mark { background: linear-gradient(transparent 55%, var(--gz-beak) 55%, var(--gz-beak) 92%, transparent 92%); color: inherit; padding: 0 .05em; }
+          .gz-bar__timer { display: flex; align-items: center; gap: 10px; }
+          .gz-bar__label { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .85; display: flex; align-items: center; gap: 7px; }
+          .gz-bar__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gz-bow); animation: gz-blink 1.2s infinite; }
+          .gz-bar__clock { display: flex; align-items: flex-start; gap: 4px; font-family: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif; font-variant-numeric: tabular-nums; }
+          .gz-bar__unit { display: flex; flex-direction: column; align-items: center; min-width: 2.4ch; }
+          .gz-bar__num { font-size: 22px; font-weight: 800; line-height: 1; display: inline-block; }
+          .gz-bar__num.is-tick { animation: gz-tick .45s cubic-bezier(.2,.9,.3,1.3); }
+          .gz-bar__unit small { font-weight: 600; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; opacity: .7; margin-top: 2px; }
+          .gz-bar__sep { font-size: 20px; font-weight: 800; line-height: 1; opacity: .5; }
+          .gz-bar__btn { display: inline-flex; align-items: center; gap: 6px; background: var(--gz-beak); color: var(--gz-ink) !important; text-decoration: none !important; font-weight: 800; font-size: 14px; padding: 8px 16px; border-radius: 999px; box-shadow: 0 3px 0 rgba(0,0,0,.35); transition: transform .15s; animation: gz-nudge 3.2s ease-in-out 1s infinite; }
+          .gz-bar__btn:hover { transform: translateY(-2px); animation-play-state: paused; }
+          .gz-bar__btn:focus-visible { outline: 3px solid var(--gz-paper); outline-offset: 3px; }
+          @keyframes gz-blink { 50% { opacity: .25; } }
+          @keyframes gz-tick { 0% { transform: translateY(-40%) scale(.9); opacity: .2; } 100% { transform: none; opacity: 1; } }
+          @keyframes gz-nudge { 0%, 86%, 100% { transform: none; } 89% { transform: rotate(-3deg); } 93% { transform: rotate(3deg); } 96% { transform: rotate(-1.5deg); } }
+          @media (max-width: 600px) { .gz-bar__cta { font-size: 16px; flex-basis: 100%; } .gz-bar__num { font-size: 18px; } .gz-bar__btn { font-size: 13px; padding: 7px 13px; } }
+          @media (prefers-reduced-motion: reduce) { .gz-bar *, .gz-bar *::before { animation: none !important; transition: none !important; } }
+        </style>
+        <div class="gz-bar" role="region" aria-label="Oferta del día">
+          <div class="gz-bar__in">
+            <p class="gz-bar__cta">Tu gato nació para <mark>cazar</mark>. Dale su presa hoy.</p>
+            <div class="gz-bar__timer">
+              <span class="gz-bar__label"><span class="gz-bar__dot" aria-hidden="true"></span>El día termina en</span>
+              <div class="gz-bar__clock" data-gz-clock>
+                <span class="gz-bar__unit"><span class="gz-bar__num" data-gz-h>00</span><small>h</small></span><span class="gz-bar__sep">:</span>
+                <span class="gz-bar__unit"><span class="gz-bar__num" data-gz-m>00</span><small>min</small></span><span class="gz-bar__sep">:</span>
+                <span class="gz-bar__unit"><span class="gz-bar__num" data-gz-s>00</span><small>seg</small></span>
+              </div>
+            </div>
+            <a class="gz-bar__btn" href="{%- if gz_product.selected_or_first_available_variant -%}/cart/{{ gz_product.selected_or_first_available_variant.id }}:1{%- else -%}/products/flapping-bird-interactive-cat-toy{%- endif -%}">Comprar{% if gz_product.price %} · {{ gz_product.price | money }}{% endif %} &rarr;</a>
+          </div>
+        </div>
+        <script>
+          (function () {
+            var root = document.querySelector('[data-gz-clock]');
+            if (!root) return;
+            var last = {};
+            function pad(n) { return (n < 10 ? '0' : '') + n; }
+            function set(k, v) {
+              if (last[k] === v) return;
+              last[k] = v;
+              var el = root.querySelector('[data-gz-' + k + ']');
+              el.textContent = v;
+              el.classList.remove('is-tick'); void el.offsetWidth; el.classList.add('is-tick');
+            }
+            function update() {
+              var now = new Date();
+              var end = new Date(now); end.setHours(24, 0, 0, 0);
+              var left = Math.max(0, Math.floor((end - now) / 1000));
+              set('h', pad(Math.floor(left / 3600)));
+              set('m', pad(Math.floor(left % 3600 / 60)));
+              set('s', pad(left % 60));
+            }
+            update(); setInterval(update, 1000);
+          })();
+        </script>
+      {%- endunless -%}
+
+      <div id="header-group">
+        {%- unless false -%}
+          {% sections 'header-group' %}
+        {%- endunless -%}
+      </div>
+
+      <script>
+        window.measureHeaderHeights = (function () {
+          let measured = false;
+
+          return function measureHeaderHeights() {
+            if (measured) return;
+
+            const header = document.querySelector('#header-component');
+            const headerGroup = document.querySelector('#header-group');
+
+            if (!header || !headerGroup) return;
+            measured = true;
+
+            const headerHeight = header.offsetHeight;
+
+            let headerGroupHeight = 0;
+            for (const element of headerGroup.children) {
+              if (element instanceof HTMLElement) headerGroupHeight += element.offsetHeight;
+            }
+
+            if (header.hasAttribute('transparent') && header.parentElement?.nextElementSibling) {
+              headerGroupHeight += headerHeight;
+            }
+
+            document.body.style.setProperty('--header-height', `${headerHeight}px`);
+            document.body.style.setProperty('--header-group-height', `${headerGroupHeight}px`);
+          };
+        })();
+
+        if (document.querySelector('#header-component')?.hasAttribute('transparent')) {
+          measureHeaderHeights();
+        }
+
+        (function setTopRowHeight() {
+          const header = document.querySelector('#header-component');
+          const headerTopRow = header?.querySelector('.header__row--top');
+          if (!headerTopRow) return;
+
+          window.requestAnimationFrame(function () {
+            header.style.setProperty('--top-row-height', `${headerTopRow.getBoundingClientRect().height}px`);
+          });
+        })();
+
+        (function updateTransparentHeaderOffset() {
+          const header = document.querySelector('#header-component');
+          const headerSection = document.querySelector('#header-group .header-section');
+          if (!headerSection || !header?.hasAttribute('transparent')) return;
+
+          const hasImmediateSection = headerSection.nextElementSibling?.classList.contains('shopify-section');
+          if (!hasImmediateSection) {
+            document.body.style.setProperty('--transparent-header-offset-boolean', '1');
+          }
+        })();
+
+        (function setHeaderMenuStyle() {
+          const headerComponent = document.querySelector('#header-component');
+          if (headerComponent) {
+            const isTouchDevice = 'ontouchstart' in window && navigator.maxTouchPoints > 0;
+            const overflowList = headerComponent.querySelector('overflow-list');
+            const hasReachedMinimum = overflowList && overflowList.hasAttribute('minimum-reached');
+            headerComponent.dataset.menuStyle = isTouchDevice || hasReachedMinimum ? 'drawer' : 'menu';
+          }
+        })();
+      </script>
+
+      <main
+        id="MainContent"
+        class="content-for-layout"
+        role="main"
+        data-page-transition-enabled="{{ settings.page_transition_enabled }}"
+        data-product-transition="{{ settings.transition_to_main_product }}"
+        data-template="{{ template }}"
+      >
+        {%- unless false -%}
+          {{ content_for_layout }}
+        {%- else -%}
+{%- comment -%} PawPlay · Portada del Gorrión Cazador. Las reseñas salen de los metaobjetos "pawplay_review" (Contenido > Metaobjetos). La nota media y el total se calculan solos; si no hay ninguna reseña no se muestra ninguna cifra. {%- endcomment -%}
+{%- assign p = all_products['flapping-bird-interactive-cat-toy'] -%}
+{%- assign v = p.selected_or_first_available_variant -%}
+{%- if v -%}
+{%- capture buy_url -%}/cart/{{ v.id }}:1{%- endcapture -%}
+{%- else -%}
+{%- assign buy_url = '/products/flapping-bird-interactive-cat-toy' -%}
+{%- endif -%}
+{%- assign logo_src = 'https://cdn.shopify.com/s/files/1/0852/3454/8951/files/file_0000000018c481fd931476b18e86cd89.png?crop=region&crop_left=70&crop_top=280&crop_width=1150&crop_height=670' -%}
+{%- assign reviews = shop.metaobjects.pawplay_review.values -%}
+{%- assign r_count = 0 -%}
+{%- assign r_sum = 0 -%}
+{%- for r in reviews -%}
+{%- assign r_count = r_count | plus: 1 -%}
+{%- assign r_sum = r_sum | plus: r.rating.value -%}
+{%- endfor -%}
+{%- if r_count > 0 -%}
+{%- assign r_avg = r_sum | times: 1.0 | divided_by: r_count | round: 1 -%}
+{%- assign r_full = r_avg | round -%}
+{%- endif -%}
+{%- capture star -%}<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg>{%- endcapture -%}
+{%- capture check -%}<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1.5l2.4 1.8 3-.1 1 2.8 2.5 1.7-.9 2.9.9 2.9-2.5 1.7-1 2.8-3-.1L12 20.4l-2.4-1.8-3 .1-1-2.8-2.5-1.7.9-2.9-.9-2.9 2.5-1.7 1-2.8 3 .1z"/><path d="M8 11.2l2.6 2.6L16.2 8" fill="none" stroke="#331608" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>{%- endcapture -%}
+{%- capture arrow -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>{%- endcapture -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;700;800&display=swap">
+<style>.pp{--cream:#f7f0e2;--cream-2:#efe3cb;--card:#fffaf1;--ink:#331608;--ink-2:#4a2614;--muted:#75594a;--line:#e4d5ba;--amber:#feb205;--amber-2:#ffcf55;--bow:#c8323a;--display:'Fredoka','Arial Rounded MT Bold',system-ui,sans-serif;--body:'Figtree','Segoe UI',system-ui,sans-serif;width:100vw;margin-left:calc(50% - 50vw);background:var(--cream);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;overflow-x:clip}.pp *,.pp *::before,.pp *::after{box-sizing:border-box}.pp h1,.pp h2,.pp h3{font-family:var(--display);font-weight:700;letter-spacing:-.01em;line-height:1.02;margin:0;color:inherit;text-wrap:balance}.pp p{margin:0}.pp a{color:inherit}.pp ul{list-style:none;margin:0;padding:0}.pp img{display:block;max-width:100%;border:0}.pp button{font:inherit;color:inherit}.pp :focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:8px}.pp .wrap{max-width:1160px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}.pp-top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--cream) 92%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1.5px solid var(--line)}.pp-top .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px}.pp-logo{justify-self:center;display:block;line-height:0}.pp-logo img{height:64px;width:auto;transition:transform .35s cubic-bezier(.2,.9,.3,1.4)}.pp-logo:hover img{transform:rotate(-3deg) scale(1.04)}.pp-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:50%;border:0;background:transparent;cursor:pointer;text-decoration:none;position:relative;transition:background .2s}.pp-icon:hover{background:var(--cream-2)}.pp-icon svg{width:26px;height:26px}.pp-cart{justify-self:end}.pp-cart b{position:absolute;top:4px;right:2px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:var(--amber);color:var(--ink);font-size:11px;font-weight:800;display:grid;place-items:center}.pp-menu{justify-self:start;position:relative}.pp-menu summary{list-style:none}.pp-menu summary::-webkit-details-marker{display:none}.pp-menu[open] .pp-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}.pp-menu[open] .pp-burger span:nth-child(2){opacity:0}.pp-menu[open] .pp-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}.pp-burger{display:grid;gap:5px;width:24px}.pp-burger span{height:2.5px;border-radius:2px;background:var(--ink);transition:transform .25s,opacity .2s}.pp-menu nav{position:absolute;top:calc(100% + 10px);left:0;min-width:230px;background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:8px;box-shadow:0 18px 40px -18px rgba(51,22,8,.45);animation:drop .22s cubic-bezier(.2,.8,.2,1)}.pp-menu nav a{display:block;padding:11px 14px;border-radius:12px;text-decoration:none;font-weight:700}.pp-menu nav a:hover{background:var(--cream-2)}@keyframes drop{from{opacity:0;transform:translateY(-6px)}}.pp-count{background:var(--ink);color:var(--cream)}.pp-count .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 20px;padding-block:11px;text-align:center}.pp-count__msg{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:.02em;text-transform:uppercase}.pp-count__msg mark{background:none;color:var(--amber)}.pp-clock{display:flex;align-items:flex-start;gap:12px;font-family:var(--display);font-variant-numeric:tabular-nums}.pp-clock>span{display:flex;flex-direction:column;align-items:center;min-width:2.2ch}.pp-clock b{font-size:26px;font-weight:700;line-height:1;color:var(--amber);display:inline-block}.pp-clock b.tick{animation:tick .45s cubic-bezier(.2,.9,.3,1.3)}.pp-clock small{font-family:var(--body);font-size:10px;font-weight:700;letter-spacing:.1em;opacity:.75;margin-top:3px}@keyframes tick{from{transform:translateY(-40%);opacity:.2}}.pp-hero .wrap{display:grid;grid-template-columns:1.08fr 1fr;gap:28px 56px;padding-block:36px 64px;align-items:start}.pp-gal{position:relative;min-width:0}.pp-gal__frame{position:relative;aspect-ratio:1;border-radius:28px;overflow:hidden;background:#ececea;box-shadow:0 30px 60px -36px rgba(51,22,8,.55)}.pp-gal__track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth}.pp-gal__track::-webkit-scrollbar{display:none}.pp-gal__track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;scroll-snap-align:center}.pp-gal__track img:first-child{animation:settle .9s cubic-bezier(.2,.8,.2,1) backwards}@keyframes settle{from{transform:scale(.94) rotate(-2deg);opacity:.2}}.pp-arrow{position:absolute;top:50%;translate:0 -50%;z-index:3;width:50px;height:50px;border-radius:50%;border:0;background:var(--card);box-shadow:0 6px 18px -6px rgba(51,22,8,.45);display:grid;place-items:center;cursor:pointer;transition:transform .2s,background .2s}.pp-arrow:hover{background:var(--amber);transform:scale(1.08)}.pp-arrow svg{width:20px;height:20px}.pp-arrow--prev{left:12px}.pp-arrow--next{right:12px}#pp-feathers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}.pp-chirp{position:absolute;left:40%;top:34%;width:90px;height:90px;pointer-events:none;z-index:2;transition:opacity .3s}.pp-chirp span{position:absolute;inset:0;border:3px solid var(--amber);border-radius:50%;clip-path:polygon(50% 50%,100% 0,100% 100%);opacity:0;animation:wave 1.8s ease-out infinite}.pp-chirp span:nth-child(2){animation-delay:.6s}.pp-chirp span:nth-child(3){animation-delay:1.2s}@keyframes wave{0%{transform:scale(.3);opacity:.95}100%{transform:scale(1.5);opacity:0}}.pp-gal[data-index]:not([data-index="0"]) .pp-chirp{opacity:0}.pp-stamp{position:absolute;right:-12px;top:-14px;z-index:4;width:112px;height:112px;border-radius:50%;background:var(--amber);color:var(--ink);display:grid;place-items:center;text-align:center;font-family:var(--display);font-weight:700;font-size:14px;line-height:1.05;box-shadow:0 8px 0 var(--ink);animation:bob 3.4s ease-in-out infinite}.pp-stamp b{display:block;font-size:28px}@keyframes bob{50%{transform:translateY(-6px) rotate(6deg)}}.pp-thumbs{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:12px}.pp-thumbs button{padding:0;border:2px solid transparent;border-radius:12px;overflow:hidden;background:#ececea;cursor:pointer;aspect-ratio:1;transition:border-color .2s,transform .2s}.pp-thumbs button:hover{transform:translateY(-2px)}.pp-thumbs button[aria-current="true"]{border-color:var(--ink)}.pp-thumbs img{width:100%;height:100%;object-fit:cover}.pp-info{min-width:0;padding-top:6px}.pp-trust{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;font-weight:700;font-size:15px}.pp-stars{display:inline-flex;gap:2px}.pp-stars svg{width:20px;height:20px;fill:var(--amber);display:block}.pp-stars .off svg{fill:var(--cream-2);stroke:var(--amber);stroke-width:1.2}.pp-pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:var(--card);border:1.5px solid var(--line);font-size:14px;font-weight:700}.pp-pill i{width:8px;height:8px;border-radius:50%;background:var(--bow);animation:blink 1.2s infinite}@keyframes blink{50%{opacity:.25}}.pp-info h1{font-size:clamp(42px,5.6vw,66px);margin:18px 0 10px}.pp-info h1 .w{display:inline-block;animation:rise .7s cubic-bezier(.2,.8,.2,1) backwards}.pp-info h1 .w:nth-child(2){animation-delay:.08s}.pp-info h1 .w:nth-child(3){animation-delay:.16s}.pp-info h1 .w:nth-child(4){animation-delay:.24s}.pp-info h1 .w:nth-child(5){animation-delay:.32s}.pp-info h1 .hl{background:linear-gradient(transparent 60%,var(--amber) 60%,var(--amber) 92%,transparent 92%);padding-inline:.05em}@keyframes rise{from{transform:translateY(.45em) rotate(2deg);opacity:.15}}.pp-lede{font-size:19px;color:var(--muted);max-width:44ch}.pp-checks{display:grid;gap:14px;margin:26px 0 28px}.pp-checks li{display:flex;align-items:center;gap:12px;font-size:19px;font-weight:700;color:var(--ink-2)}.pp-checks svg{flex:none;width:28px;height:28px;color:var(--amber)}.pp-buy{background:var(--card);border:1.5px solid var(--line);border-radius:24px;padding:22px}.pp-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px}.pp-price strong{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;font-variant-numeric:tabular-nums}.pp-price s{color:var(--muted);font-size:20px}.pp-price em{font-style:normal;font-size:13px;font-weight:800;background:var(--bow);color:#fff;padding:4px 10px;border-radius:99px}.pp-cta{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:16px;background:var(--amber);color:var(--ink);text-decoration:none;font-family:var(--display);font-weight:700;font-size:22px;padding:18px 28px;border-radius:999px;box-shadow:0 6px 0 var(--ink);transition:transform .15s,box-shadow .15s;animation:nudge 3.4s ease-in-out 1.4s infinite}.pp-cta:hover{transform:translateY(-3px);box-shadow:0 9px 0 var(--ink);animation-play-state:paused}.pp-cta:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}.pp-cta svg{transition:transform .2s}.pp-cta:hover svg{transform:translateX(4px)}@keyframes nudge{0%,86%,100%{transform:none}89%{transform:rotate(-2deg)}93%{transform:rotate(2deg)}96%{transform:rotate(-1deg)}}.pp-gifts{margin-top:18px;padding-top:16px;border-top:1.5px dashed var(--line)}.pp-gifts p{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.pp-gifts ul{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.pp-gifts li{display:grid;justify-items:center;gap:6px;text-align:center;font-size:13px;font-weight:700;padding:12px 6px;border-radius:14px;background:var(--cream)}.pp-gifts svg{width:28px;height:28px}.pp-safe{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:14px;font-size:13px;font-weight:700;color:var(--muted)}.pp-safe span{display:inline-flex;align-items:center;gap:6px}.pp-safe svg{width:16px;height:16px}.pp-ribbon{background:var(--amber);color:var(--ink);border-block:2px solid var(--ink);overflow:hidden;transform:rotate(-1.2deg);margin:8px -10px}.pp-ribbon__track{display:flex;width:max-content;animation:marquee 26s linear infinite}.pp-ribbon ul{display:flex;gap:36px;padding:14px 18px;font-family:var(--display);font-weight:700;font-size:22px;white-space:nowrap}.pp-ribbon li::after{content:'🐾';margin-left:36px;font-size:18px}@keyframes marquee{to{transform:translateX(-50%)}}.pp-sec .wrap{padding-block:80px}.pp-head{text-align:center;display:grid;justify-items:center;gap:14px;margin-bottom:40px}.pp-head h2{font-size:clamp(36px,5vw,58px);max-width:18ch}.pp-head p{color:var(--muted);max-width:52ch;font-size:18px}.pp-kicker{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.pp-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.pp-step{background:var(--card);border:1.5px solid var(--line);border-radius:24px;padding:28px;display:grid;gap:10px;align-content:start;min-width:0}.pp-step .n{width:58px;height:58px;border-radius:50%;background:var(--amber);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:28px;box-shadow:0 4px 0 var(--ink)}.pp-step h3{font-size:24px;margin-top:6px}.pp-step p{color:var(--muted)}.pp-bar{height:8px;border-radius:99px;background:var(--cream-2);overflow:hidden;margin-top:4px}.pp-bar i{display:block;height:100%;background:var(--bow);transform-origin:left;animation:drain 15s linear infinite}@keyframes drain{from{transform:scaleX(1)}to{transform:scaleX(0)}}.pp-bar-label{font-size:13px;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}.pp-split{background:var(--card)}.pp-split .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}.pp-split figure{margin:0;position:relative;border-radius:28px;overflow:hidden;aspect-ratio:1}.pp-split figure img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.8,.2,1)}.pp-split figure:hover img{transform:scale(1.04)}.pp-split figcaption{position:absolute;left:14px;bottom:14px;background:var(--cream);font-weight:800;font-size:14px;padding:7px 14px;border-radius:999px}.pp-split h2{font-size:clamp(34px,4.4vw,52px);margin:12px 0 18px}.pp-feats{display:grid}.pp-feats li{display:grid;grid-template-columns:48px 1fr;gap:16px;align-items:start;padding:16px 0;border-top:1.5px solid var(--line)}.pp-feats li:last-child{border-bottom:1.5px solid var(--line)}.pp-feats .ic{width:48px;height:48px;border-radius:14px;background:var(--cream);display:grid;place-items:center}.pp-feats svg{width:26px;height:26px}.pp-feats b{display:block;font-size:18px}.pp-feats span{color:var(--muted);font-size:15px}.pp-rev{background:var(--cream)}.pp-rate{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 12px;background:var(--amber-2);border-radius:999px;padding:10px 22px;font-weight:700;font-size:17px}.pp-rev__track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:6px 4px 18px}.pp-rev__track::-webkit-scrollbar{display:none}.pp-card{flex:0 0 min(360px,84%);scroll-snap-align:start;background:var(--card);border:1.5px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}.pp-card:hover{transform:translateY(-4px);box-shadow:0 24px 40px -28px rgba(51,22,8,.6)}.pp-card__img{aspect-ratio:4 / 3;background:var(--cream-2)}.pp-card__img img{width:100%;height:100%;object-fit:cover}.pp-card__body{padding:20px 22px 24px;display:grid;gap:12px}.pp-card__who{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}.pp-card__who .name{display:inline-flex;align-items:center;gap:8px;background:var(--cream);border-radius:999px;padding:5px 12px;font-weight:800}.pp-card__who .name small{font-weight:500;color:var(--muted)}.pp-verified{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:800;color:#1f7a4d}.pp-verified svg{width:16px;height:16px}.pp-card p{color:var(--ink-2)}.pp-nav{display:flex;justify-content:center;gap:16px;margin-top:18px}.pp-nav button{width:58px;height:58px;border-radius:50%;border:0;background:var(--ink);color:var(--cream);display:grid;place-items:center;cursor:pointer;box-shadow:0 5px 0 var(--amber);transition:transform .15s,box-shadow .15s}.pp-nav button:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--amber)}.pp-nav button:active{transform:translateY(3px);box-shadow:0 2px 0 var(--amber)}.pp-nav button:disabled{opacity:.35;cursor:default;transform:none}.pp-nav svg{width:22px;height:22px}.pp-empty{max-width:640px;margin:0 auto;background:var(--card);border:2px dashed var(--line);border-radius:28px;padding:36px 28px;text-align:center;display:grid;justify-items:center;gap:12px}.pp-empty h3{font-size:28px}.pp-empty p{color:var(--muted)}.pp-empty .pp-stars svg{width:30px;height:30px;fill:var(--cream-2);stroke:var(--amber);stroke-width:1.2}.pp-help .wrap{display:grid;grid-template-columns:1fr 1.25fr;gap:40px;align-items:start}.pp-specs{background:var(--card);border:1.5px solid var(--line);border-radius:24px;padding:28px}.pp-specs h3{font-size:26px;margin-bottom:16px}.pp-specs dl{display:grid;grid-template-columns:auto 1fr;gap:12px 20px;margin:0}.pp-specs dt{color:var(--muted);font-size:15px}.pp-specs dd{margin:0;font-weight:800;font-size:15px;text-align:right}.pp-specs .sku{margin-top:18px;font-size:13px;color:var(--muted)}.pp-faq h2{font-size:clamp(32px,4vw,46px);margin-bottom:20px}.pp-faq details{border-top:1.5px solid var(--line)}.pp-faq details:last-of-type{border-bottom:1.5px solid var(--line)}.pp-faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-weight:800;font-size:18px}.pp-faq summary::-webkit-details-marker{display:none}.pp-faq summary::after{content:'';flex:none;width:34px;height:34px;border-radius:50%;background:linear-gradient(var(--ink),var(--ink)) center / 14px 2.5px no-repeat,linear-gradient(var(--ink),var(--ink)) center / 2.5px 14px no-repeat,var(--amber);transition:transform .25s}.pp-faq details[open] summary::after{transform:rotate(45deg)}.pp-faq details p{padding:0 48px 20px 0;color:var(--muted)}.pp-close{background:var(--ink);color:var(--cream);position:relative;overflow:hidden}.pp-close .wrap{padding-block:88px;display:grid;justify-items:center;text-align:center;gap:20px;position:relative}.pp-close h2{font-size:clamp(40px,6.4vw,78px);max-width:14ch}.pp-close h2 em{font-style:normal;color:var(--amber)}.pp-close p{opacity:.8;max-width:44ch;font-size:18px}.pp-close .pp-cta{width:auto;box-shadow:0 6px 0 #000}.pp-close .pp-cta:hover{box-shadow:0 9px 0 #000}.pp-paws{position:absolute;inset:0;pointer-events:none;opacity:.08;background-image:radial-gradient(circle at 20% 30%,var(--amber) 0 10px,transparent 11px),radial-gradient(circle at 80% 70%,var(--amber) 0 10px,transparent 11px);background-size:160px 160px;animation:drift 30s linear infinite}@keyframes drift{to{background-position:160px -160px}}.pp-foot{background:#24100a;color:var(--cream)}.pp-foot .wrap{padding-block:56px 28px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:32px}.pp-foot h3{font-size:26px;margin-bottom:14px}.pp-foot a{text-decoration:none;opacity:.85}.pp-foot a:hover{opacity:1;color:var(--amber)}.pp-foot ul{display:grid;gap:10px}.pp-foot .brand img{height:56px;width:auto;background:var(--cream);border-radius:14px;padding:6px 10px}.pp-foot .brand p{opacity:.75;margin-top:14px;max-width:34ch;font-size:15px}.pp-foot .legal{grid-column:1 / -1;border-top:1px solid rgba(247,240,226,.15);padding-top:20px;font-size:13px;opacity:.65;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}.pp-sticky{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--card);border-top:1.5px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:none;align-items:center;gap:12px;box-shadow:0 -12px 30px -20px rgba(51,22,8,.5);transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}.pp-sticky.is-on{transform:none}.pp-sticky img{width:46px;height:46px;border-radius:10px;object-fit:cover}.pp-sticky div{flex:1;min-width:0;line-height:1.2}.pp-sticky b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pp-sticky span{font-family:var(--display);font-weight:700;font-size:18px}.pp-sticky a{background:var(--amber);color:var(--ink);text-decoration:none;font-family:var(--display);font-weight:700;padding:12px 20px;border-radius:999px;box-shadow:0 4px 0 var(--ink);white-space:nowrap}.pp [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}.pp [data-reveal].in{opacity:1;transform:none}@media (max-width:900px){.pp-hero .wrap{grid-template-columns:1fr;padding-block:18px 48px}.pp-steps,.pp-split .wrap,.pp-help .wrap{grid-template-columns:1fr}.pp-foot .wrap{grid-template-columns:1fr 1fr;padding-bottom:96px}.pp-foot .brand{grid-column:1 / -1}.pp-sticky{display:flex}.pp-sec .wrap{padding-block:60px}}@media (max-width:520px){.pp-top .wrap{height:66px}.pp-logo img{height:50px}.pp-count__msg{font-size:15px;flex-basis:100%}.pp-clock b{font-size:22px}.pp-stamp{width:88px;height:88px;font-size:12px;right:-4px;top:-10px}.pp-stamp b{font-size:22px}.pp-arrow{width:42px;height:42px}.pp-thumbs{gap:6px}.pp-thumbs button{border-radius:9px}.pp-checks li{font-size:17px}.pp-cta{font-size:20px;padding:16px 22px}.pp-gifts li{font-size:12px}.pp-ribbon ul{font-size:18px}.pp-faq details p{padding-right:0}.pp-foot .wrap{grid-template-columns:1fr}}@media (prefers-reduced-motion:reduce){.pp *,.pp *::before,.pp *::after{animation:none !important;transition:none !important;scroll-behavior:auto !important}.pp [data-reveal]{opacity:1;transform:none}#pp-feathers{display:none}}</style>
+<div class="pp">
+<header class="pp-top">
+<div class="wrap">
+<details class="pp-menu">
+<summary class="pp-icon" aria-label="Abrir menú"><span class="pp-burger" aria-hidden="true"><span></span><span></span><span></span></span></summary>
+<nav aria-label="Menú principal">
+{%- for link in linklists['main-menu'].links -%}
+<a href="{{ link.url }}">{{ link.title }}</a>
+{%- endfor -%}
+<a href="/products/flapping-bird-interactive-cat-toy">Gorrión Cazador</a>
+<a href="#pp-resenas">Reseñas</a>
+<a href="#pp-ayuda">Preguntas frecuentes</a>
+</nav>
+</details>
+<a class="pp-logo" href="/" aria-label="{{ shop.name }}, inicio"><img src="{{ logo_src }}&width=360" srcset="{{ logo_src }}&width=180 1x, {{ logo_src }}&width=360 2x" width="103" height="60" alt="PawPlay"></a>
+<a class="pp-icon pp-cart" href="/cart" aria-label="Carrito, {{ cart.item_count }} artículos">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+{%- if cart.item_count > 0 -%}<b>{{ cart.item_count }}</b>{%- endif -%}
+</a>
+</div>
+</header>
+<div class="pp-count" role="region" aria-label="Pedido de hoy">
+<div class="wrap">
+<p class="pp-count__msg">Pide hoy · <mark>3 regalos incluidos</mark></p>
+<div class="pp-clock" data-pp-clock aria-label="Tiempo que queda hoy">
+<span><b data-h>00</b><small>HRS</small></span>
+<span><b data-m>00</b><small>MIN</small></span>
+<span><b data-s>00</b><small>SEG</small></span>
+</div>
+</div>
+</div>
+<section class="pp-hero" aria-labelledby="pp-title">
+<div class="wrap">
+<div class="pp-gal" data-pp-gal data-index="0">
+<div class="pp-gal__frame">
+<div class="pp-gal__track" data-track tabindex="0" aria-label="Fotos del producto">
+{%- for img in p.images -%}
+<img src="{{ img | image_url: width: 1000 }}" srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 1000 }} 1000w, {{ img | image_url: width: 1400 }} 1400w" sizes="(max-width: 900px) 100vw, 580px" width="1000" height="1000" alt="{% if img.alt != blank %}{{ img.alt | escape }}{% else %}Gorrión Cazador, foto {{ forloop.index }}{% endif %}" {% unless forloop.first %}loading="lazy"{% else %}fetchpriority="high"{% endunless %}>
+{%- endfor -%}
+</div>
+<canvas id="pp-feathers" aria-hidden="true"></canvas>
+<div class="pp-chirp" aria-hidden="true"><span></span><span></span><span></span></div>
+<button class="pp-arrow pp-arrow--prev" type="button" data-prev aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+<button class="pp-arrow pp-arrow--next" type="button" data-next aria-label="Foto siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
+<div class="pp-stamp" aria-hidden="true"><div><b>¡Pío!</b>aletea<br>y canta</div></div>
+<div class="pp-thumbs" role="group" aria-label="Elegir foto">
+{%- for img in p.images -%}
+<button type="button" data-thumb="{{ forloop.index0 }}" aria-label="Ver foto {{ forloop.index }}" {% if forloop.first %}aria-current="true"{% endif %}><img src="{{ img | image_url: width: 160 }}" width="80" height="80" alt="" loading="lazy"></button>
+{%- endfor -%}
+</div>
+</div>
+<div class="pp-info">
+<div class="pp-trust">
+{%- if r_count > 0 -%}
+<span class="pp-stars" aria-hidden="true">{%- for i in (1..5) -%}<span{% if i > r_full %} class="off"{% endif %}>{{ star }}</span>{%- endfor -%}</span>
+<a href="#pp-resenas">{{ r_avg }}/5 · {{ r_count }} {% if r_count == 1 %}reseña{% else %}reseñas{% endif %}</a>
+{%- endif -%}
+<span class="pp-pill"><i aria-hidden="true"></i>{% if v.available %}En stock · listo para cazar{% else %}Agotado por ahora{% endif %}</span>
+</div>
+<h1 id="pp-title"><span class="w">Tu</span> <span class="w">gato</span> <span class="w">nació</span> <span class="w">para</span> <span class="w hl">cazar.</span></h1>
+<p class="pp-lede">Gorrión Cazador: un pajarito de peluche que aletea y pía de verdad. Tu gato lo oye, lo ve moverse y sale disparado.</p>
+<ul class="pp-checks">
+<li>{{ check }}Aletea y pía como un pájaro real</li>
+<li>{{ check }}Pelo sintético suave para morder y abrazar</li>
+<li>{{ check }}Recargable por USB-C, sin cambiar pilas</li>
+</ul>
+<div class="pp-buy">
+<div class="pp-price">
+<strong>{{ v.price | default: p.price | money }}</strong>
+{%- if v.compare_at_price > v.price -%}
+<s>{{ v.compare_at_price | money }}</s>
+<em>Ahorras {{ v.compare_at_price | minus: v.price | money }}</em>
+{%- endif -%}
+</div>
+<a class="pp-cta" href="{{ buy_url }}">Lo quiero para mi gato{{ arrow }}</a>
+<div class="pp-gifts">
+<p>Incluye gratis en la caja</p>
+<ul>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="7" rx="1.5"/><path d="M10 5h4M12 9v5a4 4 0 0 1-4 4H6"/></svg>Cable USB-C</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-3 4 0 7 3 9s5 6 2 9"/><circle cx="13" cy="20" r="2"/></svg>Cordón para colgar</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14v10a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z"/><path d="M9 8c0-3 1.5-5 3-5s3 2 3 5M10 14c1-2 3-2 4 0"/></svg>Bolsita de catnip</li>
+</ul>
+</div>
+<div class="pp-safe">
+<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Pago 100% seguro</span>
+<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>Compra protegida por Shopify</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="pp-ribbon" aria-hidden="true">
+<div class="pp-ribbon__track">
+{%- for i in (1..2) -%}
+<ul><li>Aletea de verdad</li><li>Pía para llamarlo</li><li>Recargable USB-C</li><li>Caza sin salir de casa</li><li>Cero pájaros reales</li></ul>
+{%- endfor -%}
+</div>
+</div>
+<section class="pp-sec" aria-labelledby="pp-como">
+<div class="wrap">
+<div class="pp-head" data-reveal>
+<span class="pp-kicker">Así de fácil</span>
+<h2 id="pp-como">De la caja a la cacería en tres pasos</h2>
+<p>Sin apps ni enchufes durante el juego. Lo colocas, lo enciendes y el gorrión hace el resto.</p>
+</div>
+<div class="pp-steps">
+<div class="pp-step" data-reveal><span class="n">1</span><h3>Colócalo</h3><p>Cuélgalo del cordón a la altura de tu gato o déjalo en el suelo.</p></div>
+<div class="pp-step" data-reveal style="--d:.1s"><span class="n">2</span><h3>Enciéndelo</h3><p>Pulsa el botón bajo el lazo rojo. Aletea y pía durante 15 segundos por ronda.</p><div class="pp-bar" aria-hidden="true"><i></i></div><span class="pp-bar-label">Ronda de juego: <span data-round>15</span> s</span></div>
+<div class="pp-step" data-reveal style="--d:.2s"><span class="n">3</span><h3>Deja que cace</h3><p>El aleteo y el canto despiertan su instinto: salta, atrapa, muerde y vuelve a empezar.</p></div>
+</div>
+</div>
+</section>
+<section class="pp-sec pp-split" aria-labelledby="pp-porque">
+<div class="wrap">
+<figure data-reveal>
+<img src="https://cdn.shopify.com/s/files/1/0852/3454/8951/files/a73ed4f3-9543-4bbb-83a1-caaa837f310c.png?width=1000" width="1000" height="1000" alt="Gato atrapando el gorrión colgado de un cordón" loading="lazy">
+<figcaption>Cuélgalo y míralo saltar</figcaption>
+</figure>
+<div data-reveal style="--d:.1s">
+<span class="pp-kicker">Hecho para su instinto</span>
+<h2 id="pp-porque">Un gato que caza es un gato feliz</h2>
+<ul class="pp-feats">
+<li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12c4-6 8-6 9 0 1-6 5-6 9 0"/><path d="M12 12v6"/></svg></span><div><b>Alas que aletean</b><span>Imitan el movimiento de un pájaro real.</span></div></li>
+<li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg></span><div><b>Canto de pájaro</b><span>Llama su atención al instante, esté donde esté.</span></div></li>
+<li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21c-5-3-8-7-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4-3 8-8 11z"/></svg></span><div><b>Pelo sintético suave</b><span>Pensado para morder, abrazar y dar zarpazos.</span></div></li>
+<li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span><div><b>Recargable por USB-C</b><span>Una carga, muchas cacerías. Olvídate de las pilas.</span></div></li>
+<li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg></span><div><b>Para gatos de interior</b><span>Ejercicio y estímulo mental sin salir de casa.</span></div></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="pp-sec pp-rev" id="pp-resenas" aria-labelledby="pp-dicen">
+<div class="wrap">
+<div class="pp-head" data-reveal>
+{%- if r_count > 0 -%}
+<span class="pp-rate"><span class="pp-stars" aria-hidden="true">{%- for i in (1..5) -%}<span{% if i > r_full %} class="off"{% endif %}>{{ star }}</span>{%- endfor -%}</span>Valorado {{ r_avg }}/5 según {{ r_count }} {% if r_count == 1 %}reseña{% else %}reseñas{% endif %}</span>
+{%- endif -%}
+<h2 id="pp-dicen">Lo que dicen nuestros clientes</h2>
+</div>
+{%- if r_count > 0 -%}
+<div class="pp-rev__track" data-rev tabindex="0" aria-label="Reseñas de clientes">
+{%- for r in reviews -%}
+{%- assign stars = r.rating.value | default: 5 -%}
+<article class="pp-card">
+{%- if r.photo.value -%}
+<div class="pp-card__img"><img src="{{ r.photo.value | image_url: width: 720 }}" width="720" height="540" alt="Foto de {{ r.author.value | escape }} con el Gorrión Cazador" loading="lazy"></div>
+{%- endif -%}
+<div class="pp-card__body">
+<div class="pp-card__who">
+<span class="pp-stars" role="img" aria-label="{{ stars }} de 5 estrellas">{%- for i in (1..stars) -%}{{ star }}{%- endfor -%}</span>
+<span class="name">{{ r.author.value | escape }}{% if r.detail.value != blank %}<small>{{ r.detail.value | escape }}</small>{% endif %}</span>
+{%- if r.verified.value -%}
+<span class="pp-verified"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7.5 12.3l3 3 6-6.3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Compra verificada</span>
+{%- endif -%}
+</div>
+<p>{{ r.body.value | escape | newline_to_br }}</p>
+</div>
+</article>
+{%- endfor -%}
+</div>
+{%- if r_count > 1 -%}
+<div class="pp-nav">
+<button type="button" data-rev-prev aria-label="Reseña anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+<button type="button" data-rev-next aria-label="Reseña siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
+{%- endif -%}
+{%- else -%}
+<div class="pp-empty" data-reveal>
+<span class="pp-stars" aria-hidden="true">{{ star }}{{ star }}{{ star }}{{ star }}{{ star }}</span>
+<h3>Las primeras cacerías ya están en camino</h3>
+<p>Cuando tu gato atrape su gorrión, mándanos una foto: publicamos aquí las reseñas reales de nuestros clientes.</p>
+<a class="pp-cta" style="width:auto" href="{{ buy_url }}">Quiero ser de los primeros{{ arrow }}</a>
+</div>
+{%- endif -%}
+</div>
+</section>
+<section class="pp-sec pp-help" id="pp-ayuda" aria-labelledby="pp-faq">
+<div class="wrap">
+<aside class="pp-specs" aria-labelledby="pp-ficha" data-reveal>
+<h3 id="pp-ficha">Ficha técnica</h3>
+<dl>
+<dt>Modelo</dt><dd>Gorrión (Sparrow)</dd>
+<dt>Tamaño</dt><dd>12 × 7 cm</dd>
+<dt>Material</dt><dd>Pelo sintético</dd>
+<dt>Carga</dt><dd>USB-C recargable</dd>
+<dt>Ronda de juego</dt><dd>15 s por activación</dd>
+<dt>Incluye</dt><dd>Cable, cordón y catnip</dd>
+<dt>Para</dt><dd>Gatos de interior</dd>
+</dl>
+<p class="sku">SKU {{ v.sku | default: 'MAV097.01' }} · Marca {{ p.vendor | default: 'Midfox' }}</p>
+</aside>
+<div class="pp-faq" data-reveal style="--d:.1s">
+<span class="pp-kicker">Soporte</span>
+<h2 id="pp-faq">Preguntas frecuentes</h2>
+<details open><summary>¿Cómo se enciende?</summary><p>Pulsa el botón que está bajo el lazo rojo. El gorrión aletea y pía durante 15 segundos por ronda; vuelve a pulsar para otra ronda.</p></details>
+<details><summary>¿Lleva pilas?</summary><p>No necesita pilas desechables: es recargable por USB-C y el cable viene incluido en la caja.</p></details>
+<details><summary>¿Es seguro para mi gato?</summary><p>Está hecho de pelo sintético suave pensado para morder y dar zarpazos. Como con cualquier juguete, supervisa el juego y retíralo si se daña.</p></details>
+<details><summary>¿Le gustará a un gato tranquilo?</summary><p>El sonido y el movimiento imitan a un pájaro real, que es justo lo que despierta el instinto cazador. Prueba a colgarlo del cordón a la altura de su cabeza.</p></details>
+<details><summary>¿Tienes otra duda?</summary><p>Escríbenos desde la <a href="/pages/contact">página de contacto</a> y te respondemos lo antes posible.</p></details>
+</div>
+</div>
+</section>
+<section class="pp-close" aria-labelledby="pp-cierre">
+<div class="pp-paws" aria-hidden="true"></div>
+<div class="wrap">
+<h2 id="pp-cierre" data-reveal>Su próxima presa <em>ya está piando.</em></h2>
+<p data-reveal style="--d:.1s">Dale a tu gato algo que perseguir de verdad.</p>
+<a class="pp-cta" href="{{ buy_url }}" data-reveal style="--d:.2s">Comprar por {{ v.price | default: p.price | money }}{{ arrow }}</a>
+</div>
+</section>
+<footer class="pp-foot">
+<div class="wrap">
+<div class="brand">
+<img src="{{ logo_src }}&width=240" width="103" height="60" alt="PawPlay" loading="lazy">
+<p>Juguetes que despiertan al cazador que tu gato lleva dentro.</p>
+</div>
+<div>
+<h3>Soporte</h3>
+<ul>
+<li><a href="/pages/contact">Contacto</a></li>
+<li><a href="#pp-ayuda">Preguntas frecuentes</a></li>
+<li><a href="/policies/shipping-policy">Envíos</a></li>
+<li><a href="/policies/refund-policy">Devoluciones</a></li>
+</ul>
+</div>
+<div>
+<h3>Tienda</h3>
+<ul>
+<li><a href="/products/flapping-bird-interactive-cat-toy">Gorrión Cazador</a></li>
+<li><a href="/cart">Carrito</a></li>
+<li><a href="/policies/privacy-policy">Privacidad</a></li>
+<li><a href="/policies/terms-of-service">Términos</a></li>
+</ul>
+</div>
+<div class="legal"><span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span><span>Supervisa siempre el juego de tu gato.</span></div>
+</div>
+</footer>
+<div class="pp-sticky" data-sticky aria-hidden="true">
+{%- if p.featured_image -%}<img src="{{ p.featured_image | image_url: width: 120 }}" width="46" height="46" alt="">{%- endif -%}
+<div><b>Gorrión Cazador</b><span>{{ v.price | default: p.price | money }}</span></div>
+<a href="{{ buy_url }}" tabindex="-1">Comprar</a>
+</div>
+</div>
+<script>(function () {
+var root = document.querySelector('.pp');
+if (!root) return;
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var clock = root.querySelector('[data-pp-clock]');
+var last = {};
+function pad(n) { return (n < 10 ? '0' : '') + n; }
+function setUnit(k, val) {
+if (last[k] === val) return;
+last[k] = val;
+var el = clock.querySelector('[data-' + k + ']');
+el.textContent = val;
+if (!reduce) { el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); }
+}
+function tickClock() {
+var now = new Date();
+var end = new Date(now); end.setHours(24, 0, 0, 0);
+var left = Math.max(0, Math.floor((end - now) / 1000));
+setUnit('h', pad(Math.floor(left / 3600)));
+setUnit('m', pad(Math.floor(left % 3600 / 60)));
+setUnit('s', pad(left % 60));
+}
+if (clock) { tickClock(); setInterval(tickClock, 1000); }
+var gal = root.querySelector('[data-pp-gal]');
+if (gal) {
+var track = gal.querySelector('[data-track]');
+var thumbs = gal.querySelectorAll('[data-thumb]');
+var count = track.children.length;
+function current() { return Math.round(track.scrollLeft / track.clientWidth); }
+function go(i) { i = (i + count) % count; track.scrollTo({ left: i * track.clientWidth }); }
+gal.querySelector('[data-prev]').addEventListener('click', function () { go(current() - 1); });
+gal.querySelector('[data-next]').addEventListener('click', function () { go(current() + 1); });
+thumbs.forEach(function (b) { b.addEventListener('click', function () { go(+b.dataset.thumb); }); });
+track.addEventListener('scroll', function () {
+var i = current();
+if (gal.dataset.index == i) return;
+gal.dataset.index = i;
+thumbs.forEach(function (b, n) { b.setAttribute('aria-current', n === i ? 'true' : 'false'); });
+}, { passive: true });
+track.addEventListener('keydown', function (e) {
+if (e.key === 'ArrowRight') { e.preventDefault(); go(current() + 1); }
+if (e.key === 'ArrowLeft') { e.preventDefault(); go(current() - 1); }
+});
+}
+var rev = root.querySelector('[data-rev]');
+if (rev) {
+var prev = root.querySelector('[data-rev-prev]');
+var next = root.querySelector('[data-rev-next]');
+function step() { var c = rev.querySelector('.pp-card'); return c ? c.getBoundingClientRect().width + 20 : rev.clientWidth; }
+function sync() {
+if (!prev) return;
+prev.disabled = rev.scrollLeft < 4;
+next.disabled = rev.scrollLeft + rev.clientWidth > rev.scrollWidth - 4;
+}
+if (prev) {
+prev.addEventListener('click', function () { rev.scrollBy({ left: -step() }); });
+next.addEventListener('click', function () { rev.scrollBy({ left: step() }); });
+}
+rev.addEventListener('scroll', sync, { passive: true });
+window.addEventListener('resize', sync);
+sync();
+}
+var round = root.querySelector('[data-round]');
+if (round && !reduce) {
+var t0 = performance.now();
+setInterval(function () { round.textContent = Math.ceil(15 - ((performance.now() - t0) / 1000) % 15); }, 250);
+}
+var items = root.querySelectorAll('[data-reveal]');
+if ('IntersectionObserver' in window && !reduce) {
+var io = new IntersectionObserver(function (entries) {
+entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+}, { rootMargin: '0px 0px -10% 0px' });
+items.forEach(function (el) { io.observe(el); });
+} else {
+items.forEach(function (el) { el.classList.add('in'); });
+}
+var sticky = root.querySelector('[data-sticky]');
+var mainCta = root.querySelector('.pp-hero .pp-cta');
+var closer = root.querySelector('.pp-close');
+if (sticky && mainCta && 'IntersectionObserver' in window) {
+var past = false, atEnd = false;
+function show() { var on = past && !atEnd; sticky.classList.toggle('is-on', on); sticky.setAttribute('aria-hidden', on ? 'false' : 'true'); }
+new IntersectionObserver(function (en) { past = !en[0].isIntersecting && en[0].boundingClientRect.top < 0; show(); }).observe(mainCta);
+if (closer) new IntersectionObserver(function (en) { atEnd = en[0].isIntersecting; show(); }).observe(closer);
+}
+if (reduce) return;
+var cv = document.getElementById('pp-feathers');
+if (!cv) return;
+var ctx = cv.getContext('2d');
+var W, H, dpr = Math.min(2, window.devicePixelRatio || 1), feathers = [];
+function size() { W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+function spawn(y) { return { x: W * (0.08 + Math.random() * 0.84), y: y == null ? -20 : y, r: 8 + Math.random() * 10, vy: 0.25 + Math.random() * 0.45, sway: Math.random() * 6.28, rot: Math.random() * 6.28, vr: (Math.random() - .5) * 0.02 }; }
+function feather(f) {
+ctx.save();
+ctx.translate(f.x + Math.sin(f.sway) * 14, f.y);
+ctx.rotate(f.rot + Math.sin(f.sway) * 0.5);
+ctx.fillStyle = 'rgba(110,86,64,0.5)';
+ctx.beginPath(); ctx.ellipse(0, 0, f.r * 0.32, f.r, 0, 0, Math.PI * 2); ctx.fill();
+ctx.fillStyle = 'rgba(51,22,8,0.5)';
+for (var i = -2; i <= 2; i++) { ctx.beginPath(); ctx.arc(i % 2 ? 1.5 : -1.5, i * f.r * 0.3, 1.3, 0, 6.28); ctx.fill(); }
+ctx.strokeStyle = 'rgba(51,22,8,0.45)'; ctx.lineWidth = 1;
+ctx.beginPath(); ctx.moveTo(0, -f.r); ctx.lineTo(0, f.r * 1.3); ctx.stroke();
+ctx.restore();
+}
+var visible = true;
+if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }).observe(cv);
+function frame() {
+if (visible) {
+ctx.clearRect(0, 0, W, H);
+feathers.forEach(function (f, i) { f.y += f.vy; f.sway += 0.02; f.rot += f.vr; if (f.y > H + 30) feathers[i] = spawn(); feather(f); });
+}
+requestAnimationFrame(frame);
+}
+size();
+window.addEventListener('resize', size);
+for (var i = 0; i < 6; i++) feathers.push(spawn(Math.random() * H));
+frame();
+})();</script>
+        {%- endunless -%}
+      </main>
+
+      {%- unless false -%}
+      <footer>
+        {% sections 'footer-group' %}
+      </footer>
+      {%- endunless -%}
+    </div>
+
+    {% render 'cart-drawer', render_wrapper: true %}
+    {% render 'theme-drawer' %}
+
+    {% render 'search-modal' %}
+
+    {% if settings.quick_add or settings.mobile_quick_add %}
+      {% render 'quick-add-modal' %}
+    {% endif %}
+  </body>
+</html>
