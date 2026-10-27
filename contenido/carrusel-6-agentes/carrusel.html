@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Mis 6 agentes</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{
+  --bg:#161210; --bg2:#1E1916; --line:#3A2F29;
+  --cream:#F4EFE7; --muted:#B5AA9D; --dim:#7D7268;
+  --o:#E07A52; --o2:#F29A6E; --oDeep:#8E3F25;
+  --ink:#1A1410; --card:#F4EFE7; --cardInk:#4A403A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;display:flex;flex-direction:column;align-items:center;gap:40px;padding:40px 0}
+.slide{
+  position:relative;width:1080px;height:1350px;overflow:hidden;flex:none;
+  background:
+    radial-gradient(900px 600px at 50% -120px, rgba(224,122,82,.20), transparent 70%),
+    radial-gradient(circle at 1px 1px, rgba(244,239,231,.07) 1.5px, transparent 0) 0 0/36px 36px,
+    var(--bg);
+  color:var(--cream);font-family:Inter,system-ui,sans-serif;
+}
+.mono{font-family:'JetBrains Mono',monospace}
+.px{font-family:Silkscreen,monospace;letter-spacing:.04em}
+.disp{font-family:Unbounded,sans-serif}
+
+/* top bar */
+.top{position:absolute;left:72px;right:72px;top:58px;display:flex;justify-content:space-between;align-items:center;z-index:5}
+.count{font-family:'JetBrains Mono';font-weight:800;font-size:32px;color:var(--o);display:flex;align-items:center;gap:18px}
+.dots{display:flex;gap:6px}
+.dots i{width:13px;height:13px;background:#3A2F29;display:block}
+.dots i.on{background:var(--o)}
+.brand{font-family:'JetBrains Mono';font-weight:800;font-size:28px;letter-spacing:.08em;color:var(--o);display:flex;align-items:center;gap:12px}
+.handle{position:absolute;left:72px;bottom:56px;font-size:30px;color:var(--dim);font-weight:500;display:flex;align-items:center;gap:12px;z-index:5}
+.handle b{width:12px;height:12px;background:var(--o);display:block}
+.swipe{position:absolute;right:72px;bottom:54px;font-family:'JetBrains Mono';font-weight:800;letter-spacing:.08em;font-size:28px;color:var(--o);display:flex;align-items:center;gap:14px;z-index:5}
+
+/* toggle */
+.tg{width:76px;height:42px;border-radius:21px;background:linear-gradient(180deg,var(--o2),var(--o));position:relative;flex:none;box-shadow:inset 0 -2px 0 rgba(0,0,0,.18)}
+.tg::after{content:"";position:absolute;right:5px;top:5px;width:32px;height:32px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.25)}
+
+/* terminal */
+.term{background:#1C1714;border:2px solid #4A3A31;border-radius:22px;padding:22px 30px 26px}
+.term .bar{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.term .bar i{width:18px;height:18px;border-radius:50%;display:block}
+.term .bar span{margin-left:18px;font-family:'JetBrains Mono';font-size:24px;color:var(--dim)}
+.term .l1{font-family:'JetBrains Mono';font-weight:800;font-size:36px;color:var(--o);white-space:nowrap}
+.term .l2{font-family:'JetBrains Mono';font-weight:500;font-size:36px;color:var(--cream);margin-top:6px;white-space:nowrap;display:flex;align-items:center}
+.cursor{display:inline-block;width:20px;height:38px;background:var(--o);margin-left:12px}
+.sm .term{padding:16px 28px 20px}.sm .term .bar{margin-bottom:10px}.sm .term .l1,.sm .term .l2{font-size:33px}.sm .cursor{height:34px}
+
+/* big number with extrusion */
+.num{font-family:Unbounded;font-weight:900;line-height:.8;color:var(--o2);
+  background:linear-gradient(180deg,#F7A77D 0%,var(--o) 60%,#C9603B 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(2px 2px 0 #8E3F25) drop-shadow(2px 2px 0 #8E3F25) drop-shadow(2px 2px 0 #7A3520) drop-shadow(2px 2px 0 #6A2D1B) drop-shadow(0 18px 24px rgba(0,0,0,.45))}
+
+/* ---------- AGENT BADGE ---------- */
+.strap{position:absolute;left:50%;top:-10px;width:96px;height:262px;transform:translateX(-50%);
+  background:repeating-linear-gradient(90deg,rgba(0,0,0,.10) 0 2px,transparent 2px 6px),linear-gradient(90deg,#C9603B,var(--o) 30%,var(--o2) 55%,var(--o) 80%,#B9553A);
+  z-index:2;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 0 30px rgba(0,0,0,.4)}
+.strap span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:Silkscreen;font-size:22px;color:rgba(26,20,16,.75);letter-spacing:.18em;white-space:nowrap}
+.clip{position:absolute;left:50%;top:236px;transform:translateX(-50%);width:84px;height:58px;z-index:4;
+  background:linear-gradient(180deg,#D9D2C7,#8F877D);border-radius:10px 10px 6px 6px;box-shadow:0 6px 10px rgba(0,0,0,.4)}
+.clip::after{content:"";position:absolute;left:50%;bottom:-26px;width:22px;height:34px;transform:translateX(-50%);border:6px solid #A8A096;border-top:none;border-radius:0 0 14px 14px}
+.badge{position:absolute;left:96px;right:96px;top:282px;bottom:128px;z-index:3;
+  background:var(--card);border-radius:40px;padding:34px 46px 40px;color:var(--ink);
+  box-shadow:0 40px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06),inset 0 -8px 0 rgba(0,0,0,.06);
+  transform:rotate(-1.2deg);display:flex;flex-direction:column}
+.badge .hd{display:flex;justify-content:space-between;align-items:center;height:48px}
+.badge .hd .id{font-family:Silkscreen;font-size:28px;color:var(--ink)}
+.badge .hd .id em{font-style:normal;color:#C45F3B}
+.badge .slot{position:absolute;left:50%;top:30px;width:132px;height:24px;border-radius:12px;background:#D9D0C3;transform:translateX(-50%);box-shadow:inset 0 3px 4px rgba(0,0,0,.25)}
+.badge .st{display:flex;align-items:center;gap:14px;font-family:Silkscreen;font-size:24px;color:#5E534B}
+.photo{margin-top:22px;height:344px;border-radius:26px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(420px 260px at 64% 55%, rgba(224,122,82,.22), transparent 70%),
+    linear-gradient(rgba(244,239,231,.05) 2px,transparent 2px) 0 0/28px 28px,
+    linear-gradient(90deg,rgba(244,239,231,.05) 2px,transparent 2px) 0 0/28px 28px,
+    #1B1613;}
+.photo .num{position:absolute;left:30px;top:34px;font-size:196px}
+.photo .sprite{position:absolute;right:6px;bottom:20px}
+.photo .floor{position:absolute;right:120px;bottom:22px;width:300px;height:26px;border-radius:50%;background:rgba(0,0,0,.55);filter:blur(6px)}
+.photo .tag{position:absolute;left:36px;bottom:26px;font-family:Silkscreen;font-size:22px;color:rgba(244,239,231,.45)}
+.name{margin-top:30px;font-family:Unbounded;font-weight:900;font-size:80px;line-height:1;letter-spacing:-.01em;white-space:nowrap;color:var(--ink)}
+.desc{margin-top:18px;font-size:35px;line-height:1.34;color:var(--cardInk);font-weight:500}
+.desc b{color:var(--ink);font-weight:700}
+.badge .term{margin-top:auto}
+
+/* ---------- COVER ---------- */
+.pill{display:inline-flex;align-items:center;gap:14px;border:2px solid rgba(224,122,82,.55);background:rgba(224,122,82,.10);border-radius:40px;padding:12px 26px;font-family:'JetBrains Mono';font-weight:800;font-size:28px;letter-spacing:.06em;color:var(--o)}
+.pill i{width:12px;height:12px;border-radius:50%;background:#7DD87A;box-shadow:0 0 12px #7DD87A;display:block}
+.h1{font-family:Unbounded;font-weight:900;line-height:.98;letter-spacing:-.015em;text-transform:uppercase;white-space:nowrap}
+.h1 .o{color:var(--o)}
+
+/* ---------- CYCLE ---------- */
+.row{display:flex;align-items:center;height:104px;background:#211B18;border:2px solid #362C26;border-radius:24px;padding:0 26px 0 6px;gap:8px}
+.row .verb{font-family:Unbounded;font-weight:800;font-size:44px;letter-spacing:-.01em;color:var(--cream);line-height:1}
+.row .who{font-size:28px;color:var(--muted);font-weight:500;margin-top:8px}
+.row .n{font-family:Silkscreen;font-size:26px;color:var(--o);width:52px;text-align:center}
+</style>
+</head>
+<body>
+<div id="deck"></div>
+
+<script>
+/* ============ PIXEL SPRITES ============ */
+const PAL={O:'#E07A52',o:'#B95A3A',K:'#15100D',W:'#F4EFE7',w:'#CDBFAE',G:'#8C837A',D:'#3B332D',
+  Y:'#F2BC4E',y:'#A8843E',T:'#D2AE72',B:'#8EC3EA',N:'#4766A0',n:'#2F4677',H:'#B39D6E',h:'#6E5E3E',
+  L:'#9A7650',l:'#6E5238',R:'#D5483A',V:'#8CC66E',b:'#7A4E2D',P:'#E9DCC6'};
+
+// Clawd, 16x10, origin = top-left of the head
+const CLAWD=[
+ '..OOOOOOOOOOOO..',
+ '..OOOOOOOOOOOO..',
+ '..OOKOOOOOOKOO..',
+ '..OOKOOOOOOKOO..',
+ 'OOOOOOOOOOOOOOOO',
+ 'OOOOOOOOOOOOOOOO',
+ '..OOOOOOOOOOOO..',
+ '..OOOOOOOOOOOO..',
+ '...O.O....O.O...',
+ '...O.O....O.O...'];
+const CLAWD_WAVE=[
+ '...............OO',
+ '..OOOOOOOOOOOO.OO',
+ '..OOOOOOOOOOOO.OO',
+ '..OOKOOOOOOKOO.OO',
+ '..OOKOOOOOOKOO.OO',
+ 'OOOOOOOOOOOOOOOO.',
+ 'OOOOOOOOOOOOOOOO.',
+ '..OOOOOOOOOOOO...',
+ '..OOOOOOOOOOOO...',
+ '...O.O....O.O....',
+ '...O.O....O.O....'];
+
+function grid(rows,ox=0,oy=0){const p=[];rows.forEach((r,y)=>[...r].forEach((c,x)=>{if(c!=='.')p.push([x+ox,y+oy,c])}));return p}
+function line(pts,c){return pts.map(([x,y])=>[x,y,c])}
+function rect(x0,y0,x1,y1,c){const p=[];for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)p.push([x,y,c]);return p}
+
+const ACC={
+  rastreador:()=>[
+    ...rect(1,1,6,4,'D'),...rect(9,1,14,4,'D'),...rect(1,1,6,1,'G'),...rect(9,1,14,1,'G'),...rect(7,2,8,3,'D'),
+    ...rect(2,2,5,3,'B'),...rect(10,2,13,3,'B'),[2,2,'W'],[10,2,'W'],
+    ...line([[15,-1],[16,-2],[17,-3],[18,-2],[19,-3],[20,-4],[21,-5]],'V'),[20,-5,'V'],[19,-5,'V'],[21,-4,'V'],[21,-3,'V'],
+  ],
+  anzuelo:()=>[
+    ...rect(4,-4,11,-4,'H'),...rect(3,-3,12,-3,'H'),...rect(3,-2,12,-2,'h'),...rect(1,-1,14,-1,'H'),
+    [16,4,'D'],...line([[16,3],[17,2],[18,1],[19,0],[20,-1],[21,-2],[22,-3]],'T'),
+    ...line([[22,-2],[22,-1],[22,0],[22,1],[22,2],[22,3],[22,4],[22,5]],'G'),
+    ...line([[22,6],[22,7],[21,8],[20,8],[20,7]],'Y'),
+  ],
+  pluma:()=>{
+    const p=[[16,5,'K']];
+    const shaft=[[17,4],[18,3],[19,2],[20,1],[21,0],[22,-1],[23,-2]];
+    shaft.forEach(([x,y],i)=>{
+      if(i>=1){p.push([x-1,y,'W'],[x,y-1,'W'])}
+      if(i>=2&&i<=5){p.push([x-2,y,'W'],[x,y-2,'W'],[x-1,y-1,'W'])}
+      if(i>=3&&i<=4){p.push([x-2,y-1,'W'],[x-1,y-2,'W'])}
+    });
+    shaft.forEach(([x,y])=>p.push([x,y,'w']));
+    p.push(...rect(-5,4,-4,4,'K'),...rect(-5,5,-4,5,'D'),...rect(-6,6,-3,9,'D'),...rect(-6,7,-3,7,'W'),[-5,7,'O'],[-4,7,'O']);
+    return p;
+  },
+  artista:()=>[
+    [6,-4,'n'],...rect(3,-3,9,-3,'N'),...rect(1,-2,11,-2,'N'),...rect(1,-1,13,-1,'n'),
+    ...line([[16,3],[17,2],[18,1],[19,0]],'b'),[20,-1,'G'],[21,-1,'G'],[20,-2,'G'],
+    [21,-2,'B'],[22,-2,'B'],[21,-3,'B'],[22,-3,'B'],[23,-4,'B'],
+    ...rect(-5,3,-2,3,'P'),...rect(-6,4,-1,4,'P'),...rect(-6,5,-3,5,'P'),[-1,5,'P'],...rect(-6,6,-2,6,'P'),...rect(-5,7,-3,7,'P'),
+    [-5,4,'R'],[-3,4,'B'],[-5,6,'V'],[-3,6,'Y'],
+  ],
+  cartero:()=>[
+    ...rect(5,-4,10,-4,'N'),...rect(3,-3,12,-3,'N'),...rect(3,-2,12,-2,'N'),[7,-3,'Y'],[8,-3,'Y'],
+    ...rect(2,-1,13,-1,'n'),...rect(14,-1,16,-1,'D'),
+    ...rect(16,1,22,5,'W'),...line([[16,1],[17,2],[18,3],[20,3],[21,2],[22,1]],'w'),[19,3,'R'],[19,4,'R'],
+  ],
+  detective:()=>{
+    const p=[];
+    const hat=[[5,10,-4],[3,12,-3],[2,13,-2],[0,15,-1]];
+    hat.forEach(([a,b,y])=>{for(let x=a;x<=b;x++)p.push([x,y,(x+y)%2?'l':'L'])});
+    p.push([7,-5,'l'],[8,-5,'l']);
+    p.push(...line([[19,-4],[20,-4],[21,-4],[18,-3],[22,-3],[18,-2],[22,-2],[18,-1],[22,-1],[19,0],[20,0],[21,0]],'Y'));
+    p.push(...rect(19,-3,21,-1,'B'),[19,-3,'W']);
+    p.push(...line([[18,1],[17,2],[16,3]],'b'));
+    return p;
+  },
+  wave:()=>[[18,-1,'w'],[18,0,'w'],[18,2,'w'],[18,3,'w']],
+};
+
+// frame: x -7..24, y -7..9  (32 x 17 units)
+const FX=-7,FY=-7,FW=32,FH=17;
+function sprite(kind,unit,opts={}){
+  const base=kind==='wave'?grid(CLAWD_WAVE,0,-1):grid(CLAWD);
+  const acc=ACC[kind]?ACC[kind]():[];
+  const map=new Map();
+  // accessories in front of Clawd except hats sit on top anyway
+  for(const [x,y,c] of [...base,...acc]) map.set(x+','+y,c);
+  let fx=FX,fy=FY,fw=FW,fh=FH;
+  if(opts.tight){const xs=[...map.keys()].map(k=>+k.split(',')[0]),ys=[...map.keys()].map(k=>+k.split(',')[1]);
+    fx=Math.min(...xs);fy=Math.min(...ys);fw=Math.max(...xs)-fx+1;fh=Math.max(...ys)-fy+1;}
+  // merge horizontal runs, one path per colour so rotated sprites have no seams
+  const byRow={},d={};for(const [k,c] of map){const [x,y]=k.split(',').map(Number);(byRow[y]??={})[x]=c}
+  for(const y in byRow){const row=byRow[y];const xs=Object.keys(row).map(Number).sort((a,b)=>a-b);
+    let i=0;while(i<xs.length){let j=i;while(j+1<xs.length&&xs[j+1]===xs[j]+1&&row[xs[j+1]]===row[xs[i]])j++;
+      const c=row[xs[i]];d[c]=(d[c]||'')+`M${xs[i]-fx} ${y-fy}h${j-i+1}v1h-${j-i+1}z`;i=j+1;}}
+  const r=Object.entries(d).map(([c,path])=>`<path d="${path}" fill="${PAL[c]}"${c==='B'?' fill-opacity=".55"':''}/>`).join('');
+  return `<svg class="sprite" width="${fw*unit}" height="${fh*unit}" viewBox="0 0 ${fw} ${fh}"${opts.smooth?'':' shape-rendering="crispEdges"'} style="${opts.style||''}">${r}</svg>`;
+}
+
+/* ============ PIECES ============ */
+const TOTAL=9;
+const asterisk=(s,c='currentColor')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="3" stroke-linecap="square"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>`;
+function topBar(i){return `<div class="top"><div class="count">${i}/${TOTAL}<span class="dots">${Array.from({length:TOTAL},(_,k)=>`<i class="${k<i?'on':''}"></i>`).join('')}</span></div><div class="brand">${asterisk(26)}CLAUDE CODE</div></div>`}
+const handle=`<div class="handle"><b></b>@cortesjuangranados</div>`;
+const swipe=`<div class="swipe">DESLIZA <svg width="34" height="24" viewBox="0 0 17 12" shape-rendering="crispEdges" fill="currentColor"><rect x="0" y="5" width="12" height="2"/><rect x="10" y="3" width="2" height="6"/><rect x="12" y="4" width="2" height="4"/><rect x="14" y="5" width="2" height="2"/><rect x="8" y="1" width="2" height="2"/><rect x="8" y="9" width="2" height="2"/></svg></div>`;
+function term(title,l1,l2){return `<div class="term"><div class="bar"><i style="background:#E5685A"></i><i style="background:#E8B84A"></i><i style="background:#8CC66E"></i><span>${title}</span></div><div class="l1">$ ${l1}</div><div class="l2">&gt; ${l2}<span class="cursor"></span></div></div>`}
+
+/* ============ SLIDES ============ */
+const AG=[
+ {k:'rastreador',n:'01',name:'EL RASTREADOR',verb:'BUSCA',who:'El Rastreador',
+  desc:'Vigila tendencias en <b>Reels, TikTok y YouTube</b>. Me trae los formatos que ya están pegando.',
+  t1:'agente --tendencias',t2:'3 formatos virales hoy'},
+ {k:'anzuelo',n:'02',name:'EL ANZUELO',verb:'ENGANCHA',who:'El Anzuelo',
+  desc:'Escribe los <b>primeros 3 segundos</b> de cada video. Ahí se gana o se pierde todo.',
+  t1:'agente --hooks',t2:'10 hooks listos'},
+ {k:'pluma',n:'03',name:'LA PLUMA',verb:'ESCRIBE',who:'La Pluma',
+  desc:'Escribe guiones y captions <b>con mi voz</b>. Yo solo doy el toque final.',
+  t1:'agente --guiones',t2:'escribe con tu voz'},
+ {k:'artista',n:'04',name:'EL ARTISTA',verb:'DISEÑA',who:'El Artista',
+  desc:'Diseña carruseles, portadas y videos. <b>El grid nunca se queda vacío.</b>',
+  t1:'agente --diseno',t2:'carrusel 9/9 listo'},
+ {k:'cartero',n:'05',name:'EL CARTERO',verb:'PUBLICA',who:'El Cartero',
+  desc:'Programa y publica a diario en <b>Instagram y TikTok</b>, a la hora exacta.',
+  t1:'agente --publicar',t2:'IG + TikTok · 3:00 pm'},
+ {k:'detective',n:'06',name:'EL DETECTIVE',verb:'MIDE',who:'El Detective',
+  desc:'Lee las métricas y me dice <b>qué repetir y qué matar.</b>',
+  t1:'agente --metricas',t2:'esto funcionó: repetir'},
+];
+
+const slides=[];
+
+// 1 · COVER
+slides.push(`
+${topBar(1)}
+<div style="position:absolute;left:120px;right:120px;top:168px;text-align:center">
+  <span class="pill"><i></i>MI EQUIPO DE CONTENIDO</span>
+  <div class="h1 fit" style="font-size:104px;margin-top:40px">6 EMPLEADOS.</div>
+  <div class="h1 fit" style="font-size:104px">NINGUNO ES</div>
+  <div class="h1 fit o" style="font-size:104px">HUMANO.</div>
+</div>
+<div id="team" style="position:absolute;left:0;right:0;top:600px;height:350px"></div>
+<div style="position:absolute;left:120px;right:120px;top:976px;text-align:center;font-size:36px;color:var(--muted);font-weight:500;line-height:1.3">Así corre el contenido de mis negocios, <span style="color:var(--cream);font-weight:700">24/7.</span></div>
+<div class="sm" style="position:absolute;left:170px;right:170px;top:1052px">${term('claude-code · zsh','claude code','6 agentes activos 24/7')}</div>
+${handle}${swipe}`);
+
+// 2-7 · AGENTS
+AG.forEach((a,i)=>{
+  slides.push(`
+${topBar(i+2)}
+<div class="strap"><span>CLAUDE CODE ✳ AGENTES ✳ CLAUDE CODE</span></div>
+<div class="clip"></div>
+<div class="badge">
+  <div class="slot"></div>
+  <div class="hd"><div class="id">ID <em>${a.n}</em>/06</div><div class="st">ACTIVO 24/7<div class="tg"></div></div></div>
+  <div class="photo">
+    <div class="num">${a.n}</div>
+    <div class="floor"></div>
+    ${sprite(a.k,15,{smooth:true})}
+    <div class="tag">agente_${a.n}.png</div>
+  </div>
+  <div class="name fit">${a.name}</div>
+  <div class="desc">${a.desc}</div>
+  ${term(`agente_${a.n} · claude code`,a.t1,a.t2)}
+</div>
+${handle}`);
+});
+
+// 8 · CYCLE (recap)
+slides.push(`
+${topBar(8)}
+<div style="position:absolute;left:96px;right:96px;top:150px">
+  <div class="h1" style="font-size:112px">EL <span class="o">CICLO</span></div>
+  <div class="mono" style="font-size:28px;color:var(--muted);margin-top:18px">6 agentes · 1 sistema · se repite cada semana</div>
+</div>
+<svg style="position:absolute;left:52px;top:356px" width="80" height="760" viewBox="0 0 80 760" fill="none">
+  <path d="M66 728 H24 Q12 728 12 716 V60 Q12 48 24 48 H40" stroke="#E07A52" stroke-width="4" stroke-dasharray="2 12" stroke-linecap="round"/>
+  <path d="M34 38 L48 48 L34 58" stroke="#E07A52" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<div style="position:absolute;left:110px;right:96px;top:352px;display:flex;flex-direction:column;gap:14px">
+  ${AG.map(a=>`<div class="row"><div style="width:150px;height:84px;display:flex;align-items:flex-end;justify-content:center;overflow:visible">${sprite(a.k,4.6)}</div>
+    <div style="flex:1;margin-left:14px"><div class="verb">${a.verb}</div><div class="who">${a.n} · ${a.who}</div></div><div class="tg"></div></div>`).join('')}
+  <div style="display:flex;align-items:center;gap:18px;margin-top:10px;padding-left:12px">
+    <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#E07A52" stroke-width="3" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/></svg>
+    <div class="disp" style="font-weight:800;font-size:44px;color:var(--o)">OTRA VEZ</div>
+  </div>
+</div>
+<div style="position:absolute;right:96px;bottom:126px;display:flex;align-items:center;gap:18px;background:var(--cream);color:var(--ink);border-radius:22px;padding:18px 28px;transform:rotate(-2deg);box-shadow:0 18px 40px rgba(0,0,0,.45)">
+  <svg width="46" height="46" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#E07A52"/><path d="M6.5 12.5l3.6 3.6 7.4-8" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div style="font-size:38px;font-weight:700">Yo solo apruebo.</div>
+</div>
+${handle}`);
+
+// 9 · CTA
+slides.push(`
+${topBar(9)}
+<div style="position:absolute;left:0;right:0;top:150px;display:flex;justify-content:center">${sprite('wave',14)}</div>
+<div style="position:absolute;left:120px;right:120px;top:404px;text-align:center">
+  <div class="h1 fit" style="font-size:150px">COMENTA</div>
+  <div style="display:inline-block;margin-top:14px;background:var(--o);color:var(--ink);border-radius:26px;padding:20px 38px 22px;transform:rotate(-2deg);box-shadow:0 10px 0 #8E3F25,0 30px 50px rgba(0,0,0,.45)">
+    <div class="h1" style="font-size:112px;line-height:1">AGENTES</div>
+  </div>
+  <div style="font-size:37px;line-height:1.32;color:var(--muted);font-weight:500;margin-top:44px">y te mando <span style="color:var(--cream);font-weight:700">cómo los tengo configurados</span>: los 6 roles con su instrucción exacta.</div>
+</div>
+<div style="position:absolute;left:120px;right:120px;top:930px;background:#211B18;border:2px solid #362C26;border-radius:28px;padding:26px 30px">
+  <div style="display:flex;align-items:center;gap:22px">
+    <div style="width:68px;height:68px;border-radius:50%;background:conic-gradient(from 200deg,#F2BC4E,#E07A52,#D5483A,#9B4FD0,#F2BC4E);padding:4px;flex:none"><div style="width:100%;height:100%;border-radius:50%;background:#2B2420;border:3px solid #211B18"></div></div>
+    <div style="flex:1"><div style="font-size:26px;color:var(--muted);font-weight:600">tú · ahora</div><div class="mono" style="font-size:40px;font-weight:800;color:var(--cream);margin-top:2px">AGENTES<span class="cursor" style="height:40px;vertical-align:-6px"></span></div></div>
+    <svg width="44" height="44" viewBox="0 0 24 24" fill="#E07A52"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>
+  </div>
+  <div style="display:flex;align-items:center;gap:18px;margin:22px 0 0 88px;padding-top:22px;border-top:2px solid #362C26">
+    <div style="width:58px;height:58px;border-radius:50%;background:#2B2420;border:2px solid #E07A52;display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden">${sprite('none',2.6,{tight:true})}</div>
+    <div><div style="font-size:26px;color:var(--muted);font-weight:600">cortesjuangranados</div><div style="font-size:33px;color:var(--cream);font-weight:600;margin-top:2px">Listo, te lo mandé por DM.</div></div>
+  </div>
+</div>
+${handle}`);
+
+const deck=document.getElementById('deck');
+deck.innerHTML=slides.map((s,i)=>`<section class="slide" id="s${i+1}">${s}</section>`).join('');
+
+// cover team photo: two rows of three
+const team=document.getElementById('team');
+const back=['rastreador','pluma','cartero'],front=['anzuelo','artista','detective'];
+const place=(k,cx,bottom,unit,z)=>{
+  // Clawd's centre sits one unit left of the frame centre
+  const sh=document.createElement('div');sh.style.cssText=`position:absolute;left:${cx-10*unit}px;bottom:${bottom-unit}px;width:${18*unit}px;height:${unit*2.4}px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.75),transparent);z-index:${z}`;team.appendChild(sh);
+  const d=document.createElement('div');d.style.cssText=`position:absolute;left:${cx-FW*unit/2}px;bottom:${bottom}px;z-index:${z}`;d.innerHTML=sprite(k,unit);team.appendChild(d)};
+back.forEach((k,i)=>place(k,[210,540,870][i],176,8.2,1));
+front.forEach((k,i)=>place(k,[210,540,870][i],4,9.4,2));
+
+// fit text to its container width
+document.fonts.ready.then(()=>{
+  document.querySelectorAll('.fit').forEach(el=>{
+    let s=parseFloat(getComputedStyle(el).fontSize);
+    const max=el.parentElement.clientWidth-(parseFloat(getComputedStyle(el.parentElement).paddingLeft)+parseFloat(getComputedStyle(el.parentElement).paddingRight));
+    el.style.display='block';
+    while(el.scrollWidth>max&&s>20){s-=1;el.style.fontSize=s+'px'}
+  });
+  document.body.dataset.ready='1';
+});
+</script>
+</body>
+</html>
