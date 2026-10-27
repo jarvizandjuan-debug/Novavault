@@ -20,21 +20,22 @@ muñequito de Claude Code, aparece en pixel art vestido según el oficio de cada
 ## Caption
 
 ```
-Mi equipo de contenido tiene 6 empleados y ninguno es humano.
+Mi equipo de contenido tiene 6 empleados. Ninguno es humano.
 
-Son 6 agentes de IA que monté con Claude Code. Cada uno tiene un solo trabajo:
+Son 6 agentes de IA que monté con Claude Code y cada uno tiene un solo trabajo:
+
 01 El Rastreador busca los formatos que ya están pegando
 02 El Anzuelo escribe los primeros 3 segundos
 03 La Pluma escribe guiones y captions con mi voz
 04 El Artista diseña carruseles y portadas
-05 El Cartero publica a diario en IG y TikTok
+05 El Cartero publica a diario en Instagram y TikTok
 06 El Detective lee las métricas y decide qué repetir
 
-Yo solo apruebo. Si algo no suena a mí, no sale.
+Así saco contenido para Instagram todos los días sin depender de la inspiración. Yo solo apruebo. Si algo no suena a mí, no sale.
 
-Comenta AGENTES y te mando cómo los tengo configurados, con la instrucción exacta de cada uno.
+Comenta AGENTES y te mando la guía con la instrucción exacta de cada uno, lista para copiar y pegar.
 
-#claudecode #agentesdeia #inteligenciaartificial
+#claudecode #agentesdeia #inteligenciaartificial #creadordecontenido
 ```
 
 ## Texto alternativo (portada)
