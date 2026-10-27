@@ -211,7 +211,7 @@ function sprite(kind,unit,opts={}){
 const TOTAL=9;
 const asterisk=(s,c='currentColor')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="3" stroke-linecap="square"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>`;
 function topBar(i){return `<div class="top"><div class="count">${i}/${TOTAL}<span class="dots">${Array.from({length:TOTAL},(_,k)=>`<i class="${k<i?'on':''}"></i>`).join('')}</span></div><div class="brand">${asterisk(26)}CLAUDE CODE</div></div>`}
-const handle=`<div class="handle"><b></b>@cortesjuangranados</div>`;
+const handle=`<div class="handle"><b></b>@juan_biuldsai</div>`;
 const swipe=`<div class="swipe">DESLIZA <svg width="34" height="24" viewBox="0 0 17 12" shape-rendering="crispEdges" fill="currentColor"><rect x="0" y="5" width="12" height="2"/><rect x="10" y="3" width="2" height="6"/><rect x="12" y="4" width="2" height="4"/><rect x="14" y="5" width="2" height="2"/><rect x="8" y="1" width="2" height="2"/><rect x="8" y="9" width="2" height="2"/></svg></div>`;
 function term(title,l1,l2){return `<div class="term"><div class="bar"><i style="background:#E5685A"></i><i style="background:#E8B84A"></i><i style="background:#8CC66E"></i><span>${title}</span></div><div class="l1">$ ${l1}</div><div class="l2">&gt; ${l2}<span class="cursor"></span></div></div>`}
 
@@ -319,7 +319,7 @@ ${topBar(9)}
   </div>
   <div style="display:flex;align-items:center;gap:18px;margin:22px 0 0 88px;padding-top:22px;border-top:2px solid #362C26">
     <div style="width:58px;height:58px;border-radius:50%;background:#2B2420;border:2px solid #E07A52;display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden">${sprite('none',2.6,{tight:true})}</div>
-    <div><div style="font-size:26px;color:var(--muted);font-weight:600">cortesjuangranados</div><div style="font-size:33px;color:var(--cream);font-weight:600;margin-top:2px">Listo, te lo mandé por DM.</div></div>
+    <div><div style="font-size:26px;color:var(--muted);font-weight:600">juan_biuldsai</div><div style="font-size:33px;color:var(--cream);font-weight:600;margin-top:2px">Listo, te lo mandé por DM.</div></div>
   </div>
 </div>
 ${handle}`);
