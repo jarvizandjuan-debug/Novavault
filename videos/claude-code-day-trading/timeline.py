@@ -39,10 +39,10 @@ FINAL_HIT = tb(79) # 34.5
 # Voice-over segments: (file, src_start, src_end, dst_start)
 VO = [
     ("vo/vo_main.mp3", 0.04, 2.48, 0.14),    # Claude Code acaba de destruir el day trading.
-    ("vo/vo_main.mp3", 3.12, 7.62, 3.06),    # Once skills gratis ... escanea gráficas,
-    ("vo/vo_main.mp3", 7.75, 8.95, 11.66),   # sigue las noticias,
-    ("vo/vo_main.mp3", 9.07, 11.18, 17.39),  # pone tu stop y tu target antes de entrar,
-    ("vo/vo_main.mp3", 11.34, 14.47, 24.39), # y simula el día diez mil veces ...
+    ("vo/vo_main.mp3", 3.12, 7.22, 3.06),    # Once skills convierten a Claude ... escanea gráficas,
+    ("vo/vo_main.mp3", 7.36, 8.56, 11.66),   # sigue las noticias,
+    ("vo/vo_main.mp3", 8.69, 10.78, 17.39),  # pone tu stop y tu target antes de entrar,
+    ("vo/vo_main.mp3", 10.95, 14.07, 24.39), # y simula el día diez mil veces ...
     ("vo/vo_cta.mp3", 0.04, 1.21, 31.00),    # Todo en paper trading.
     ("vo/vo_cta.mp3", 1.88, 3.93, 32.40),    # Comenta TRADE, y te mando el link.
 ]
@@ -50,10 +50,10 @@ VO = [
 # Scene 1 typing schedule
 CMD = "> claude --skills day-trading"
 HEAD = ["CLAUDE CODE", "DESTRUYÓ EL", "DAY TRADING"]
-GOLD_LINES = ["11 SKILLS", "GRATIS"]
+GOLD_LINES = ["11 SKILLS"]
 CMD_T = (0.00, 0.30)
 HEAD_T = (0.32, 1.58)
-GOLD_T = (1.70, 2.12)
+GOLD_T = (1.70, 2.00)
 
 
 def typed_chars(t, span, n):

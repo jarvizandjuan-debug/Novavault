@@ -9,7 +9,7 @@ Video vertical de 35 s en pixel art de 16 bits (1080×1920, 30 fps, H.264 + AAC)
 
 | Tiempo | Escena | Texto en pantalla |
 |---|---|---|
-| 0–3 s | Terminal retro, el texto se escribe solo | CLAUDE CODE DESTRUYÓ EL DAY TRADING / 11 SKILLS GRATIS |
+| 0–3 s | Terminal retro, el texto se escribe solo | CLAUDE CODE DESTRUYÓ EL DAY TRADING / 11 SKILLS |
 | 3–10 s | Trader frente a monitores CRT y luego escaneo de miles de gráficas | ESCANEA MILES DE GRÁFICAS |
 | 10–17 s | Cursor de selección sobre el setup, ventana emergente con la noticia | DETECTA EL SETUP + LA NOTICIA |
 | 17–24 s | Barras de vida: stop (rojo) y target (verde), cuenta atrás 3-2-1 y entrada | STOP Y TARGET ANTES DE ENTRAR |

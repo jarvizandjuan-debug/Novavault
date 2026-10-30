@@ -344,7 +344,7 @@ def scene1(img, d, t):
         y += 26
     g = typed_chars(t, GOLD_T, len("".join(GOLD_LINES)))
     shimmer = t > GOLD_T[1] and int(t * 10) % 3 == 0
-    ys = (222, 254)
+    ys = (232,)
     for i, line in enumerate(GOLD_LINES):
         part = line[: max(0, g)]
         g -= len(line)
@@ -353,7 +353,7 @@ def scene1(img, d, t):
             text(d, x, ys[i], part, 24, GOLD_LT if shimmer else GOLD, shadow=(0, 3, GOLD_DK))
             last = (x + tw(part, 24) + 2, ys[i] + 2)
     if t > GOLD_T[1]:
-        sparkles(d, t, (20, 214, 250, 286), 10, 5, GOLD_LT)
+        sparkles(d, t, (20, 222, 250, 262), 10, 5, GOLD_LT)
     cursor(d, last[0], last[1], t, GOLD if t > GOLD_T[0] else TGREEN, 16 if t > GOLD_T[0] else 14)
 
 
