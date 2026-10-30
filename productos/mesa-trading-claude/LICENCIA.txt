@@ -1,0 +1,18 @@
+Mesa de Trading para Claude Code · Licencia de uso personal
+
+Al comprar este producto recibes una licencia personal, no exclusiva e intransferible para:
+  - Instalar y usar las skills en tus propios equipos.
+  - Modificarlas para tu uso personal.
+
+No está permitido:
+  - Revender, redistribuir, compartir o publicar el contenido (completo o en partes),
+    gratis o de pago, incluidas versiones modificadas.
+  - Incluirlo en otros productos, cursos o servicios comerciales.
+
+Fuentes de datos de terceros: el producto consulta Yahoo Finance (a través de la librería
+de código abierto yfinance) y Google News. Su uso está sujeto a los términos de esos
+servicios y se limita a uso personal.
+
+Sin garantía: el software se entrega "tal cual", sin garantías de ningún tipo. Es una
+herramienta educativa y no constituye asesoría financiera ni de inversión. El autor no se
+hace responsable de pérdidas derivadas de su uso.
